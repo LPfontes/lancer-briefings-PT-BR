@@ -4,7 +4,7 @@
 		<section id="missions" class="section-container" :style="{ 'animation-delay': animationDelay }">
 			<div class="section-header clipped-medium-backward">
 				<img src="/icons/campaign.svg" />
-				<h1>Mission Log</h1>
+				<h1>{{ $t('status.missionLog') }}</h1>
 			</div>
 			<div class="section-content-container">
 				<div class="mission-list-container">
@@ -16,7 +16,7 @@
 		<section id="assignment" class="section-container" :style="{ 'animation-delay': animationDelay }">
 			<div class="section-header clipped-medium-backward">
 				<img src="/icons/deployable.svg" />
-				<h1>Current Assignment</h1>
+				<h1>{{ $t('status.currentAssignment') }}</h1>
 			</div>
 			<div class="section-content-container">
 				<vue-markdown-it :source="missionMarkdown" class="markdown" />
@@ -26,7 +26,7 @@
 		<section id="reserves" class="section-container" :style="{ 'animation-delay': animationDelay }">
 			<div class="section-header clipped-medium-backward">
 				<img src="/icons/squad.svg" />
-				<h1>Reserves</h1>
+				<h1>{{ $t('status.reserves') }}</h1>
 			</div>
 			<div class="section-content-container">
 				<div class="reserves-list-container">
@@ -37,7 +37,7 @@
 		<section id="clocks" class="section-container" :style="{ 'animation-delay': animationDelay }">
 			<div class="section-header clipped-medium-backward">
 				<img src="/icons/protocol.svg" />
-				<h1>Clocks</h1>
+				<h1>{{ $t('status.clocks') }}</h1>
 			</div>
 			<div class="section-content-container">
 				<div class="clocks-list-container">

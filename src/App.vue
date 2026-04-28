@@ -18,9 +18,7 @@
 			</filter>
 		</defs>
 	</svg>
-	<audio autoplay>
-		<source src="/startup.ogg" type="audio/ogg" />
-	</audio>
+
 </template>
 
 <script>
@@ -39,7 +37,7 @@ export default {
 			animate: Config.animate,
 			initialSlug: Config.initialSlug,
 			planetPath: Config.planetPath,
-			header: Config.header,
+			header: { ...Config.header, icon: Config.icon },
 			pilotSpecialInfo: Config.pilotSpecialInfo,
 			clocks: [],
 			events: [],

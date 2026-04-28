@@ -8,7 +8,7 @@
       <div class="col"><img src="/faction-logos/msmc.svg"></div>
     </div>
     <div class="body">
-      <div class="add-padding"> Union Administrative RM-4 Pilot Identification Protocol (IDENT) Record
+      <div class="add-padding"> {{ $t('pilot.identProtocol') }}
         {{ pilot.id }} </div>
       <div class="flex-container-rows">
         <div class="row add-padding">
@@ -17,23 +17,22 @@
         <div class="row flex-container-cols add-padding">
           <div class="col grow-max flex-container-rows" style="padding-top:5px">
             <div class="row flex-container-cols">
-              <div class="col col-primary"><span class="flavor-text"> Callsign: <b class="accent--text">{{
-                capitalize(pilot.callsign) }}</b><br> Name (or legal alias): <b class="accent--text">{{ pilot.name
-                    }}</b><br> Background: <b class="accent--text"> {{ pilot.background }} </b></span></div>
-              <div class="col">CALLSIGN AVAILABLE <br> IDENTITY
-                VERIFIED <br> PH/HR DATA REGISTERED</div>
+              <div class="col col-primary"><span class="flavor-text"> {{ $t('pilot.callsign') }}: <b class="accent--text">{{
+                capitalize(pilot.callsign) }}</b><br> {{ $t('pilot.name') }}: <b class="accent--text">{{ pilot.name
+                    }}</b><br> {{ $t('pilot.background') }}: <b class="accent--text"> {{ pilot.background }} </b></span></div>
+              <div class="col">{{ $t('pilot.callsignAvailable') }} <br> {{ $t('pilot.identityVerified') }} <br> {{ $t('pilot.dataRegistered') }}</div>
             </div>
-            <div style="padding-top:5px"> FRAME CONFIGURATION OPTIONS <span class="subtle--text">("H.A.S.E"
-                OMNINET VAULT REMIT)</span></div>
+            <div style="padding-top:5px"> {{ $t('pilot.frameOptions') }} <span class="subtle--text">
+                {{ $t('pilot.omninetVault') }})</span></div>
             <div class="row" style="padding-top:5px"><span style="font-size: 22px; line-height: 15px;"> [
-                HULL: <span class="stat-text accent--text" style="font-size: 24px;"> {{ pilot.mechSkills[0] }} </span>
-                AGI: <span class="stat-text accent--text" style="font-size: 24px;"> {{ pilot.mechSkills[1] }} </span>
-                SYS: <span class="stat-text accent--text" style="font-size: 24px;"> {{ pilot.mechSkills[2] }} </span>
-                ENG: <span class="stat-text accent--text" style="font-size: 24px;"> {{ pilot.mechSkills[3] }} </span> ]
+                {{ $t('pilot.stats.hull') }}: <span class="stat-text accent--text" style="font-size: 24px;"> {{ pilot.mechSkills[0] }} </span>
+                {{ $t('pilot.stats.agi') }}: <span class="stat-text accent--text" style="font-size: 24px;"> {{ pilot.mechSkills[1] }} </span>
+                {{ $t('pilot.stats.sys') }}: <span class="stat-text accent--text" style="font-size: 24px;"> {{ pilot.mechSkills[2] }} </span>
+                {{ $t('pilot.stats.eng') }}: <span class="stat-text accent--text" style="font-size: 24px;"> {{ pilot.mechSkills[3] }} </span> ]
               </span></div>
             <div class="row flex-container-cols">
               <div class="col col-share">
-                <span>PILOT SKILL TRIGGER AUDIT</span>
+                <span>{{ $t('pilot.skillAudit') }}</span>
                 <br>
                 <div class="chip-container" v-for="skill in pilot.skills" :key="skill.id">
                   <span class="chip"><i aria-hidden="true" class="notranslate cci cci-skill"></i>{{ getSkill(skill)
@@ -41,7 +40,7 @@
                 </div>
               </div>
               <div class="col col-share">
-                <span>PILOT TALENT AUDIT</span>
+                <span>{{ $t('pilot.talentAudit') }}</span>
                 <br>
                 <div class="chip-container" v-for="talent in pilot.talents" :key="talent.id">
                   <span class="chip"><i aria-hidden="true" class="notranslate cci cci-talent"></i>{{
@@ -51,7 +50,7 @@
             </div>
             <div v-if="pilot.level > 0" class="row flex-container-cols">
               <div class="col" style="padding-top:5px">
-                <span>PROCUREMENT LICENSE AUDIT: LEVEL {{ pilot.level }}</span>
+                <span>{{ $t('pilot.licenseAudit') }}: {{ $t('pilot.level') }} {{ pilot.level }}</span>
                 <br>
                 <div class="chip-container" v-for="license in pilot.licenses" :key="license.id">
                   <span class="chip"><i aria-hidden="true" class="notranslate cci cci-license"></i>{{
@@ -77,7 +76,7 @@
                 style="font-size: 36px; margin-top:36px;"></i>
             </div>
             <div style="width:100%">
-              BIOMETRIC RECORD VALID [[{{ randomNumber(14, 22) }}PB]]<br />
+              {{ $t('pilot.biometricValid') }} [[{{ randomNumber(14, 22) }}PB]]<br />
               OHM C//{{ timeStamp(pilot.lastModified) }}
             </div>
           </div>
@@ -85,7 +84,7 @@
         <div class="row biometrics-container">
           <div class="mech-record flex-container-cols" @click="mechModal">
             <div style="width:100%">
-              MECHANICAL BLUEPRINT VALID [[{{ randomNumber(14, 22) }}TB]] <br />
+              {{ $t('pilot.blueprintValid') }} [[{{ randomNumber(14, 22) }}TB]] <br />
               {{ activeMech.manufacturer.toUpperCase() }}-{{ activeMech.frame_name.toUpperCase() }} :: "{{ activeMech.name.toUpperCase() }}"
             </div>
             <div>
@@ -98,17 +97,7 @@
       </div>
       <hr role="separator" aria-orientation="horizontal" class="ma-2 v-divider theme--dark">
       <div class="row row--dense"><span class="overline" style="line-height: 13px !important; opacity: 0.4;">
-          Improper use of this IDENT record and/or its constituent data by the record holder or any other
-          persons is punishable under the DoJ/HR A-645-c. This record is the property of the Union
-          Administrative Office and the information herein must be transmitted on request under
-          NDL-C-DISCORDANT-BREATH encryption protocols. This RM-4 record must be updated every five (5)
-          Cradle
-          Standard Years of objective time to retain GMS licensing rights. Far-field operatives that
-          anticipate deployments lasting longer than five Cradle Standard Years that have not been issued
-          a
-          man-portable Omninet Hook should apply for the RM-11-B IDENT Supplemental (b) Extension. Contact
-          your local Union Adminstrative Officer for any other matters regarding this
-          record.  V-CDL//M-265-114-831 (A) </span></div>
+          {{ $t('pilot.legalDisclaimer') }}   V-CDL//M-265-114-831 (A) </span></div>
     </div>
   </div>
 </template>
@@ -219,7 +208,7 @@ export default {
         identName += `${part}.`
       })
       identName += identFirstName;
-			return `Union Administrative RM-4 Pilot Identification Protocol (IDENT) Record ${identName}: ${this.pilot.id} // ${this.pilot.background} // LOADOUT ${this.pilot.loadout.id} - MECH ${this.pilot.mechs[0].id} // HARDPOINTS ${this.pilot.mechs[0].loadouts[0].id}`;
+			return `${this.$t('pilot.identRecord')} ${identName}: ${this.pilot.id} // ${this.pilot.background} // LOADOUT ${this.pilot.loadout.id} - MECH ${this.pilot.mechs[0].id} // HARDPOINTS ${this.pilot.mechs[0].loadouts[0].id}`;
 		},
     pilotInfo() {
       const info = this.pilot
@@ -276,17 +265,17 @@ export default {
     },
     getHistory() {
       if (this.pilot.history === "") {
-        return `<p> <h2> [ERR: REDACTED] </h2> </p>`
+        return `<p> <h2> ${this.$t('pilot.history.redacted')} </h2> </p>`
       }
 
       let response = "<p>"
 
       if (this.pilot.text_appearance !== "") {
-        response += `<h2>APPEARANCE</h2> ${this.pilot.text_appearance} </hr>`;
+        response += `<h2>${this.$t('pilot.history.appearance')}</h2> ${this.pilot.text_appearance} </hr>`;
       }
 
       if (this.pilot.history !== "") {
-        response += `<h2>HISTORY</h2> ${this.pilot.history} </hr>`;
+        response += `<h2>${this.$t('pilot.history.history')}</h2> ${this.pilot.history} </hr>`;
       }
 
       response += "</p>"

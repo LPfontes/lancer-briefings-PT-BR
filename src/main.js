@@ -12,6 +12,7 @@ import "@/assets/styles/_glyphs.css";
 import "@/assets/styles/_animations.css";
 
 import router from "./router";
+import i18n from "./i18n";
 
-createApp(App).use(router).use(Oruga).mount("#app");
+createApp(App).use(router).use(i18n).use(Oruga).mount("#app");
 // TODO: Introduce eslint with vue3 + typescript support

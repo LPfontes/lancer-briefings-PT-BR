@@ -1,0 +1,74 @@
+{
+  "header": {
+    "year": "Year",
+    "deploymentInfo": "Deployment Info",
+    "ring": "Ring",
+    "gate": "Gate",
+    "system": "System"
+  },
+  "sidebar": {
+    "status": "Status",
+    "pilots": "Pilots",
+    "logs": "Logs"
+  },
+  "status": {
+    "missionLog": "Mission Log",
+    "currentAssignment": "Current Assignment",
+    "reserves": "Reserves",
+    "clocks": "Clocks"
+  },
+  "events": {
+    "title": "BEATS",
+    "log": "EVENT LOG",
+    "readMore": "Read More"
+  },
+  "mission": {
+    "label": "Mission",
+    "status": {
+      "briefing": "Current\nBriefing",
+      "partial": "Partial\nSuccess",
+      "success": "Mission\nSuccess",
+      "failure": "Mission\nFailure"
+    }
+  },
+  "pilot": {
+    "callsign": "Callsign",
+    "name": "Name (or legal alias)",
+    "background": "Background",
+    "identityVerified": "IDENTITY VERIFIED",
+    "dataRegistered": "PH/HR DATA REGISTERED",
+    "frameOptions": "FRAME CONFIGURATION OPTIONS",
+    "skillAudit": "PILOT SKILL TRIGGER AUDIT",
+    "talentAudit": "PILOT TALENT AUDIT",
+    "licenseAudit": "PROCUREMENT LICENSE AUDIT",
+    "level": "LEVEL",
+    "biometricValid": "BIOMETRIC RECORD VALID",
+    "blueprintValid": "MECHANICAL BLUEPRINT VALID",
+    "identProtocol": "Union Administrative RM-4 Pilot Identification Protocol (IDENT) Record",
+    "callsignAvailable": "CALLSIGN AVAILABLE",
+    "omninetVault": "OMNINET VAULT REMIT",
+    "stats": {
+      "hull": "HULL",
+      "agi": "AGI",
+      "sys": "SYS",
+      "eng": "ENG"
+    },
+    "history": {
+      "redacted": "[ERR: REDACTED]",
+      "appearance": "APPEARANCE",
+      "history": "HISTORY"
+    },
+    "identRecord": "Union Administrative RM-4 Pilot Identification Protocol (IDENT) Record",
+    "legalDisclaimer": "Improper use of this IDENT record and/or its constituent data by the record holder or any other persons is punishable under the DoJ/HR A-645-c. This record is the property of the Union Administrative Office and the information herein must be transmitted on request under NDL-C-DISCORDANT-BREATH encryption protocols. This RM-4 record must be updated every five (5) Cradle Standard Years of objective time to retain GMS licensing rights. Far-field operatives that anticipate deployments lasting longer than five Cradle Standard Years that have not been issued a man-portable Omninet Hook should apply for the RM-11-B IDENT Supplemental (b) Extension. Contact your local Union Adminstrative Officer for any other matters regarding this record."
+  },
+  "clock": {
+    "story": "Story",
+    "relationship": "Relationship"
+  },
+  "burden": {
+    "label": "Burden"
+  },
+  "reserve": {
+    "owner": "Reserve Owner"
+  }
+}

@@ -1,7 +1,7 @@
 <template>
 	<header>
 		<div class="title clipped-x-large-forward">
-			<img class="logo" src="/faction-logos/msmc.svg" />
+			<img class="logo" :src="header.icon" />
 			<div class="title-container">
 				<div id="title-first-line" class="title-row">
 					<span id="title-header">{{ header.headerTitle }}</span>
@@ -15,31 +15,31 @@
 		</div>
 		<div class="rhombus"></div>
 		<div class="planet-location-container">
-			<video autoplay muted loop width="90px" height="90px">
+			<video ref="planetVideo" autoplay muted loop width="90px" height="90px">
 				<source :src="`${planetPath}`" type="video/webm" />
 			</video>
 			<div class="location-info">
 				<div id="planet-year" class="location-row">
 					<div id="year">
-						<h4>Year</h4>
+						<h4>{{ $t('header.year') }}</h4>
 						<span class="subtitle">{{ header.year }}</span>
 					</div>
 					<div id="planet">
-						<h4>Deployment Info</h4>
+						<h4>{{ $t('header.deploymentInfo') }}</h4>
 						<span class="subtitle">{{ header.planet }}</span>
 					</div>
 				</div>
 				<div id="system-gate-ring" class="location-row">
 					<div id="ring">
-						<h4>Ring</h4>
+						<h4>{{ $t('header.ring') }}</h4>
 						<span class="subtitle">{{ header.ring }}</span>
 					</div>
 					<div id="gate">
-						<h4>Gate</h4>
+						<h4>{{ $t('header.gate') }}</h4>
 						<span class="subtitle">{{ header.gate }}</span>
 					</div>
 					<div id="system">
-						<h4>System</h4>
+						<h4>{{ $t('header.system') }}</h4>
 						<span class="subtitle">{{ header.system }}</span>
 					</div>
 				</div>
@@ -64,8 +64,10 @@ export default {
 	data() {
 		return {};
 	},
-	created() {},
-	mounted() {},
+	created() { },
+	mounted() {
+		this.$refs.planetVideo.playbackRate = 0.7;
+	},
 };
 </script>
 

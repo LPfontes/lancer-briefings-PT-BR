@@ -1,0 +1,74 @@
+{
+  "header": {
+    "year": "Ano",
+    "deploymentInfo": "Local de Operação",
+    "ring": "Anel",
+    "gate": "Portal",
+    "system": "Sistema"
+  },
+  "sidebar": {
+    "status": "Status",
+    "pilots": "Pilotos",
+    "logs": "Registros"
+  },
+  "status": {
+    "missionLog": "Log de Missões",
+    "currentAssignment": "Designação Atual",
+    "reserves": "Reservas",
+    "clocks": "Relógios"
+  },
+  "events": {
+    "title": "REGISTROS",
+    "log": "LOG DE EVENTOS",
+    "readMore": "Leia Mais"
+  },
+  "mission": {
+    "label": "Missão",
+    "status": {
+      "briefing": "Briefing\nAtual",
+      "partial": "Sucesso\nParcial",
+      "success": "Sucesso na\nMissão",
+      "failure": "Falha na\nMissão"
+    }
+  },
+  "pilot": {
+    "callsign": "Callsign",
+    "name": "Nome (ou pseudônimo legal)",
+    "background": "Histórico",
+    "identityVerified": "IDENTIDADE VERIFICADA",
+    "dataRegistered": "DADOS PH/HR REGISTRADOS",
+    "frameOptions": "OPÇÕES DE CONFIGURAÇÃO DE CHASSI",
+    "skillAudit": "AUDITORIA DE GATILHOS DE HABILIDADE DO PILOTO",
+    "talentAudit": "AUDITORIA DE TALENTOS DO PILOTO",
+    "licenseAudit": "AUDITORIA DE LICENÇA DE AQUISIÇÃO",
+    "level": "NÍVEL",
+    "biometricValid": "REGISTRO BIOMÉTRICO VÁLIDO",
+    "blueprintValid": "PROJETO MECÂNICO VÁLIDO",
+    "identProtocol": "Protocolo de Identificação de Piloto RM-4 (IDENT) do Escritório Administrativo da União",
+    "callsignAvailable": "CALLSIGN DISPONÍVEL",
+    "omninetVault": "REMESSA DO COFRE DA OMNINET",
+    "stats": {
+      "hull": "ESTRUTURA",
+      "agi": "AGILIDADE",
+      "sys": "SISTEMAS",
+      "eng": "ENGENHARIA"
+    },
+    "history": {
+      "redacted": "[ERR: CENSURADO]",
+      "appearance": "APARÊNCIA",
+      "history": "HISTÓRICO"
+    },
+    "identRecord": "Registro de Protocolo de Identificação de Piloto (IDENT) RM-4 do Escritório Administrativo da União",
+    "legalDisclaimer": "O uso inadequado deste registro IDENT e/ou de seus dados constituintes pelo titular do registro ou qualquer outra pessoa é punível sob o DoJ/HR A-645-c. Este registro é propriedade do Escritório Administrativo da União e as informações contidas aqui devem ser transmitidas mediante solicitação sob protocolos de criptografia NDL-C-DISCORDANT-BREATH. Este registro RM-4 deve ser atualizado a cada cinco (5) Anos Padrão do Berço de tempo objetivo para reter os direitos de licenciamento GMS. Operativos de campo que antecipam implantações com duração superior a cinco Anos Padrão do Berço que não tenham recebido um Gancho de Omninet portátil devem solicitar a Extensão Suplementar (b) do IDENT RM-11-B. Entre em contato com seu Oficial Administrativo da União local para qualquer outro assunto relacionado a este registro."
+  },
+  "clock": {
+    "story": "História",
+    "relationship": "Relacionamento"
+  },
+  "burden": {
+    "label": "Fardo"
+  },
+  "reserve": {
+    "owner": "Dono da Reserva"
+  }
+}

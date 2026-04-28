@@ -8,7 +8,7 @@
 				  class="chart" />
 			</div>
 			<div class="burden-header">
-				<h2 class="burden-subtitle">Burden</h2>
+				<h2 class="burden-subtitle">{{ t('burden.label') }}</h2>
 				<h1 class="burden-title">{{ $props.burden.title }}</h1>
 			</div>
 		</div>
@@ -29,7 +29,8 @@ Chart.defaults.animation = {
 };
 Chart.defaults.plugins.filler;
 
-import { computed, defineComponent, ref, reactive } from "vue";
+import { computed, defineComponent, ref } from "vue";
+import { useI18n } from "vue-i18n";
 import { DoughnutChart } from "vue-chart-3";
 
 export default defineComponent({
@@ -46,6 +47,7 @@ export default defineComponent({
 		},
 	},
 	setup(props) {
+		const { t } = useI18n();
 		const dataArray: number[] = [];
 		const colorArray: string[] = [];
 		for (let index = 0; index < props.burden.segments; index++) {
@@ -81,7 +83,7 @@ export default defineComponent({
 			isActive.value = !isActive.value;
 		}
 
-		return { testData, options, isActive, toggleActive };
+		return { testData, options, isActive, toggleActive, t };
 	},
 });
 </script>

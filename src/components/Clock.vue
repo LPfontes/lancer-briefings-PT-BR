@@ -4,7 +4,7 @@
 		  v-if="$props.clock.type == 'Story'"
 		  :class="$props.clock.type.toLowerCase()">
 			<div class="clock-header">
-				<h2 class="clock-subtitle">Story // Relationship</h2>
+				<h2 class="clock-subtitle">{{ t('clock.story') }} // {{ t('clock.relationship') }}</h2>
 				<h1 class="clock-title">{{ $props.clock.name }}</h1>
 			</div>
 			<div class="clock-body">
@@ -65,6 +65,7 @@ Chart.defaults.animation = {
 Chart.defaults.plugins.filler;
 
 import { computed, defineComponent, ref } from "vue";
+import { useI18n } from "vue-i18n";
 import { DoughnutChart } from "vue-chart-3";
 
 export default defineComponent({
@@ -85,6 +86,7 @@ export default defineComponent({
 		},
 	},
 	setup(props) {
+		const { t } = useI18n();
 		const dataArray: number[] = [];
 		const colorArray: string[] = [];
 		for (let index = 0; index < props.clock.max; index++) {
@@ -125,7 +127,7 @@ export default defineComponent({
 			isActive.value = !isActive.value;
 		}
 
-		return { testData, options, isActive, toggleActive };
+		return { testData, options, isActive, toggleActive, t };
 	},
 });
 </script>

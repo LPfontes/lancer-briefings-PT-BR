@@ -2,24 +2,25 @@
 	<div class="sidebar-page">
 		<section class="sidebar-layout">
 			<o-sidebar
-			  id="sidebar"
-			  position="static"
-			  :animate="animate"
-			  :mobile="mobile"
-			  :expand-on-hover="expandOnHover"
-			  :reduce="reduce"
-			  open>
+				id="sidebar"
+				position="static"
+				:animate="animate"
+				:mobile="mobile"
+				:expand-on-hover="expandOnHover"
+				:reduce="reduce"
+				open
+			>
 				<router-link class="clipped-bottom-right" to="/status">
 					<img src="/icons/orbital.svg" />
-					<span>Status</span>
+					<span>{{ $t('sidebar.status') }}</span>
 				</router-link>
 				<router-link class="clipped-bottom-right" to="/pilots">
 					<img src="/icons/pilot.svg" />
-					<span>Pilots</span>
+					<span>{{ $t('sidebar.pilots') }}</span>
 				</router-link>
 				<router-link class="clipped-bottom-right" to="/events">
 					<img src="/icons/events.svg" />
-					<span>Logs</span>
+					<span>{{ $t('sidebar.logs') }}</span>
 				</router-link>
 			</o-sidebar>
 		</section>

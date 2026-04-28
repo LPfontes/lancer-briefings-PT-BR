@@ -8,7 +8,7 @@
 		<div class="preview">
 			{{ getPreview }}
 		</div>
-		<a @click.prevent="selectEvent">Read More</a>
+		<a @click.prevent="selectEvent">{{ $t('events.readMore') }}</a>
 	</div>
 </template>
 

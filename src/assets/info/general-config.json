@@ -1,19 +1,19 @@
 {
-  "initialSlug": "001",
+  "initialSlug": "000",
   "planetPath": "/planet.webm",
   "animate": true,
-  "defaultTitle": "MSMC |",
-  "icon": "/faction-logos/msmc.svg",
+  "defaultTitle": "UNIÃO |",
+  "icon": "/faction-logos/union.svg",
   "header": {
-    "planet": "Heiligtum-6 'Deep Blue'",
+    "planet": "XPX-302 Helior",
     "year": "5017u",
-    "system": "Heiligtum",
-    "gate": "Rào Cỏ",
+    "system": "Setor de Fronteira",
+    "gate": "Calpir 3 (1 ano de viagem)",
     "ring": "Annamite",
-    "headerTitle": "Mirrorsmoke",
-    "headerSubtitle": "Mercenary Company",
-    "subheaderTitle": "Contract Work",
-    "subheaderSubtitle": "Sierra-Whiskey-Alpha-Golf"
+    "headerTitle": "OPERAÇÃO ALIA-3",
+    "headerSubtitle": "BRIEFING DE MISSÃO",
+    "subheaderTitle": "Garantia de Segurança",
+    "subheaderSubtitle": "Zona de Risco Nível 5"
   },
   "pilotSpecialInfo": {}
 }
