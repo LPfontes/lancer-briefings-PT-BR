@@ -23,6 +23,7 @@
 			</div>
 		</section>
 		<div>
+		<!--
 		<section id="reserves" class="section-container" :style="{ 'animation-delay': animationDelay }">
 			<div class="section-header clipped-medium-backward">
 				<img src="/icons/squad.svg" />
@@ -34,6 +35,7 @@
 				</div>
 			</div>
 		</section>
+		
 		<section id="clocks" class="section-container" :style="{ 'animation-delay': animationDelay }">
 			<div class="section-header clipped-medium-backward">
 				<img src="/icons/protocol.svg" />
@@ -46,6 +48,7 @@
 				</div>
 			</div>
 		</section>
+		-->
 	</div>
 	</div>
 </template>

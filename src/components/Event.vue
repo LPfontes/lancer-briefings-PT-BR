@@ -1,26 +1,43 @@
 <template>
-	<div class="event">
-		<div class="name">
-			<h1>{{ event.location }} // {{ event.time }}</h1>
-			<h2>{{ event.title }}</h2>
+	<div class="event-window" :class="{ expanded: isExpanded }">
+		<div class="window-title-bar" @click="toggleExpand">
+			<div class="window-controls">
+				<span class="control red"></span>
+				<span class="control yellow"></span>
+				<span class="control green"></span>
+			</div>
+			<div class="window-title">
+				{{ event.location }} // {{ event.title }}
+			</div>
+			<div class="window-status">
+				{{ isExpanded ? 'ACTIVE_LOG' : 'ENCRYPTED' }}
+			</div>
 		</div>
-		<img class="thumbnail" :src="event.thumbnail" />
-		<div class="preview">
-			{{ getPreview }}
+		<div class="window-body" v-if="isExpanded">
+			<div class="window-metadata">
+				<div class="meta-item">
+					<span class="label">TIMESTAMP:</span>
+					<span class="value">{{ event.time }}</span>
+				</div>
+				<div class="meta-item">
+					<span class="label">ORIGIN:</span>
+					<span class="value">{{ event.location }}</span>
+				</div>
+			</div>
+			<img v-if="event.thumbnail" class="thumbnail" :src="event.thumbnail" />
+			<vue-markdown-it :source="event.content" class="markdown" />
 		</div>
-		<a @click.prevent="selectEvent">{{ $t('events.readMore') }}</a>
 	</div>
 </template>
 
 <script>
-import EventModal from "@/components/modals/EventModal.vue";
-
+import { VueMarkdownIt } from '@f3ve/vue-markdown-it';
 import removeMd from "remove-markdown";
 
 export default {
 	name: "Event",
 	components: {
-		EventModal,
+		VueMarkdownIt,
 	},
 	props: {
 		event: {
@@ -30,17 +47,13 @@ export default {
 	},
 	data() {
 		return {
+			isExpanded: false,
 			removeMd,
 		};
 	},
-	computed: {
-		getPreview() {
-			return this.removeMd(this.event.content).substring(0, 200) + "...";
-		},
-	},
 	methods: {
-		selectEvent() {
-			this.$emit('select-event', this.event)
+		toggleExpand() {
+			this.isExpanded = !this.isExpanded;
 		}
 	}
 }

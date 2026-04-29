@@ -3,6 +3,8 @@ import { createMemoryHistory, createWebHistory, createRouter } from "vue-router"
 import Status from "@/views/StatusView.vue";
 import Pilots from "@/views/PilotsView.vue";
 import Events from "@/views/EventsView.vue";
+import Glossary from "@/views/GlossaryView.vue";
+import PilotCreator from "@/views/PilotCreatorView.vue";
 import Config from "@/assets/info/general-config.json";
 
 const DEFAULT_TITLE = Config.defaultTitle;
@@ -31,6 +33,20 @@ const routes = [
 		component: Events,
 		props: true,
 		meta: { title: `${DEFAULT_TITLE} EVENTS LOG` },
+	},
+	{
+		path: "/glossary",
+		name: "Glossary",
+		component: Glossary,
+		props: true,
+		meta: { title: `${DEFAULT_TITLE} GLOSSARY` },
+	},
+	{
+		path: "/creator",
+		name: "PilotCreator",
+		component: PilotCreator,
+		props: true,
+		meta: { title: `${DEFAULT_TITLE} PILOT CREATOR` },
 	},
 ];
 

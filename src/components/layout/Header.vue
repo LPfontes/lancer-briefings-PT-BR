@@ -15,9 +15,7 @@
 		</div>
 		<div class="rhombus"></div>
 		<div class="planet-location-container">
-			<video ref="planetVideo" autoplay muted loop width="90px" height="90px">
-				<source :src="`${planetPath}`" type="video/webm" />
-			</video>
+			<img :src="planetPath" ref="planetVideo" />
 			<div class="location-info">
 				<div id="planet-year" class="location-row">
 					<div id="year">
@@ -66,7 +64,9 @@ export default {
 	},
 	created() { },
 	mounted() {
-		this.$refs.planetVideo.playbackRate = 0.7;
+		this.$refs.planetVideo.onloadedmetadata = () => {
+			this.$refs.planetVideo.playbackRate = 0.7;
+		};
 	},
 };
 </script>

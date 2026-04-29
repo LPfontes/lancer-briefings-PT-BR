@@ -1,4 +1,16 @@
 {
+  "general": {
+    "none": "None",
+    "custom": "Custom",
+    "select": "Select",
+    "selected": "Selected",
+    "view": "VIEW",
+    "ready": "READY",
+    "save": "SAVE",
+    "active": "ACTIVE",
+    "locked": "LOCKED",
+    "installed": "INSTALLED"
+  },
   "header": {
     "year": "Year",
     "deploymentInfo": "Deployment Info",
@@ -9,7 +21,102 @@
   "sidebar": {
     "status": "Status",
     "pilots": "Pilots",
-    "logs": "Logs"
+    "logs": "Logs",
+    "glossary": "Glossary",
+    "creator": "Pilot Creator"
+  },
+  "pilotCreator": {
+    "title": "PILOT CREATOR",
+    "export": "EXPORT TO FOUNDRY",
+    "steps": {
+      "identification": "Identification",
+      "pilotGear": "Pilot Gear",
+      "licenses": "Manufacturer Licenses",
+      "skills": "Triggers (Skills)",
+      "talents": "Talents",
+      "mechSkills": "Mech Skills",
+      "mechBuilder": "Mech Builder"
+    },
+    "sandboxDesc": "Manage your manufacturer licenses (Sandbox Mode enabled).",
+    "rank": "RANK",
+    "infoOpen": "INFO_OPEN",
+    "infoClosed": "INFO_CLOSED",
+    "infoDesc": "View frame description",
+    "skillsDesc": "Distribute points to your pilot's skill triggers.",
+    "talentsDesc": "Select talents and their respective Ranks (1 to 3).",
+    "logOpen": "LOG_OPEN",
+    "logLocked": "LOG_LOCKED",
+    "mechSkillsDesc": "Distribute points to your pilot's Mech Skills.",
+    "mechPointsDist": "Points Distributed",
+    "mech": {
+      "name": "Mech Name",
+      "selectFrame": "Select Frame:",
+      "mounts": "Mounts (Weapons)",
+      "systems": "Systems",
+      "empty": "-- Empty --",
+      "cost": "Cost"
+    },
+    "gearDesc": "Choose your tactical gear (Max: 1 Armor, 2 Weapons, 3 Gear).",
+    "gear": {
+      "armor": "Armor (Max 1)",
+      "weapons": "Weapons (Max 2)",
+      "misc": "Utility Gear (Max 3)"
+    },
+    "fields": {
+      "name": "Pilot Name",
+      "namePlaceholder": "Ex: John Doe",
+      "callsign": "Callsign",
+      "callsignPlaceholder": "Ex: MAVERICK",
+      "level": "License Level (LL)",
+      "grit": "Grit",
+      "hp": "Hit Points (HP)",
+      "background": "Background",
+      "customBackground": "Custom Background",
+      "bio": "Biography",
+      "hull": "Hull (HULL)",
+      "agility": "Agility (AGI)",
+      "systems": "Systems (SYS)",
+      "engineering": "Engineering (ENG)"
+    }
+  },
+  "mech": {
+    "coreSystem": "CORE SYSTEM",
+    "mainStats": "PRIMARY STATISTICS",
+    "stats": {
+      "size": "Size",
+      "save": "Save Target",
+      "armor": "Armor",
+      "sensors": "Sensors",
+      "hp": "HP",
+      "repcap": "Repair Cap",
+      "edef": "E-Defense",
+      "techAttack": "Tech Attack",
+      "sp": "SP",
+      "evasion": "Evasion",
+      "speed": "Speed",
+      "heatcap": "Heat Cap"
+    },
+    "hull": "HULL",
+    "systems": "SYSTEMS",
+    "agility": "AGILITY",
+    "engineering": "ENGINEERING",
+    "traits": "TRAITS",
+    "mounts": "MOUNTS",
+    "mount": "MOUNT",
+    "activate": "Activate"
+  },
+  "glossary": {
+    "title": "GLOSSARY",
+    "compendium": "G-UN COMPENDIUM // UNION DATABASE",
+    "search": "SEARCH TERM IN DATABASE...",
+    "categories": {
+      "all": "ALL",
+      "stats": "STATS",
+      "combat": "COMBAT",
+      "aoe": "AREAS",
+      "movement": "MOVEMENT",
+      "rules": "RULES"
+    }
   },
   "status": {
     "missionLog": "Mission Log",

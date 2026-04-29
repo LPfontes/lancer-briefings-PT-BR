@@ -51,6 +51,17 @@
 	}
 }
 
+@keyframes wipeDown {
+	0% {
+		clip-path: inset(0 0 100% 0);
+		opacity: 0;
+	}
+	100% {
+		clip-path: inset(0 0 0 0);
+		opacity: 1;
+	}
+}
+
 @keyframes slideInFromLeftRhombus {
 	0% {
 		transform: translateX(-500%) skew(-0.785398rad);

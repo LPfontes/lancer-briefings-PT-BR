@@ -1,4 +1,16 @@
 {
+  "general": {
+    "none": "Nenhum",
+    "custom": "Personalizado",
+    "select": "Selecionar",
+    "selected": "Selecionado",
+    "view": "VISUALIZAR",
+    "ready": "PRONTO",
+    "save": "SALVAR",
+    "active": "ATIVO",
+    "locked": "BLOQUEADO",
+    "installed": "INSTALADO"
+  },
   "header": {
     "year": "Ano",
     "deploymentInfo": "Local de Operação",
@@ -9,7 +21,102 @@
   "sidebar": {
     "status": "Status",
     "pilots": "Pilotos",
-    "logs": "Registros"
+    "logs": "Registros",
+    "glossary": "Glossário",
+    "creator": "Criador de Ficha"
+  },
+  "pilotCreator": {
+    "title": "CRIADOR DE PILOTOS",
+    "export": "EXPORTAR P/ FOUNDRY",
+    "steps": {
+      "identification": "Identificação",
+      "pilotGear": "Equipamento de Piloto",
+      "licenses": "Licenças de Fabricante",
+      "skills": "Gatilhos (Perícias)",
+      "talents": "Talentos",
+      "mechSkills": "Habilidades de Mecha",
+      "mechBuilder": "Montagem de Mecha"
+    },
+    "sandboxDesc": "Gerencie suas licenças de fabricantes (Modo Sandbox liberado).",
+    "rank": "RANK",
+    "infoOpen": "INFO_ABERTA",
+    "infoClosed": "INFO_FECHADA",
+    "infoDesc": "Ver descrição do frame",
+    "skillsDesc": "Distribua pontos nas perícias (Triggers) do seu piloto.",
+    "talentsDesc": "Selecione talentos e seus respectivos Ranks (1 a 3).",
+    "logOpen": "REGISTRO_ABERTO",
+    "logLocked": "REGISTRO_BLOQUEADO",
+    "mechSkillsDesc": "Distribua pontos nas perícias de Mecha do seu piloto.",
+    "mechPointsDist": "Pontos Distribuídos",
+    "mech": {
+      "name": "Nome do Mecha",
+      "selectFrame": "Selecione o Chassi:",
+      "mounts": "Montagens (Armas)",
+      "systems": "Sistemas",
+      "empty": "-- Vazio --",
+      "cost": "Custo"
+    },
+    "gearDesc": "Escolha seus equipamentos táticos (Máx: 1 Armadura, 2 Armas, 3 Itens).",
+    "gear": {
+      "armor": "Armadura (Máx 1)",
+      "weapons": "Armas (Máx 2)",
+      "misc": "Itens Utilitários (Máx 3)"
+    },
+    "fields": {
+      "name": "Nome do Piloto",
+      "namePlaceholder": "Ex: John Doe",
+      "callsign": "Callsign",
+      "callsignPlaceholder": "Ex: MAVERICK",
+      "level": "Nível de Licença (NL)",
+      "grit": "Brio",
+      "hp": "Pontos de Vida (HP)",
+      "background": "Histórico",
+      "customBackground": "Histórico Personalizado",
+      "bio": "Biografia",
+      "hull": "Estrutura",
+      "agility": "Agilidade",
+      "systems": "Sistemas",
+      "engineering": "Engenharia"
+    }
+  },
+  "mech": {
+    "coreSystem": "SISTEMA DE NÚCLEO",
+    "mainStats": "ESTATÍSTICAS PRINCIPAIS",
+    "stats": {
+      "size": "Tamanho",
+      "save": "Salvamento",
+      "armor": "Armadura",
+      "sensors": "Sensores",
+      "hp": "PV",
+      "repcap": "Cap. de Reparo",
+      "edef": "Defesa-E",
+      "techAttack": "Ataque Tec.",
+      "sp": "PS",
+      "evasion": "Evasão",
+      "speed": "Velocidade",
+      "heatcap": "Cap. de Calor"
+    },
+    "hull": "CASCO",
+    "systems": "SISTEMAS",
+    "agility": "AGILIDADE",
+    "engineering": "ENGENHARIA",
+    "traits": "TRAÇOS",
+    "mounts": "ENCAIXES",
+    "mount": "ENCAIXE",
+    "activate": "Ativar"
+  },
+  "glossary": {
+    "title": "GLOSSÁRIO",
+    "compendium": "COMPÊNDIO G-UN // BASE DE DADOS DA UNIÃO",
+    "search": "BUSCAR TERMO NO BANCO DE DADOS...",
+    "categories": {
+      "all": "TODOS",
+      "stats": "ATRIBUTOS",
+      "combat": "COMBATE",
+      "aoe": "ÁREAS",
+      "movement": "MOVIMENTO",
+      "rules": "REGRAS"
+    }
   },
   "status": {
     "missionLog": "Log de Missões",
@@ -32,8 +139,8 @@
     }
   },
   "pilot": {
-    "callsign": "Callsign",
-    "name": "Nome (ou pseudônimo legal)",
+    "callsign": "Apelido",
+    "name": "Nome",
     "background": "Histórico",
     "identityVerified": "IDENTIDADE VERIFICADA",
     "dataRegistered": "DADOS PH/HR REGISTRADOS",
@@ -45,7 +152,7 @@
     "biometricValid": "REGISTRO BIOMÉTRICO VÁLIDO",
     "blueprintValid": "PROJETO MECÂNICO VÁLIDO",
     "identProtocol": "Protocolo de Identificação de Piloto RM-4 (IDENT) do Escritório Administrativo da União",
-    "callsignAvailable": "CALLSIGN DISPONÍVEL",
+    "callsignAvailable": "APELIDO DISPONÍVEL",
     "omninetVault": "REMESSA DO COFRE DA OMNINET",
     "stats": {
       "hull": "ESTRUTURA",

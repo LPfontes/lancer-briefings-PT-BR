@@ -22,6 +22,14 @@
 					<img src="/icons/events.svg" />
 					<span>{{ $t('sidebar.logs') }}</span>
 				</router-link>
+				<router-link class="clipped-bottom-right" to="/glossary">
+					<img src="/icons/protocol.svg" />
+					<span>{{ $t('sidebar.glossary') }}</span>
+				</router-link>
+				<router-link class="clipped-bottom-right" to="/creator">
+					<img src="/icons/deployable.svg" />
+					<span>{{ $t('sidebar.creator') }}</span>
+				</router-link>
 			</o-sidebar>
 		</section>
 	</div>

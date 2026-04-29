@@ -181,7 +181,7 @@ header {
 	right: 25px;
 }
 
-header video {
+header img {
 	width: 86px;
 	height: 86px;
 	align-self: center;
@@ -211,7 +211,7 @@ div.location-info {
 
 .location-row h4 {
 	margin: 0px;
-	line-height: 1.5em;
+	line-height: 1.8em;
 	font-family: "Raleway", sans-serif;
 	font-size: 10px;
 	font-weight: 800;
@@ -322,6 +322,7 @@ div.location-info {
 }
 
 div#router-view-container {
+	width: 100%;
 	position: absolute;
 	top: 95px;
 	left: 90px;
@@ -330,6 +331,7 @@ div#router-view-container {
 div .content-container {
 	display: flex;
 	flex-direction: row;
+	width: 100%;
 }
 
 section.section-container {
@@ -337,13 +339,13 @@ section.section-container {
 	flex-direction: column;
 	margin: 50px 30px;
 	width: 393px;
-	height: 100%;
+	height: 714px;
 }
 
 section.section-container#assignment {
 	display: flex;
 	flex-direction: column;
-	width: 786px;
+	width: 1080px;
 	height: 714px;
 }
 
@@ -365,7 +367,7 @@ section.section-container#events-logs {
 	flex-direction: column;
 	margin: 50px 90px;
 	width: 1179px;
-	height: 714px;
+	height: 700px;
 }
 
 section.section-container#events-logs .rhombus-back {
@@ -373,8 +375,8 @@ section.section-container#events-logs .rhombus-back {
 	left: -2em;
 }
 
-.event-list-container {
-	height: 666px;
+section.section-container {
+	height: 100%;
 }
 
 section.section-container#pilots {
@@ -595,51 +597,196 @@ section .section-header h1 {
 	height: 665px;
 }
 
-.event {
-	padding: 1em;
-	border-bottom: 1px solid var(--primary-color);
-}
-
-.event .name h1 {
-	line-height: 1.5em;
-	font-size: 12px;
-	font-family: "Roboto", sans-serif;
-	letter-spacing: 3px;
-	color: var(--text-location);
-	text-transform: uppercase;
-}
-
-.event .name h2 {
-	line-height: 1.5em;
-	font-size: 18px;
-	font-family: "Titillium Web", sans-serif;
-	letter-spacing: 0.5px;
-	color: var(--primary-color);
-	text-transform: uppercase;
-}
-
-.event .preview {
-	line-height: 1.5em;
-	font-size: 16px;
-	font-weight: 400;
-	font-family: "Roboto", sans-serif;
-	color: var(--text-location);
-}
-
-.event .thumbnail {
-	object-fit: cover;
+.event-window {
+	background: linear-gradient(135deg, rgba(22, 28, 29, 0.95) 0%, rgba(10, 12, 13, 0.98) 100%);
+	border: 1px solid rgba(175, 14, 30, 0.4);
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 0 10px rgba(175, 14, 30, 0.1);
+	transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 	width: 100%;
-	height: 150px;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+	overflow: hidden;
 }
 
-.event a {
-	line-height: 1.5em;
-	font-size: 16px;
-	font-weight: 600;
-	font-family: "Roboto", sans-serif;
-	color: var(--primary-color);
-	text-decoration: underline;
+.event-window::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: repeating-linear-gradient(0deg,
+			transparent,
+			transparent 2px,
+			rgba(255, 255, 255, 0.01) 2px,
+			rgba(255, 255, 255, 0.01) 4px);
+	pointer-events: none;
+	z-index: 1;
+}
+
+.event-window.expanded {
+	border-color: var(--primary-color);
+	box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 15px rgba(175, 14, 30, 0.2);
+}
+
+/* Staggered wipe-down animation */
+[class*="animate"] .event-window {
+	animation: wipeDown 0.6s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.window-title-bar {
+	background: linear-gradient(90deg, var(--primary-color) 0%, #8b0b18 100%);
+	color: white;
+	padding: 10px 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	cursor: pointer;
+	font-family: "Big Shoulders Display", cursive;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	position: relative;
+	z-index: 2;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.window-title-bar::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 1px;
+	background: rgba(255, 255, 255, 0.1);
+}
+
+.window-controls {
+	display: flex;
+	gap: 8px;
+}
+
+.control {
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	display: inline-block;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	position: relative;
+}
+
+.control::after {
+	content: "";
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: 4px;
+	height: 4px;
+	background: rgba(255, 255, 255, 0.4);
+	border-radius: 50%;
+}
+
+.control.red {
+	background: #ff5f56;
+	box-shadow: 0 0 5px #ff5f56;
+}
+
+.control.yellow {
+	background: #ffbd2e;
+	box-shadow: 0 0 5px #ffbd2e;
+}
+
+.control.green {
+	background: #27c93f;
+	box-shadow: 0 0 5px #27c93f;
+}
+
+.window-title {
+	flex-grow: 1;
+	text-align: center;
+	font-weight: 800;
+	font-size: 16px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	padding: 0 30px;
+	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.window-status {
+	font-size: 11px;
+	font-family: "Inconsolata", monospace;
+	background: rgba(0, 0, 0, 0.4);
+	padding: 3px 10px;
+	border-radius: 3px;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	letter-spacing: 1px;
+	transition: all 0.2s;
+}
+
+.window-body {
+	background: transparent;
+	animation: windowOpen 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+	position: relative;
+	z-index: 2;
+}
+
+@keyframes windowOpen {
+	from {
+		opacity: 0;
+		transform: translateY(-10px);
+		max-height: 0;
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+		max-height: 2000px;
+	}
+}
+
+.window-metadata {
+	display: flex;
+	gap: 20px;
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+	border-bottom: 1px dashed var(--primary-color);
+	font-family: "Inconsolata", monospace;
+	font-size: 12px;
+}
+
+.meta-item .label {
+	color: var(--primary-color);
+	margin-right: 5px;
+	font-weight: bold;
+}
+
+.meta-item .value {
+	color: var(--text-location);
+}
+
+.window-body .thumbnail {
+	max-height: 360px;
+	object-fit: cover;
+	border: 1px solid var(--primary-color);
+	margin-bottom: 20px;
+}
+
+section.section-container.full-width {
+	max-width: 1600px;
+	width: 100%;
+	height: calc(100vh - 160px);
+	margin: 20px 30px;
+	display: flex;
+	flex-direction: column;
+}
+
+.events-list-container {
+	flex-grow: 1;
+	height: 100%;
+	overflow-y: auto;
+	padding-right: 15px;
+	margin-top: 10px;
 }
 
 .reserves-list-container {
@@ -983,6 +1130,7 @@ section .section-header h1 {
 .pilot-modal .pilot-header-container {
 	display: flex;
 }
+
 .pilot-modal div .section-header {
 	background-color: var(--primary-color);
 	border-color: var(--primary-color);
@@ -992,6 +1140,7 @@ section .section-header h1 {
 	padding-left: 16px;
 	margin-top: -38px !important;
 }
+
 .pilot-modal div .section-header h1 {
 	font-size: 26px;
 	margin: 0%;
@@ -1001,6 +1150,7 @@ section .section-header h1 {
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
 }
+
 .pilot-modal .rhombus-back {
 	transform: skew(0.785398rad) !important;
 	background-color: var(--primary-color);
@@ -1012,6 +1162,7 @@ section .section-header h1 {
 	left: -10px;
 	top: -38px;
 }
+
 .pilot-modal div.pilot {
 	background-color: var(--secondary-color);
 	border: 1px solid var(--primary-color);
@@ -1019,12 +1170,15 @@ section .section-header h1 {
 	width: 888px;
 	height: 662px;
 }
+
 .pilot-modal div.pilot div.markdown {
 	height: 662px;
 }
+
 .pilot-modal.portrait .pilot {
 	width: 600px;
 }
+
 .pilot-modal.portrait img.portrait {
 	width: 100%;
 	height: 100%;
@@ -1032,9 +1186,11 @@ section .section-header h1 {
 	object-position: top;
 	overflow: clip;
 }
+
 .pilot-modal.portrait .pilot-header-container {
 	display: flex;
 }
+
 .pilot-modal.portrait .rhombus-back {
 	left: -25px;
 }
@@ -1447,6 +1603,7 @@ div.markdown {
 }
 
 div.markdown p {
+	font-size: 18px;
 	margin: 1em 0;
 }
 
@@ -1529,7 +1686,6 @@ div.markdown ol li {
 }
 
 #events .markdown {
-	height: 666px;
 	padding-top: 1em;
 	padding-bottom: 1em;
 	border-bottom: none;
@@ -1560,19 +1716,20 @@ div.markdown ol li {
 	font-weight: 800;
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
-	padding:0.5em;
-	display:flex;
+	padding: 0.5em;
+	display: flex;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
 
 }
+
 .pilot-identity .col.grow-max {
-	flex-grow:100;
+	flex-grow: 100;
 }
 
 .pilot-identity .header .col img {
-	float:right;
-	height:84px;
+	float: right;
+	height: 84px;
 	width: 84px;
 }
 
@@ -1591,48 +1748,49 @@ div.markdown ol li {
 }
 
 .pilot-identity .body .add-padding {
-	padding:0px 8px;
+	padding: 0px 8px;
 }
 
 .pilot-identity .flex-container-rows {
-	display:flex;
+	display: flex;
 	flex-direction: column;
 }
 
 .pilot-identity .flex-container-cols {
-	display:flex;
+	display: flex;
 	flex-direction: row;
 }
 
 .pilot-identity .col.col-primary {
 	flex: 0 0 66.6666666667%;
-    max-width: 66.6666666667%;
+	max-width: 66.6666666667%;
 }
 
 .pilot-identity .col.col-share {
 	flex: 0 0 50%;
-    max-width: 50%;
+	max-width: 50%;
 }
 
-.pilot-identity .stat-text, .pilot-identity .accent--text{
+.pilot-identity .stat-text,
+.pilot-identity .accent--text {
 	color: var(--primary-color)
 }
 
 .pilot-identity .chip-container {
-	display:inline;
+	display: inline;
 }
 
 .pilot-identity .chip {
-  border: 1px solid var(--primary-color);
-  padding: 4px;
-  margin: 4px;
-  line-height: 16px;
-  border-radius: 5px;
-  display: inline-block;
-  color: var(--primary-color);
-  font-size: 14px;
-  font-weight: bold;
-  text-transform: uppercase;
+	border: 1px solid var(--primary-color);
+	padding: 4px;
+	margin: 4px;
+	line-height: 16px;
+	border-radius: 5px;
+	display: inline-block;
+	color: var(--primary-color);
+	font-size: 14px;
+	font-weight: bold;
+	text-transform: uppercase;
 }
 
 .pilot-identity .pilot-image-container {
@@ -1642,7 +1800,7 @@ div.markdown ol li {
 
 .pilot-identity .pilot-image-border {
 	border: 5px double var(--primary-color);
-  	border-radius: 2px;
+	border-radius: 2px;
 	width: 250px;
 	height: 250px;
 }
@@ -1654,39 +1812,43 @@ div.markdown ol li {
 }
 
 .pilot-identity .biometrics-container {
-	flex-grow:1;
-	display:flex;
+	flex-grow: 1;
+	display: flex;
 	flex-direction: row;
 	padding-top: 0.5em;
-	width:100%;
+	width: 100%;
 	justify-content: center;
 }
 
-.biometrics, .mech-record {
+.biometrics,
+.mech-record {
 	cursor: pointer;
 }
 
-.biometrics, .mech-record {
+.biometrics,
+.mech-record {
 	transition: 0.2s ease-in-out;
 }
 
-.biometrics:hover, .mech-record:hover {
+.biometrics:hover,
+.mech-record:hover {
 	background-color: var(--highlight-hover) !important;
 	transition: 0.2s ease-in-out;
 }
 
-.pilot-identity .biometrics, .pilot-identity .mech-record {
+.pilot-identity .biometrics,
+.pilot-identity .mech-record {
 	align-self: flex-end;
 	width: 100%;
 }
 
-.pilot-identity .overline{
+.pilot-identity .overline {
 	font-size: 11px;
 	text-transform: uppercase;
 }
 
 .pilot-identity .row--dense {
 	padding: 5px;
-	line-height:11px;
+	line-height: 11px;
 	text-align: justify;
 }
