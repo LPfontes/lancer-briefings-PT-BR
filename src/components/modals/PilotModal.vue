@@ -109,6 +109,14 @@
                <div class="box-header">{{ $t('pilot.bio_short').toUpperCase() }}</div>
                <div class="box-content tech-scroll bio-text">{{ pilot.bio || $t('general.no_records') }}</div>
             </div>
+            <div v-if="pilot.isCustom" class="termination-action">
+               <button class="terminate-btn" @click="deletePilot">
+                  <i class="mdi mdi-alert-octagon"></i>
+                  TERMINAR REGISTRO // EXCLUIR PILOTO
+               </button>
+               <div class="termination-warning">AVISO: ESTA OPERAÇÃO É IRREVERSÍVEL E REMOVERÁ TODOS OS DADOS DA OMNINET.</div>
+            </div>
+
             <div class="security-disclaimer">
               {{ $t('pilot.legalDisclaimer').substring(0, 150) }}...
             </div>
@@ -443,6 +451,47 @@ export default {
   border-top: 1px solid #222;
   padding-top: 15px;
   margin-top: 10px;
+}
+
+/* Termination Action */
+.termination-action {
+  margin: 30px 0;
+  padding: 20px;
+  border: 1px dashed #af0e1e;
+  background: rgba(175, 14, 30, 0.05);
+  text-align: center;
+}
+
+.terminate-btn {
+  width: 100%;
+  padding: 15px;
+  background: #af0e1e;
+  color: #fff;
+  border: 1px solid #fff;
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: 0.2s;
+}
+
+.terminate-btn:hover {
+  background: #fff;
+  color: #af0e1e;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.termination-warning {
+  margin-top: 10px;
+  font-size: 0.7rem;
+  color: #af0e1e;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
 /* Action Buttons */
