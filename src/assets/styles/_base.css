@@ -1682,7 +1682,6 @@ div.markdown ul {
 	-webkit-padding-start: 20px;
 	padding-inline-start: 20px;
 	margin-bottom: 1em;
-	list-style-image: url("/bullet.webp");
 }
 
 div.markdown ol {
