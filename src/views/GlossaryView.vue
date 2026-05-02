@@ -381,7 +381,7 @@ export default {
 }
 
 .reader-title {
-	font-family: "Big Shoulders Display", cursive;
+	font-family: "Titillium Web", sans-serif;
 	font-size: 32px;
 	color: white;
 	margin: 0;

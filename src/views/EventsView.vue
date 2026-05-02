@@ -164,16 +164,16 @@ export default {
 }
 
 .info-text .label {
-	font-family: "Big Shoulders Display", cursive;
+	font-family: "Titillium Web", sans-serif;
 	font-size: 16px;
 	color: white;
 	letter-spacing: 1px;
 }
 
 .info-text .status {
-	font-family: "Inconsolata", monospace;
-	font-size: 10px;
-	color: var(--primary-color);
+	font-family: "Titillium Web", sans-serif;
+	font-size: 14px;
+	color: #00ff41;
 }
 
 .events-scroll-area {
@@ -228,7 +228,6 @@ export default {
 }
 
 .event-title-text {
-	font-family: "Big Shoulders Display", cursive;
 	font-size: 18px;
 	color: white;
 	letter-spacing: 1px;
@@ -303,14 +302,14 @@ export default {
 }
 
 .meta-label {
-	font-family: "Inconsolata", monospace;
+	font-family: "Titillium Web", sans-serif;
 	font-size: 10px;
-	color: var(--primary-color);
+	color: #00ff41;
 	opacity: 0.6;
 }
 
 .meta-value {
-	font-family: "Big Shoulders Display", cursive;
+	font-family: "Titillium Web", sans-serif;
 	font-size: 18px;
 	color: white;
 	letter-spacing: 1px;
