@@ -22,9 +22,18 @@ export default async function handler(req, res) {
   try {
     if (req.method === 'POST') {
       const pilotData = req.body
+      const payload = {
+        id: pilotData.id,
+        callsign: pilotData.callsign,
+        name: pilotData.name,
+        level: pilotData.level,
+        lastSaved: pilotData.lastSaved || new Date().toISOString(),
+        data: pilotData // Salva o objeto completo aqui
+      }
+
       const { data, error } = await supabase
         .from('pilots')
-        .upsert([pilotData])
+        .upsert([payload])
         .select()
       
       if (error) throw error
@@ -37,8 +46,20 @@ export default async function handler(req, res) {
         .select('*')
         .order('lastSaved', { ascending: false })
       
-      if (error) throw error
-      return res.status(200).json(data)
+      if (error) {
+        console.error(error)
+        return res.status(200).json([]) // Retorna vazio em caso de erro na tabela
+      }
+      
+      // Mapeia de volta para o formato original
+      const mappedData = data.map(p => ({
+        ...p.data,
+        id: p.id,
+        callsign: p.callsign,
+        name: p.name
+      }))
+      
+      return res.status(200).json(mappedData)
     }
 
     if (req.method === 'DELETE') {

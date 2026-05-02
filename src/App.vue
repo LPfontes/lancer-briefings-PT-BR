@@ -25,6 +25,7 @@
 import Header from "./components/layout/Header.vue";
 import Sidebar from "./components/layout/Sidebar.vue";
 import Config from "@/assets/info/general-config.json";
+import { pilotStore } from "@/store/pilotCreator";
 
 export default {
 	components: {
@@ -156,13 +157,24 @@ export default {
 			});
 
 			// Load from localStorage / API
-			const saved = await pilotStore.getSavedPilots();
-			saved.forEach(pilot => {
-				// Avoid duplicates if same callsign already exists from files
-				if (!this.pilots.find(p => p.callsign === pilot.callsign)) {
-					this.pilots = [...this.pilots, { ...pilot, isCustom: true }];
-				}
-			});
+			try {
+				console.log("Iniciando sincronização de pilotos com o banco/local...");
+				const saved = await pilotStore.getSavedPilots();
+				console.log(`${saved.length} pilotos customizados encontrados.`);
+				
+				const customPilots = [];
+				saved.forEach(pilot => {
+					// Evitar duplicatas por callsign
+					if (!this.pilots.find(p => p.callsign.toUpperCase() === pilot.callsign.toUpperCase())) {
+						customPilots.push({ ...pilot, isCustom: true });
+					}
+				});
+				
+				this.pilots = [...this.pilots, ...customPilots];
+				console.log("Lista de pilotos atualizada com sucesso.");
+			} catch (e) {
+				console.error("Erro ao carregar pilotos customizados:", e);
+			}
 		},
 	},
 };
