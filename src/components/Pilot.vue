@@ -94,6 +94,14 @@
             </div>
           </div>
         </div>
+        <div v-if="pilot.isCustom" class="row biometrics-container custom-actions">
+           <div class="edit-btn" @click="editPilot">
+              <i class="v-icon mdi mdi-pencil"></i> EDITAR NO CRIADOR
+           </div>
+           <div class="delete-btn" @click="deletePilot">
+              <i class="v-icon mdi mdi-delete"></i> DELETAR
+           </div>
+        </div>
       </div>
       <hr role="separator" aria-orientation="horizontal" class="ma-2 v-divider theme--dark">
       <div class="row row--dense"><span class="overline" style="line-height: 13px !important; opacity: 0.4;">
@@ -103,6 +111,44 @@
 </template>
 
 <style scoped>
+.custom-actions {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.edit-btn, .delete-btn {
+  padding: 8px 15px;
+  font-family: "Big Shoulders Display", cursive;
+  font-size: 14px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s;
+}
+
+.edit-btn {
+  background: var(--primary-color);
+  color: white;
+}
+
+.edit-btn:hover {
+  background: var(--highlight-hover);
+}
+
+.delete-btn {
+  background: rgba(255, 0, 0, 0.2);
+  color: #ff4444;
+  border: 1px solid #ff4444;
+}
+
+.delete-btn:hover {
+  background: #ff4444;
+  color: white;
+}
 .larger::before {
   margin-top: 9px;
 }
@@ -143,6 +189,7 @@ import Typer from '@/components/Typer.vue'
 
 import ProgressBar from '@/components/ProgressBar.vue'
 import Burden from '@/components/Burden.vue'
+import { pilotStore } from "@/store/pilotCreator"
 
 export default {
   components: {
@@ -232,6 +279,16 @@ export default {
     this.getBond();
   },
   methods: {
+    editPilot() {
+      pilotStore.loadPilot(this.pilot);
+      this.$router.push("/creator");
+    },
+    deletePilot() {
+      if (confirm(`DESEJA EXCLUIR O PILOTO "${this.pilot.callsign}"? ESTA AÇÃO É IRREVERSÍVEL.`)) {
+        pilotStore.deletePilot(this.pilot.id);
+        window.location.reload();
+      }
+    },
     getBond() {
       this.bond = this.bonds.find((obj) => {
         return obj.id === this.pilot.bondId

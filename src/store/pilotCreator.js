@@ -210,6 +210,65 @@ export const usePilotCreator = () => {
     return true;
   };
 
+  const savePilot = async () => {
+    const pilotData = { ...state, lastSaved: new Date().toISOString() };
+    
+    // 1. Save to Local (Backup)
+    const saved = JSON.parse(localStorage.getItem('lancer_saved_pilots') || '[]');
+    const index = saved.findIndex(p => p.id === state.id);
+    if (index > -1) saved[index] = pilotData;
+    else saved.push(pilotData);
+    localStorage.setItem('lancer_saved_pilots', JSON.stringify(saved));
+
+    // 2. Try Cloud Save
+    try {
+      const response = await fetch('/api/pilots', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(pilotData)
+      });
+      if (!response.ok) throw new Error('Cloud save failed');
+      console.log("Sincronizado com a nuvem");
+    } catch (e) {
+      console.warn("Salvando apenas localmente:", e.message);
+    }
+    
+    return true;
+  };
+
+  const getSavedPilots = async () => {
+    // Try Cloud first
+    try {
+      const response = await fetch('/api/pilots');
+      if (response.ok) return await response.json();
+    } catch (e) {
+      console.warn("Falha ao buscar da nuvem, usando local");
+    }
+    return JSON.parse(localStorage.getItem('lancer_saved_pilots') || '[]');
+  };
+
+  const loadPilot = (pilotData) => {
+    Object.keys(pilotData).forEach(key => {
+      if (state.hasOwnProperty(key)) {
+        state[key] = pilotData[key];
+      }
+    });
+  };
+
+  const deletePilot = async (id) => {
+    // 1. Delete Local
+    const saved = JSON.parse(localStorage.getItem('lancer_saved_pilots') || '[]');
+    const filtered = saved.filter(p => p.id !== id);
+    localStorage.setItem('lancer_saved_pilots', JSON.stringify(filtered));
+
+    // 2. Delete Cloud
+    try {
+      await fetch(`/api/pilots?id=${id}`, { method: 'DELETE' });
+    } catch (e) {
+      console.warn("Erro ao deletar da nuvem");
+    }
+  };
+
   const reset = () => {
     state.id = generateId();
     state.name = "";
@@ -219,6 +278,15 @@ export const usePilotCreator = () => {
     state.mech_skills = [0, 0, 0, 0];
     state.skills = [];
     state.talents = [];
+    state.licenses = [];
+    state.loadout = { armor: null, weapons: [], gear: [] };
+    state.activeMech = {
+      name: "Mecha Ativo",
+      frame: "mf_standard_pattern_i_everest",
+      mounts: {},
+      systems: [],
+      sh_partners: {}
+    };
   };
 
   return {
@@ -237,6 +305,10 @@ export const usePilotCreator = () => {
     updateMechSkill,
     setSkillRank,
     setTalentRank,
+    savePilot,
+    getSavedPilots,
+    loadPilot,
+    deletePilot,
     reset
   };
 };

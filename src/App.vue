@@ -113,9 +113,10 @@ export default {
 		async importPilots(files) {
 			let filePromises = Object.keys(files).map(path => files[path]());
 			let fileContents = await Promise.all(filePromises);
+			
+			// Load from JSON files
 			fileContents.forEach(content => {
 				let pilotFromJson = JSON.parse(JSON.stringify(content));
-				// In case the pilot was added from a copy on compcon via sharecode, remove the "reference mark" symbol
 				pilotFromJson.name = pilotFromJson.name.replace("※", "");
 				pilotFromJson.callsign = pilotFromJson.callsign.replace("※", "");
 				let pilotFromVue = this.pilotSpecialInfo[pilotFromJson.callsign.toUpperCase()];
@@ -124,29 +125,43 @@ export default {
 					...pilotFromVue,
 				};
 				this.pilots = [...this.pilots, pilot];
-				pilot.clocks.forEach(content => {
-					let clock = {};
-					clock["type"] = `Pilot Project // ${pilot.callsign}`;
-					clock["result"] = "";
-					clock["name"] = content.title;
-					clock["description"] = content.description;
-					clock["value"] = content.progress;
-					clock["max"] = content.segments;
-					clock["color"] = "#3CB043";
-					this.clocks = [...this.clocks, clock];
-				});
+				
+				if (pilot.clocks) {
+					pilot.clocks.forEach(content => {
+						let clock = {};
+						clock["type"] = `Pilot Project // ${pilot.callsign}`;
+						clock["result"] = "";
+						clock["name"] = content.title;
+						clock["description"] = content.description;
+						clock["value"] = content.progress;
+						clock["max"] = content.segments;
+						clock["color"] = "#3CB043";
+						this.clocks = [...this.clocks, clock];
+					});
+				}
 
-				pilot.reserves.forEach(content => {
-					let reserve = {};
-					reserve["type"] = content.type;
-					reserve["name"] = content.name;
-					reserve["description"] = content.description;
-					reserve["label"] = content.label;
-					reserve["cost"] = content.cost;
-					reserve["notes"] = content.notes;
-					reserve["callsign"] = pilot.callsign.toUpperCase();
-					this.reserves = [...this.reserves, reserve];
-				});
+				if (pilot.reserves) {
+					pilot.reserves.forEach(content => {
+						let reserve = {};
+						reserve["type"] = content.type;
+						reserve["name"] = content.name;
+						reserve["description"] = content.description;
+						reserve["label"] = content.label;
+						reserve["cost"] = content.cost;
+						reserve["notes"] = content.notes;
+						reserve["callsign"] = pilot.callsign.toUpperCase();
+						this.reserves = [...this.reserves, reserve];
+					});
+				}
+			});
+
+			// Load from localStorage / API
+			const saved = await pilotStore.getSavedPilots();
+			saved.forEach(pilot => {
+				// Avoid duplicates if same callsign already exists from files
+				if (!this.pilots.find(p => p.callsign === pilot.callsign)) {
+					this.pilots = [...this.pilots, { ...pilot, isCustom: true }];
+				}
 			});
 		},
 	},

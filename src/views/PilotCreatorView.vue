@@ -19,7 +19,14 @@
 						<span class="step-name">{{ $t('pilotCreator.steps.' + stepName.key) }}</span>
 					</button>
 
+					<div class="actions-label">AÇÕES DE DADOS //</div>
 					<div class="export-container">
+						<button class="action-btn save-btn" @click="savePilot">
+							SALVAR PILOTO
+						</button>
+						<button class="action-btn reset-btn" @click="resetPilot">
+							NOVO PILOTO
+						</button>
 						<button class="export-btn" @click="exportToFoundry">
 							{{ $t('pilotCreator.export') }}
 						</button>
@@ -80,6 +87,16 @@ export default {
 	methods: {
 		exportToFoundry() {
 			downloadPilotJson(pilotStore.state);
+		},
+		savePilot() {
+			if (pilotStore.savePilot()) {
+				alert("PILOTO SALVO COM SUCESSO NO BANCO DE DADOS LOCAL");
+			}
+		},
+		resetPilot() {
+			if (confirm("DESEJA REALMENTE REINICIAR? TODOS OS DADOS NÃO SALVOS SERÃO PERDIDOS.")) {
+				pilotStore.reset();
+			}
 		}
 	}
 };
@@ -142,20 +159,60 @@ export default {
 
 .export-container {
 	margin-top: auto;
+	display: flex;
+	flex-direction: column;
 }
 
-.export-btn {
+.actions-label {
+	font-family: "Big Shoulders Display", cursive;
+	font-size: 14px;
+	color: var(--primary-color);
+	padding: 10px;
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+	margin-top: 20px;
+	letter-spacing: 2px;
+}
+
+.action-btn, .export-btn {
 	width: 100%;
 	background: var(--primary-color);
 	color: white;
-	padding: 15px;
+	padding: 12px;
 	font-family: "Big Shoulders Display", cursive;
-	font-size: 18px;
+	font-size: 16px;
 	letter-spacing: 2px;
 	border: none;
 	cursor: pointer;
 	text-transform: uppercase;
-	transition: background 0.2s;
+	transition: all 0.2s;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.save-btn {
+	background: #1a1a1a;
+	color: var(--primary-color);
+	border: 1px solid var(--primary-color);
+}
+
+.save-btn:hover {
+	background: var(--primary-color);
+	color: white;
+}
+
+.reset-btn {
+	background: transparent;
+	color: #888;
+	font-size: 14px;
+}
+
+.reset-btn:hover {
+	color: white;
+	background: rgba(255, 255, 255, 0.1);
+}
+
+.export-btn {
+	padding: 15px;
+	font-size: 18px;
 }
 
 .export-btn:hover {
