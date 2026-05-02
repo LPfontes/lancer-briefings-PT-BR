@@ -7,42 +7,42 @@
 			<div class="mech-skill-item">
 				<div class="skill-name">{{ $t('pilotCreator.fields.hull') }}</div>
 				<div class="skill-controls">
-					<button @click="adjust(0, -1)" :disabled="getRank(0) <= 0">-</button>
+					<button @click="adjust(0, -1)" :disabled="getRank(0) <= 0" class="ctrl-btn">-</button>
 					<span class="rank">+{{ getRank(0) }}</span>
-					<button @click="adjust(0, 1)">+</button>
+					<button @click="adjust(0, 1)" :disabled="getRank(0) >= 6 || totalPoints >= maxPoints" class="ctrl-btn">+</button>
 				</div>
 			</div>
 			
 			<div class="mech-skill-item">
 				<div class="skill-name">{{ $t('pilotCreator.fields.agility') }}</div>
 				<div class="skill-controls">
-					<button @click="adjust(1, -1)" :disabled="getRank(1) <= 0">-</button>
+					<button @click="adjust(1, -1)" :disabled="getRank(1) <= 0" class="ctrl-btn">-</button>
 					<span class="rank">+{{ getRank(1) }}</span>
-					<button @click="adjust(1, 1)">+</button>
+					<button @click="adjust(1, 1)" :disabled="getRank(1) >= 6 || totalPoints >= maxPoints" class="ctrl-btn">+</button>
 				</div>
 			</div>
 
 			<div class="mech-skill-item">
 				<div class="skill-name">{{ $t('pilotCreator.fields.systems') }}</div>
 				<div class="skill-controls">
-					<button @click="adjust(2, -1)" :disabled="getRank(2) <= 0">-</button>
+					<button @click="adjust(2, -1)" :disabled="getRank(2) <= 0" class="ctrl-btn">-</button>
 					<span class="rank">+{{ getRank(2) }}</span>
-					<button @click="adjust(2, 1)">+</button>
+					<button @click="adjust(2, 1)" :disabled="getRank(2) >= 6 || totalPoints >= maxPoints" class="ctrl-btn">+</button>
 				</div>
 			</div>
 
 			<div class="mech-skill-item">
 				<div class="skill-name">{{ $t('pilotCreator.fields.engineering') }}</div>
 				<div class="skill-controls">
-					<button @click="adjust(3, -1)" :disabled="getRank(3) <= 0">-</button>
+					<button @click="adjust(3, -1)" :disabled="getRank(3) <= 0" class="ctrl-btn">-</button>
 					<span class="rank">+{{ getRank(3) }}</span>
-					<button @click="adjust(3, 1)">+</button>
+					<button @click="adjust(3, 1)" :disabled="getRank(3) >= 6 || totalPoints >= maxPoints" class="ctrl-btn">+</button>
 				</div>
 			</div>
 		</div>
 
-		<div class="total-points">
-			Total: {{ totalPoints }} {{ $t('pilotCreator.mechPointsDist') }}
+		<div class="total-points" :class="{ 'at-limit': totalPoints === maxPoints }">
+			{{ $t('pilotCreator.mechPointsDist') }}: {{ totalPoints }} / {{ maxPoints }}
 		</div>
 	</div>
 </template>
@@ -55,6 +55,9 @@ export default {
 	computed: {
 		totalPoints() {
 			return pilotStore.state.mech_skills.reduce((a, b) => a + b, 0);
+		},
+		maxPoints() {
+			return 2 + pilotStore.state.level;
 		}
 	},
 	methods: {
@@ -78,14 +81,7 @@ export default {
 	gap: 20px;
 }
 
-h2 {
-	font-family: "Big Shoulders Display", cursive;
-	color: var(--primary-color);
-	font-size: 24px;
-	border-bottom: 1px solid var(--primary-color);
-	padding-bottom: 5px;
-	margin-bottom: 5px;
-}
+
 
 .desc {
 	font-family: "Inconsolata", monospace;
@@ -151,12 +147,38 @@ h2 {
 
 .total-points {
 	margin-top: 20px;
-	font-family: "Inconsolata", monospace;
-	font-size: 16px;
-	color: var(--text-location);
+	font-family: "Oxanium", cursive;
+	font-size: 18px;
+	color: rgba(255, 255, 255, 0.6);
 	text-align: center;
-	padding: 10px;
-	background: rgba(255, 255, 255, 0.05);
-	border: 1px dashed var(--text-location);
+	padding: 15px;
+	background: rgba(255, 255, 255, 0.03);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	text-transform: uppercase;
+	letter-spacing: 2px;
+}
+
+.total-points.at-limit {
+	color: #f1a92a;
+	border-color: rgba(241, 169, 42, 0.3);
+	background: rgba(241, 169, 42, 0.05);
+	text-shadow: 0 0 10px rgba(241, 169, 42, 0.3);
+}
+
+.ctrl-btn {
+	width: 32px;
+	height: 32px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 900 !important;
+	border: 1px solid rgba(255, 255, 255, 0.1) !important;
+	transition: all 0.2s;
+}
+
+.ctrl-btn:not(:disabled):hover {
+	background: var(--primary-color) !important;
+	color: white !important;
+	border-color: var(--primary-color) !important;
 }
 </style>

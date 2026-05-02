@@ -14,7 +14,7 @@
 		"@oruga-ui/oruga-next": "^0.5.5",
 		"chart.js": "^3.9.1",
 		"external-svg-loader": "^1.6.1",
-		"lancer-data-pt-br": "^1.0.1",
+		"lancer-data-pt-br": "^1.0.6",
 		"lancer-ktb-data": "^1.1.0",
 		"lancer-longrim-data": "^1.0.11",
 		"lancer-nrfaw-data": "^1.0.8",

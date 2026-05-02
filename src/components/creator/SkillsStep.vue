@@ -1,6 +1,13 @@
 <template>
 	<div class="creator-step">
-		<h2>{{ $t('pilotCreator.steps.skills') }}</h2>
+		<h2>{{ $t('pilotCreator.steps.skills') }} 
+			<div class="points-summary">
+				<span class="points-label">{{ $t('pilotCreator.mechPointsDist') }}:</span>
+				<span class="points-counter" :class="{ 'at-limit': spentPoints >= maxPoints }">
+					{{ maxPoints - spentPoints }} PONTOS DISPONÍVEIS
+				</span>
+			</div>
+		</h2>
 		<p class="desc">{{ $t('pilotCreator.skillsDesc') }}</p>
 		
 		<div class="skills-grid">
@@ -14,7 +21,7 @@
 							<div class="rank-display">
 								<span class="rank-val">+{{ getRank(skill.id) }}</span>
 							</div>
-							<button @click.stop="adjust(skill.id, 2)" :disabled="getRank(skill.id) >= 6">›</button>
+							<button @click.stop="adjust(skill.id, 2)" :disabled="getRank(skill.id) >= 6 || spentPoints >= maxPoints">›</button>
 						</div>
 					</div>
 					<div class="window-title">{{ skill.name }}</div>
@@ -69,6 +76,14 @@ export default {
 			if (newRank > 6) newRank = 6;
 			pilotStore.setSkillRank(id, newRank);
 		}
+	},
+	computed: {
+		spentPoints() {
+			return pilotStore.state.skills.reduce((acc, s) => acc + s.rank / 2, 0);
+		},
+		maxPoints() {
+			return 4 + pilotStore.state.level;
+		}
 	}
 };
 </script>
@@ -80,13 +95,36 @@ export default {
 	gap: 20px;
 }
 
-h2 {
+
+
+.points-summary {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.points-label {
+	font-family: "Inconsolata", monospace;
+	font-size: 12px;
+	color: var(--text-location);
+	opacity: 0.7;
+}
+
+.points-counter {
+	font-size: 14px;
 	font-family: "Big Shoulders Display", cursive;
+	font-weight: 800;
+	background: rgba(0, 0, 0, 0.4);
+	padding: 4px 15px;
+	border: 1px solid var(--primary-color);
 	color: var(--primary-color);
-	font-size: 24px;
-	border-bottom: 1px solid var(--primary-color);
-	padding-bottom: 5px;
-	margin-bottom: 5px;
+	letter-spacing: 1px;
+}
+
+.points-counter.at-limit {
+	background: #27c93f;
+	border-color: #27c93f;
+	color: #000;
 }
 
 .desc {

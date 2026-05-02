@@ -3,52 +3,53 @@
 		<!-- ── IDENTIFICAÇÃO ── -->
 		<div class="identification-form">
 			<div class="section-heading">
-				<span class="section-line"></span>
 				<h2>{{ $t('pilotCreator.steps.identification') }}</h2>
 			</div>
 
-			<div class="form-row">
-				<div class="form-group">
-					<label>{{ $t('pilotCreator.fields.name') }}</label>
-					<div class="input-wrapper">
-						<input type="text" v-model="name" @input="update" class="tech-input" :placeholder="$t('pilotCreator.fields.namePlaceholder') || 'Ex: John Doe'" />
-						<span class="input-accent"></span>
-					</div>
-				</div>
-				<div class="form-group">
-					<label>{{ $t('pilotCreator.fields.callsign') }}</label>
-					<div class="input-wrapper">
-						<input type="text" v-model="callsign" @input="update" class="tech-input callsign-input" :placeholder="$t('pilotCreator.fields.callsignPlaceholder') || 'Ex: MAVERICK'" />
-						<span class="input-accent"></span>
-					</div>
-				</div>
-			</div>
 
-			<div class="form-row level-row">
-				<div class="form-group level-group">
-					<label>{{ $t('pilotCreator.fields.level') }}</label>
-					<div class="level-control">
-						<button class="level-btn" @click="adjustLevel(-1)" :disabled="level <= 0">−</button>
-						<div class="input-wrapper level-input-wrap">
-							<input type="number" v-model="level" @input="update" class="tech-input level-input" min="0" max="12" />
+			<div class="info-container">
+				<div class="form-row">
+					<div class="form-group">
+						<label>{{ $t('pilotCreator.fields.name') }}</label>
+						<div class="input-wrapper">
+							<input type="text" v-model="name" @input="update" class="tech-input" :placeholder="$t('pilotCreator.fields.namePlaceholder') || 'Ex: John Doe'" />
+							<span class="input-accent"></span>
 						</div>
-						<button class="level-btn" @click="adjustLevel(1)" :disabled="level >= 12">+</button>
+					</div>
+					<div class="form-group">
+						<label>{{ $t('pilotCreator.fields.callsign') }}</label>
+						<div class="input-wrapper">
+							<input type="text" v-model="callsign" @input="update" class="tech-input callsign-input" :placeholder="$t('pilotCreator.fields.callsignPlaceholder') || 'Ex: MAVERICK'" />
+							<span class="input-accent"></span>
+						</div>
 					</div>
 				</div>
 
-				<div class="stats-display">
-					<div class="stat-box grit-box">
-						<div class="stat-icon">⬡</div>
-						<span class="stat-label">{{ $t('pilotCreator.fields.grit') }}</span>
-						<span class="stat-value">{{ grit }}</span>
+				<div class="form-row level-row">
+					<div class="form-group level-group">
+						<label>{{ $t('pilotCreator.fields.level') }}</label>
+						<div class="level-control">
+							<button class="level-btn" @click="adjustLevel(-1)" :disabled="level <= 0">−</button>
+							<div class="input-wrapper level-input-wrap">
+								<input type="number" v-model="level" @input="update" class="tech-input level-input" min="0" max="12" />
+							</div>
+							<button class="level-btn" @click="adjustLevel(1)" :disabled="level >= 12">+</button>
+						</div>
 					</div>
-					<div class="stat-box hp-box">
-						<div class="stat-icon">♥</div>
-						<span class="stat-label">{{ $t('pilotCreator.fields.hp') }}</span>
-						<span class="stat-value">{{ hp }}</span>
+
+					<div class="stats-display">
+						<div class="stat-box grit-box">
+							<span class="stat-label">{{ $t('pilotCreator.fields.grit') }}</span>
+							<span class="stat-value">{{ grit }}</span>
+						</div>
+						<div class="stat-box hp-box">
+							<span class="stat-label">{{ $t('pilotCreator.fields.hp') }}</span>
+							<span class="stat-value">{{ hp }}</span>
+						</div>
 					</div>
 				</div>
 			</div>
+			
 
 			<div class="form-group">
 				<label>{{ $t('pilotCreator.fields.background') }}</label>
@@ -137,11 +138,13 @@
 		<!-- ── HABILIDADES DE MECHA ── -->
 		<div class="mech-section">
 			<div class="section-heading">
-				<span class="section-line"></span>
 				<h3 class="mech-title">{{ $t('pilotCreator.steps.mechSkills') }}</h3>
 			</div>
 			<p class="mech-desc">{{ $t('pilotCreator.mechSkillsDesc') }}</p>
-
+			<div class="total-points" :class="{ 'has-points': totalMechPoints > 0, 'at-limit': totalMechPoints >= maxMechPoints }">
+				<span class="total-label">{{ $t('pilotCreator.mechPointsDist') }}</span>
+				<span class="total-value">{{ totalMechPoints }} / {{ maxMechPoints }}</span>
+			</div>
 			<div class="mech-skills-grid">
 				<div
 					v-for="(skill, i) in mechSkillDefs"
@@ -151,7 +154,14 @@
 				>
 					<div class="skill-header">
 						<span class="skill-icon">{{ skill.icon }}</span>
-						<span class="skill-name">{{ $t(skill.key) }}</span>
+						<div class="skill-info">
+							<span class="skill-name">{{ $t(skill.key) }}</span>
+							<div class="skill-bonuses">
+								<span v-for="(bonus, bi) in getMechBonuses(i, getMechRank(i))" :key="bi" class="skill-bonus">
+									{{ bonus }}
+								</span>
+							</div>
+						</div>
 					</div>
 					<div class="skill-bar-wrap">
 						<div class="skill-bar">
@@ -167,11 +177,6 @@
 						<button class="ctrl-btn plus" @click="adjustMech(i, 1)" :disabled="getMechRank(i) >= 6">+</button>
 					</div>
 				</div>
-			</div>
-
-			<div class="total-points" :class="{ 'has-points': totalMechPoints > 0 }">
-				<span class="total-label">{{ $t('pilotCreator.mechPointsDist') }}</span>
-				<span class="total-value">{{ totalMechPoints }}</span>
 			</div>
 		</div>
 	</div>
@@ -191,10 +196,10 @@ export default {
 			background: pilotStore.state.background,
 			backgrounds: bgData,
 			mechSkillDefs: [
-				{ key: 'pilotCreator.fields.hull',        icon: '⬡' },
-				{ key: 'pilotCreator.fields.agility',     icon: '◈' },
-				{ key: 'pilotCreator.fields.systems',     icon: '⬢' },
-				{ key: 'pilotCreator.fields.engineering', icon: '⚙' },
+				{ key: 'pilotCreator.fields.hull',        icon: '⬡', bonusKey: 'pilotCreator.bonuses.hull' },
+				{ key: 'pilotCreator.fields.agility',     icon: '◈', bonusKey: 'pilotCreator.bonuses.agility' },
+				{ key: 'pilotCreator.fields.systems',     icon: '⬢', bonusKey: 'pilotCreator.bonuses.systems' },
+				{ key: 'pilotCreator.fields.engineering', icon: '⚙', bonusKey: 'pilotCreator.bonuses.engineering' },
 			],
 			dropdownOpen: false,
 			isCustomBackground: false,
@@ -236,6 +241,9 @@ export default {
 		},
 		totalMechPoints() {
 			return pilotStore.state.mech_skills.reduce((a, b) => a + b, 0);
+		},
+		maxMechPoints() {
+			return 2 + parseInt(this.level);
 		}
 	},
 	methods: {
@@ -278,6 +286,40 @@ export default {
 		updateCustomName() {
 			this.background = this.customBackgroundName;
 			this.update();
+		},
+		isTermExpanded(name) {
+			return this.expandedTerms === name;
+		},
+		getMechBonuses(index, points) {
+			if (points === 0) return [this.$t('general.none')];
+			
+			const halfPoints = Math.floor(points / 2);
+			const isPt = this.$i18n.locale === 'pt-BR';
+
+			switch(index) {
+				case 0: // Hull
+					return [
+						`+${points * 2} ${isPt ? 'PV' : 'HP'}`,
+						`+${halfPoints} ${isPt ? 'Cap. Reparo' : 'Rep Cap'}`
+					];
+				case 1: // Agility
+					return [
+						`+${points} ${isPt ? 'EVASÃO' : 'EVASION'}`,
+						`+${halfPoints} ${isPt ? 'VELOCIDADE' : 'SPEED'}`
+					];
+				case 2: // Systems
+					return [
+						`+${points} ${isPt ? 'Atk. Tec. & Defesa-E' : 'Tech Atk & E-Def'}`,
+						`+${halfPoints} PS`
+					];
+				case 3: // Engineering
+					return [
+						`+${points} ${isPt ? 'Cap. Calor' : 'Heat Cap'}`,
+						`+${halfPoints} ${isPt ? 'Uso Limitado' : 'Limited Uses'}`
+					];
+				default:
+					return [];
+			}
 		}
 	}
 };
@@ -293,29 +335,42 @@ export default {
 }
 
 /* ── Section Headings ── */
-.section-heading {
+.skill-header {
 	display: flex;
 	align-items: center;
 	gap: 12px;
-	margin-bottom: 18px;
+	margin-bottom: 12px;
 }
 
-.section-line {
-	display: block;
-	width: 4px;
-	height: 28px;
-	background: var(--primary-color);
-	box-shadow: 0 0 10px var(--primary-color);
-	flex-shrink: 0;
+.skill-info {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
 }
 
-h2, .mech-title {
-	font-family: "Big Shoulders Display", cursive;
+.skill-bonuses {
+	display: flex;
+	flex-direction: column;
+	gap: 1px;
+}
+
+.skill-bonus {
+	font-size: 14px;
+	color: rgb(255, 255, 255);
+	font-family: "Inconsolata", monospace;
+	letter-spacing: 0.5px;
+	line-height: 1.2;
+}
+
+
+.mech-title {
+	font-family: "Rajdhani", sans-serif;
 	color: var(--primary-color);
-	font-size: 22px;
+	font-size: 28px;
+	margin: 0;
 	text-transform: uppercase;
 	letter-spacing: 2px;
-	margin: 0;
+	font-weight: 700;
 }
 
 /* ── Form Layout ── */
@@ -327,9 +382,14 @@ h2, .mech-title {
 
 .form-row {
 	display: flex;
+	flex-direction: column;
 	gap: 16px;
 }
-
+.info-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px;
+}
 .form-group {
 	display: flex;
 	flex-direction: column;
@@ -339,7 +399,7 @@ h2, .mech-title {
 
 label {
 	font-family: "Inconsolata", monospace;
-	color: rgba(255, 255, 255, 0.45);
+	color: rgb(255, 255, 255);
 	font-size: 11px;
 	text-transform: uppercase;
 	letter-spacing: 1.5px;
@@ -409,12 +469,12 @@ label {
 
 /* ── Level Control ── */
 .level-row {
-	align-items: flex-end;
 	gap: 20px;
 }
 
 .level-group {
-	flex: 0 0 auto;
+	display: flex;
+	align-items: flex-start;
 }
 
 .level-control {
@@ -461,7 +521,6 @@ label {
 /* Remove number spinners */
 .level-input::-webkit-inner-spin-button,
 .level-input::-webkit-outer-spin-button { -webkit-appearance: none; }
-.level-input[type=number] { -moz-appearance: textfield; }
 
 /* ── Stat Boxes ── */
 .stats-display {
@@ -474,7 +533,7 @@ label {
 .stat-box {
 	flex: 1;
 	display: flex;
-	flex-direction: column;
+	justify-content: space-between;
 	align-items: center;
 	padding: 10px 12px;
 	position: relative;
@@ -505,17 +564,11 @@ label {
 	box-shadow: 0 4px 20px rgba(175,14,30,0.3), inset 0 0 20px rgba(175,14,30,0.15);
 }
 
-.stat-icon {
-	font-size: 20px;
-	color: var(--primary-color);
-	opacity: 0.8;
-	margin-bottom: 4px;
-}
 
 .stat-label {
 	font-family: "Inconsolata", monospace;
 	font-size: 9px;
-	color: rgba(255,255,255,0.4);
+	color: rgb(255, 255, 255);
 	text-transform: uppercase;
 	letter-spacing: 1.5px;
 }
@@ -676,7 +729,7 @@ label {
 
 .mech-desc {
 	font-family: "Inconsolata", monospace;
-	color: rgba(255,255,255,0.4);
+	color: rgb(255, 255, 255);
 	font-size: 12px;
 	margin: -8px 0 2px;
 	letter-spacing: 0.5px;
@@ -823,6 +876,15 @@ label {
 .total-points.has-points {
 	border-color: rgba(175,14,30,0.4);
 	background: rgba(175,14,30,0.06);
+}
+
+.total-points.at-limit {
+	border-color: #00ff41;
+	background: rgba(0, 255, 65, 0.05);
+}
+
+.total-points.at-limit .total-value {
+	color: #00ff41;
 }
 
 .total-label {

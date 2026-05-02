@@ -5,6 +5,7 @@ import Pilots from "@/views/PilotsView.vue";
 import Events from "@/views/EventsView.vue";
 import Glossary from "@/views/GlossaryView.vue";
 import PilotCreator from "@/views/PilotCreatorView.vue";
+import History from "@/views/HistoryView.vue";
 import Config from "@/assets/info/general-config.json";
 
 const DEFAULT_TITLE = Config.defaultTitle;
@@ -47,6 +48,13 @@ const routes = [
 		component: PilotCreator,
 		props: true,
 		meta: { title: `${DEFAULT_TITLE} PILOT CREATOR` },
+	},
+	{
+		path: "/history",
+		name: "History",
+		component: History,
+		props: true,
+		meta: { title: `${DEFAULT_TITLE} HISTORY` },
 	},
 ];
 

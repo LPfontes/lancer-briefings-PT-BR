@@ -1,102 +1,92 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/55d0e9f5-8e0d-422e-a3d0-38a79ecf2413/deploy-status)](https://app.netlify.com/sites/lancer-briefings/deploys)
 
-# Lancer Briefings
+# Lancer Briefings & Pilot Creator (PT-BR)
 
-**[Live Demo](https://lancer.kuenaimaku.com/)** neste link você vera um exemplo original do criador do gerenciador de missões de lancer
+Uma plataforma tática para mestres e jogadores de LANCER, focada em imersão e utilidade. Este projeto combina um **Gerenciador de Briefings de Missão** com um **Criador de Pilotos Moderno**, totalmente localizado em português.
 
-Neste Exemplo que você vai estar pegando esta modificado para a IPSN, eu tambem vou estar deixando anexado todas as facções possiveis e existente de Lancer já prontas para facilitar para todos.
+**[Demonstração Original](https://lancer.kuenaimaku.com/)** - Exemplo do criador original do gerenciador de missões.
 
-[Link das Facções já personalizadas](https://github.com/Dante3147/lancer-briefings-PT-BR/releases/tag/Lancer-Fac%C3%A7%C3%B5es)
-## Creditos/Credits
+---
 
-- Alkyama#2737 (discord) for the original [Figma Template](figma.com/community/file/983540597915480981) used as reference.
-- [VantaJS](https://www.vantajs.com/) for the slick 3d openGL backgrounds.
+## 🚀 Funcionalidades Principais
 
-Novamente, eu não sou o criador, eu sou somente um mero tradutor
+### 1. Briefing de Missão Tático
+- Interface inspirada em terminais militares para apresentar objetivos, mapas e relógios de missão.
+- Suporte a múltiplas facções (IPSN, SSC, HORUS, HA) com estéticas personalizadas.
+- Integração de áudio e vídeo para maior imersão durante as sessões.
 
-## Requisitos
+### 2. Lancer Pilot Creator (NOVO)
+- **Criação de Piloto**: Gestão completa de talentos, licenças e atributos.
+- **Modais de Alta Fidelidade**: Interface moderna para seleção de talentos e equipamentos (Armaduras, Armas e Utilitários).
+- **Regras Integradas**: Verificação automática de níveis, pontos de sistema (SP) e limites de carga.
+- **Exportação/Visualização**: Resumo detalhado do piloto pronto para combate.
 
-- Node (v14+)
-- Light Text Editor (VSCode Recommended)
-- Recommended VSCode extensions:
-  - Color Info
-  - Color Vision
-  - IntelliCode
-  - npm Intellisense
-  - Path Intellisense
-  - JSON Tools
-  - SVG
-  - TypeScript Vue Plugin (Volar)
-  - Vue Language Features (Volar)
+### 3. Localização PT-BR Completa
+- Banco de dados de talentos, equipamentos e sistemas traduzido para o português brasileiro.
+- Tags táticas inteligentes para facilitar a leitura de mecânicas de jogo.
 
-## Configuração inicial
+---
 
-`npm install` - começe dando este comando antes de tudo
+## 🛠️ Requisitos e Instalação
 
-## Build Scripts
+### Requisitos
+- **Node.js** (v16 ou superior recomendado)
+- **Editor de Texto** (VS Code recomendado com extensões Volar/Vue)
 
-`npm run dev` - Disponibilize a aplicação web com recarregamento a quente (para trabalho de desenvolvimento).  
-`npm run build` - Build para colocar na hospedagem
-`npm run serve OR npm run preview` - Visualizar localmente a versão de produção
-`npm run format` - Formate todos os arquivos de código usando `prettier` com base nas regras estabelecidas em `.prettierrc.json`(para trabalho de desenvolvimento)  
+### Instalação
+1. Clone o repositório.
+2. No terminal, execute:
+   ```bash
+   npm install
+   ```
+3. Inicie o servidor de desenvolvimento:
+   ```bash
+   npm run dev
+   ```
 
-## Customização
+### Scripts Disponíveis
+- `npm run dev`: Ambiente de desenvolvimento com Hot Reload.
+- `npm run build`: Gera a versão otimizada para produção na pasta `/dist`.
+- `npm run format`: Formata o código usando Prettier.
 
-A personalização é feita em alguns locais.
+---
 
-### _base.css
+## 🎨 Customização
 
-Este arquivo contém a maioria das cores, fontes e tamanhos do aplicativo web. Experimente alterar os valores na seção de personalização marcada.
+O projeto é altamente configurável através de arquivos JSON e CSS:
 
-### Index.html
+### Configuração Geral (`src/assets/info/general-config.json`)
+- `initialSlug`: Define qual missão carregar por padrão.
+- `planetPath`: Caminho para o vídeo/gif do planeta no cabeçalho.
+- `header`: Customização de textos e sub-headers do topo da página.
 
-Este arquivo contém o [VantaJS](https://www.vantajs.com/) plano de fundo usado no aplicativo web. Acesse o site, explore as diferentes opções de efeitos e, quando estiver pronto, substitua o `VANTA.GLOBE` script com o seu personalizado. Observe que, se você usar um efeito diferente, precisará substituir o URL do script acima por um de [their CDN repository](https://cdn.jsdelivr.net/npm/vanta@latest/dist/).
+### Pasta `public/` (Ativos Estáticos)
+- `/pilots` e `/mechs`: Armazene as imagens dos seus personagens. Os nomes dos arquivos devem corresponder ao `callsign` do piloto.
+- `/faction-logos`: Logotipos SVG usados para mapear ícones de fabricantes.
+- `startup.ogg`: Som de inicialização do sistema.
 
-### /pasta "public"
+### Estilização (`src/assets/_base.css`)
+Contém as variáveis de cores, fontes e tokens de design. Ideal para mudar o "feeling" da facção principal.
 
-Esta pasta contém todos os arquivos locais de imagem, áudio e vídeo..
+---
 
-- `/faction-logos` - Arquivos SVG com os logotipos de cada facção principal, atualmente usados ​​para mapear ícones para fabricantes de mechas.
-- `/icons` - Se você deseja substituir os ícones usados ​​em todo o aplicativo, é aqui que você os troca.
-- `/pilots` - Esta seção armazena imagens dos pilotos e suas biografias. Os nomes dos arquivos DEVEM corresponder ao `callsign` das fichas dos pilotos exemplo o do meu personagem é "ARK" ou seja quando for lançar a foto do seu personagem na pasta das fotos não coloque o nome, coloque o codinome dele.
-- `/mechs` - É aqui que as imagens dos mechs são armazenadas. Os nomes dos arquivos DEVEM corresponder à propriedade `mech` dos pilotos, o mesmo serve para os mechas, não coloque o nome do seu mecha,mas sim do codinome do piloto.
-- `bullet.webp` - Isso substitui o marcador padrão em áreas Markdown..
-- `planet.webm` - Este é o vídeo sobre a rotação do planeta usado no cabeçalho..
-- `startup.ogg` - Este é o som que toca ao carregar a página, se você trocar o arquivo certifique do formato ser .ogg.
+## 🌐 Deploy (Hospedagem)
 
-### pasta src/assets
-- `/clocks` - Aqui são armazenados os arquivos JSON referentes às missões relevantes ou aos relógios da história principal. Você pode adicionar e configurar relógios adicionando ou modificando objetos JSON à lista, eu já deixei os exemplos de como criar os relógios no codigo junto com os comentarios.
-- `/events` - Aqui são armazenados os arquivos JSON referentes às missões relevantes ou aos relógios da história principal. Você pode adicionar e configurar relógios adicionando ou modificando objetos JSON à lista.
-- `/LCPs` - É aqui que os arquivos LCP descompactados deverão ser lidos. Incluí um exemplo de como criar uma importação adequada via `wallflower-data`.
-- `/missions` - É aqui que ficam armazenados os resumos das missões. O nome do arquivo DEVE corresponder ao `slug` propriedade dentro dos dados do aplicativo, deixei comentarios de instruções para tentar auxiliar melhor.
-- `/pilots` - É aqui que os arquivos JSON dos pilotos (exportados do Comp/Con) são armazenados. Os nomes dos arquivos DEVEM corresponder ao `callsign` das fichas dos pilotos.
-- `/reserves` - É aqui que ficam armazenados os arquivos JSON de reservas dos pilotos. Quaisquer reservas referentes aos dados exportados de cada piloto também serão adicionadas às reservas,deixei um exmeplo para tentar facilitar com a ficha do meu personagem.
-- `/info/general-config.json` - EUse este comando para alterar qual missão é carregada inicialmente, definir as informações do piloto e outras opções de facilidade de uso que foram introduzidas para modificar o funcionamento do site. Abaixo estão os valores que você pode precisar alterar.
-  - `initialSlug` - Controla qual arquivo de missão é selecionado na inicialização. Este DEVE corresponder ao slug de um arquivo markdown dentro do `/public/missions/` diretório.
-  - `planetPath` - O caminho (relativo ao diretório raiz deste repositório) para o arquivo .webm ou .gif a ser usado como elemento de vídeo do planeta.
-[Link do programa que o criador usa para criar os planetas](https://deep-fold.itch.io/pixel-planet-generator)
-  - `defaultTitle` - Define o prefixo do título de cada página (o texto que aparece na aba do seu navegador).
-  - `icon` - O caminho (relativo ao diretório raiz deste repositório) para a imagem que deve ser usada como favicon. Esta imagem será exibida na aba do navegador para este site.
-  - `header` - Lê o objeto JSON `header` para determinar qual texto colocar em cada elemento do componente `Header.vue`.
+Recomendamos o uso do **Netlify** para um deploy rápido e gratuito:
+1. Conecte seu fork do GitHub ao Netlify.
+2. **Build Command**: `npm run build`
+3. **Publish Directory**: `dist`
+4. **Branch**: `master` (ou sua branch principal).
 
-### /src/components/pilot.vue
+---
 
-Este arquivo contém toda a importação de material relacionado a LCPs. Veja a linha 150 para um exemplo de como extrair e importar LCPs para este site, caso não funcione peço paciencia, tive um pequeno problema na importação de LCPS.
+## 💎 Créditos
 
+- **Original Mission Briefing**: Criado por [Kuenaimaku](https://lancer.kuenaimaku.com/).
+- **Tradução e Modernização**: Dante3147 / LPfontes.
+- **Figma Reference**: Alkyama#2737.
+- **Efeitos Visuais**: [VantaJS](https://www.vantajs.com/).
 
-## Recomendações de hospedagem
+---
 
-Recomendação do criador é uma curiosidade, esta hospedagem que ele recomendou é a mesma do compcon
-
-Eu recomendo fortemente o uso de [Netlify](https://www.netlify.com/) Para hospedagem, já que não há custo para hospedagem, possui Implantação Contínua e eles fornecerão um URL. Registre-se para obter uma conta e clique no `New Site from Git` botão.
-Na próxima página, escolha o serviço Git que você usou para criar um fork deste repositório e autentique-se. Na próxima página, selecione o `lancer-briefings` repositório. Se você não conseguir ver o repositório listado na página, clique no `Can’t see your repo here? Configure the Netlify app on <git site>` Link na parte inferior da página.
-Por fim, certifique-se de que a branch que está sendo implantada seja `master`, o campo `base directory` esteja em branco, o `build command` seja `npm run build` e o diretório de publicação seja `dist`.
-
-Após criar o site remotamente, clique no link fornecido na guia `site overview` e verifique se tudo está correto.
-
-Alternativamente, se você usa o GitHub, provavelmente pode contar com o GitHub Pages. Dê uma olhada no [vite documentation](https://vitejs.dev/guide/static-deploy.html#github-pages) Para mais informações.
-
-Sobre a recomendação da hospedagem eu ainda não testei, assim que hospedar pretendo colocar um tutorial aqui
-## Utilização no FoundryVTT
-
-instalar o módulo [Inline Webviewer](https://foundryvtt.com/packages/inlinewebviewer) Use o novo botão do módulo para enviar sites aos seus jogadores, incluindo este aqui. Recomendamos visualizar em 1920x1080.
+*LANCER is a tabletop RPG created by Massif Press. This tool is a fan project and is not affiliated with Massif Press.*

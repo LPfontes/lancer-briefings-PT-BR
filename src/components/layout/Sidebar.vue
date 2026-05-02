@@ -26,6 +26,10 @@
 					<img src="/icons/protocol.svg" />
 					<span>{{ $t('sidebar.glossary') }}</span>
 				</router-link>
+				<router-link class="clipped-bottom-right" to="/history">
+					<img src="/icons/calendar.svg" />
+					<span>{{ $t('sidebar.history') }}</span>
+				</router-link>
 				<router-link class="clipped-bottom-right" to="/creator">
 					<img src="/icons/deployable.svg" />
 					<span>{{ $t('sidebar.creator') }}</span>

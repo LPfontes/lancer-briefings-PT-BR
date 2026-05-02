@@ -9,7 +9,10 @@
     "save": "SALVAR",
     "active": "ATIVO",
     "locked": "BLOQUEADO",
-    "installed": "INSTALADO"
+    "installed": "INSTALADO",
+    "search": "BUSCAR",
+    "remove": "REMOVER",
+    "no_cascade": "NO_CASCADE_ATIVO"
   },
   "header": {
     "year": "Ano",
@@ -23,11 +26,13 @@
     "pilots": "Pilotos",
     "logs": "Registros",
     "glossary": "Glossário",
+    "history": "História",
     "creator": "Criador de Ficha"
   },
   "pilotCreator": {
     "title": "CRIADOR DE PILOTOS",
-    "export": "EXPORTAR P/ FOUNDRY",
+    "manufacturerLicenses": "LICENÇAS DE FABRICANTE",
+    "export": "EXPORTAR PARA COMP/CON (.json)",
     "steps": {
       "identification": "Identificação",
       "pilotGear": "Equipamento de Piloto",
@@ -54,7 +59,8 @@
       "mounts": "Montagens (Armas)",
       "systems": "Sistemas",
       "empty": "-- Vazio --",
-      "cost": "Custo"
+      "cost": "Custo",
+      "standard": "PADRÃO"
     },
     "gearDesc": "Escolha seus equipamentos táticos (Máx: 1 Armadura, 2 Armas, 3 Itens).",
     "gear": {
@@ -77,7 +83,36 @@
       "agility": "Agilidade",
       "systems": "Sistemas",
       "engineering": "Engenharia"
-    }
+    },
+    "bonuses": {
+      "hull": "+2 PV/ponto; +1 Cap. Reparo/2 pontos",
+      "agility": "+1 Evasão/ponto; +1 Velocidade/2 pontos",
+      "systems": "+1 Atk. Tec. e Defesa-E/ponto; +1 PS/2 pontos",
+      "engineering": "+1 Cap. Calor/ponto; +1 Uso Limitado/2 pontos"
+    },
+    "licenseUnlocks": "DESBLOQUEIOS DE LICENÇA",
+    "chassisTraits": "TRAÇOS DO CHASSI",
+    "confirmLicenses": "CONFIRMAR LICENÇAS",
+    "gmsStandard": "PADRÃO GMS",
+    "selectLicenseToView": "SELECIONE UMA LICENÇA PARA VER DETALHES",
+    "availableRanks": "RANQUES DISPONÍVEIS",
+    "searchIn": "BUSCAR EM {source}...",
+    "gearUnlocks": "EQUIPAMENTO DESBLOQUEADO //",
+    "weaponsUnlocks": "ARMAS DESBLOQUEADAS //",
+    "systemsUnlocks": "SISTEMAS DESBLOQUEADOS //",
+    "noGearUnlocks": "NENHUM EQUIPAMENTO ADICIONAL NESTE RANQUE",
+    "licenseLevelAuth": "ACESSO À LICENÇA NÍVEL {rank} AUTORIZADO",
+    "license": "LICENÇA",
+    "manufacturer": "FABRICANTE",
+    "clickToView": "CLIQUE PARA VER //",
+    "blockedBySuperheavy": "BLOQUEADO POR ARMA SUPERPESADA",
+    "linkedToSuperheavy": "Vinculado à Arma Superpesada na montagem {mount}",
+    "linkAsSecondMount": "VINCULAR COMO 2ª MONTAGEM",
+    "cannotLink": "NÃO PODE SER VINCULADO",
+    "selectWeapon": "SELECIONAR ARMA",
+    "requiresSecondMount": "REQUER 2ª MONTAGEM",
+    "integratedMount": "INTEGRADA",
+    "integratedSystem": "SISTEMA INTEGRADO"
   },
   "mech": {
     "coreSystem": "SISTEMA DE NÚCLEO",
@@ -94,7 +129,9 @@
       "sp": "PS",
       "evasion": "Evasão",
       "speed": "Velocidade",
-      "heatcap": "Cap. de Calor"
+      "heatcap": "Cap. de Calor",
+      "structure": "Estrutura",
+      "stress": "Estresse"
     },
     "hull": "CASCO",
     "systems": "SISTEMAS",
@@ -103,6 +140,49 @@
     "traits": "TRAÇOS",
     "mounts": "ENCAIXES",
     "mount": "ENCAIXE",
+    "chassis": "CHASSI",
+    "mountTypes": {
+      "main": "Principal",
+      "flex": "Flexível",
+      "heavy": "Pesada",
+      "aux": "Auxiliar",
+      "auxiliary": "Auxiliar",
+      "main/aux": "Principal/Auxiliar",
+      "aux/aux": "Auxiliar/Auxiliar",
+      "integrated": "Integrada",
+      "superheavy": "Superpesada"
+    },
+    "weaponTypes": {
+      "melee": "Corpo a Corpo",
+      "rifle": "Fuzil",
+      "cannon": "Canhão",
+      "launcher": "Lançador",
+      "cqb": "CQR",
+      "nexus": "Nexo",
+      "weapon": "Arma",
+      "special": "Especial"
+    },
+    "systemTypes": {
+      "ai": "IA",
+      "deployable": "Posicionável",
+      "tech": "Técnico",
+      "shield": "Escudo",
+      "armor": "Armadura",
+      "gear": "Equipamento",
+      "flight": "Voo",
+      "flight system": "Sistema de Voo",
+      "mod": "Modificação",
+      "drone": "Drone",
+      "mine": "Mina"
+    },
+    "activations": {
+      "quick": "Ação Rápida",
+      "full": "Ação Completa",
+      "protocol": "Protocolo",
+      "reaction": "Reação",
+      "free": "Ação Livre",
+      "none": "Nenhuma"
+    },
     "activate": "Ativar"
   },
   "glossary": {
@@ -177,5 +257,17 @@
   },
   "reserve": {
     "owner": "Dono da Reserva"
+  },
+  "history": {
+    "title": "HISTÓRIA",
+    "chronology": "CRONOLOGIA ACEITA DA UNIÃO",
+    "note": "\"au\" significa \"antes da União\", enquanto \"u\" significa \"Era da União\".",
+    "tabs": {
+      "chronology": "CRONOLOGIA",
+      "universe": "UNIVERSO",
+      "history": "HISTÓRIA",
+      "politics": "POLÍTICA",
+      "pillars": "PILARES"
+    }
   }
 }

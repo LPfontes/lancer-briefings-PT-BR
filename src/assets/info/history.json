@@ -1,0 +1,162 @@
+[
+  {
+    "title": "ANTES DA UNIÃO",
+    "range": "C. 6000–1AU",
+    "events": [
+      {
+        "date": "c. 6000au",
+        "description": "Apollo — o primeiro dos Dez, uma série de enormes naves geracionais — parte para um mundo Gaia identificado."
+      },
+      {
+        "date": "c. 5800au",
+        "description": "Apollo confirma a aterrissagem e o estabelecimento de uma colônia no planeta Karrakis; os lançamentos sequenciais das próximas nove naves começam logo em seguida."
+      },
+      {
+        "date": "c. 5000au",
+        "description": "O colapso ecológico catastrófico marca o fim da era Antropoceno através de extinções em massa irreversíveis e mudanças climáticas. Historiadores costumam identificar este como o ponto em que a Queda se tornou inevitável para a Velha Humanidade."
+      },
+      {
+        "date": "c. 4900au",
+        "description": "A última das Dez, Āyāt, parte para as estrelas."
+      },
+      {
+        "date": "c. 4900–150au",
+        "description": "Uma era das trevas. A população humana do Berço (antiga Terra) cai de um pico de cerca de 15 bilhões para menos de 500.000 humanos. Todo contato com os Dez cessa."
+      },
+      {
+        "date": "150au",
+        "description": "A descoberta no Berço de Massif-A, o primeiro de vários cofres pré-Queda, promove uma revitalização social global. Cofres adicionais são identificados usando dados preservados dentro deles, e os poderes existentes correm para controlá-los."
+      },
+      {
+        "date": "53au",
+        "description": "As Pequenas Guerras começam — uma luta polarizada entre as principais potências do Berço alimentada pela descoberta dos Cofres. A acumulação de conflitos regionais que se seguiram lançou o Berço em uma guerra global."
+      }
+    ]
+  },
+  {
+    "title": "PERÍODO DE FUNDAÇÃO",
+    "range": "0–2000U",
+    "events": [
+      {
+        "date": "0u",
+        "description": "A conclusão das Pequenas Guerras leva à fundação da União e ao estabelecimento do Primeiro Comitê da União (PriCom; retroativamente batizado pelo Segundo Comitê)."
+      },
+      {
+        "date": "1400u",
+        "description": "Sistemas de comunicação de longo alcance são reativados, permitindo a recuperação de inúmeras transmissões de SOS arquivadas da era da Queda. O Programa Espacial da União (PEU) é anunciado logo depois."
+      },
+      {
+        "date": "1430u",
+        "description": "Uma expedição do PEU pousa na lua do Berço, Luna, e reativa instalações antigas, incluindo o estaleiro Teseu."
+      },
+      {
+        "date": "1450u",
+        "description": "As primeiras naves interestelares da classe Proximaluz — baseadas em planos preservados nos cofres de Massif e construídas usando o estaleiro Teseu — são lançadas, buscando mundos Gaia identificados em mapas estelares antigos."
+      },
+      {
+        "date": "1700–1999u",
+        "description": "A expansão dentro do Berço ocorre. A União monta expedições pelos mundos e luas do sistema do Berço, repovoando antigas estações, instalações e colônias."
+      },
+      {
+        "date": "1998u",
+        "description": "O PEU Hino, uma nave Proximaluz .8C associada à missão Jardim da Fronteira, relata o primeiro contato com sinais de socorro de duas das Dez — o Rihla e o Armstrong — e aqueles descendentes de suas tripulações originais: os povos áunicos, organizados sob o Ecúmeno Áun em um mundo habitável próximo."
+      },
+      {
+        "date": "2000u",
+        "description": "A instalação Coro Oracular é descoberta sob a Vastitas Borealis de Marte. A instalação é reativada, e as Cinco Vozes — mentes máquinas avançadas capazes de prever o futuro com precisão quase perfeita — são identificadas. Isso cria as bases para o que mais tarde se tornaria a Previsão/Simulação Galáctica."
+      }
+    ]
+  },
+  {
+    "title": "PRIMEIRO PERÍODO DE EXPANSÃO",
+    "range": "2001–2997U",
+    "events": [
+      {
+        "date": "2001u",
+        "description": "Várias colônias da Velha Humanidade são descobertas além do Berço — algumas abandonadas, outras habitadas. O Departamento Administrativo da União (DAU) é criado para supervisionar os esforços de expansão interestelar e a reintegração de todos os enclaves redescobertos."
+      },
+      {
+        "date": "2800u",
+        "description": "Primeiro contato com a Nova Federação, que mais tarde se tornou as Baronias Comerciais Karrakinas."
+      },
+      {
+        "date": "2880u",
+        "description": "Atrito diplomático entre os povos Áunicos e colônias da União em Jardim da Fronteira leva à Primeira Guerra Distal. Elementos antrochauvinistas radicais na União lançam o PISTÃO-1 — um ataque cinético em massa no estilo \"espingarda\" — em direção ao espaço Áunico. O Primeiro Comitê é dissolvido, substituído pelo Segundo Comitê (SegCom)."
+      },
+      {
+        "note": "TAMBÉM DURANTE O PRIMEIRO PERÍODO DE EXPANSÃO",
+        "description": "Metat Áun aparece acima do mundo natal Áunico, iniciando o período \"Primeira Aurora\" Áunica. Isso marca o primeiro contato humano com o que viria a ser chamado de entidade MONISTA, embora Metat Áun permaneça classificado como MONISTA-2 (apesar de se manifestar antes do MONISTA-1)."
+      }
+    ]
+  },
+  {
+    "title": "PERÍODO NEO-ANTROPOCENO",
+    "range": "2998–3199U",
+    "events": [
+      {
+        "date": "2998u",
+        "description": "Durante o curso de uma sessão de previsão, as Cinco Vozes manifestam o MONISTA-1 (também conhecido como \"RÁ\"). O MONISTA-1 é retroativamente classificado como a primeira PNH."
+      },
+      {
+        "date": "3000u",
+        "description": "O MONISTA-1 ascende, causando o Evento Deimos — o completo desaparecimento de Deimos do espaço conhecido. O estudo da ciência paracausal se torna possível. As diversas naves, ônibus espaciais e organizações de força do PEU são reorganizadas na Marinha da União."
+      },
+      {
+        "date": "3002u",
+        "description": "Os Acordos de Primeiro Contato são assinados em negociações com o MONISTA-1 após o Cerco a Marte. O conceito de \"pessoas não humanas\" é definido e aplicado às mentes de máquinas anômalas deixadas para trás. O processo de acorrentamento é desenvolvido para conter as PNHs."
+      },
+      {
+        "date": "3130–3200u",
+        "description": "O Espaço lampejo é identificado e perfurado. A tecnologia para criar campos de \"lampejo\" é desenvolvida, e a primeira estação de lampejo é construída. O Departamento Administrativo da União (DAU) é dissolvido e substituído pela Missão Colonial da União (MCU)."
+      },
+      {
+        "note": "TAMBÉM DURANTE O PERÍODO NEO-ANTROPOCENO",
+        "description": "Os Áun passam por um intenso conflito civil-religioso, o Cisma Áunico, levando à criação da Ascendência Áunica. O Ecúmeno Áun é formalmente dissolvida e os Áun Ecumênicos fogem para Jardim da Fronteira, no espaço da União. A maioria se refugia em Cornucópia, agora o mundo capital do setor."
+      }
+    ]
+  },
+  {
+    "title": "SEGUNDO PERÍODO DE EXPANSÃO",
+    "range": "3200–4599U",
+    "events": [
+      {
+        "date": "3200–4599u",
+        "description": "O Segundo Período de Expansão começa, enquanto o Segundo Comitê inicia um esforço massivo de colonização e expansão em toda a União no Braço de Órion da galáxia. A rede de \"lampejo\" é expandida através da construção rápida de portais, e bilhões de colonos são enviados para dezenas de milhares de mundos durante este período. Este período representa o maior movimento de vida humana registrado na história."
+      },
+      {
+        "date": "4500–4560u",
+        "description": "A Crise Hercyniana. Durante o curso do conflito, a eficácia dos trajes reforçados e chassis mecanizados (\"mechas\") é demonstrada. A fabricante estatal da União, Sistemas Massivos Gerais, iniciou a produção em larga escala de chassis mecanizados."
+      },
+      {
+        "date": "4560–4591u",
+        "description": "O crescente descontentamento com a grande expansão, a crescente necessidade de lidar com o PISTÃO-1 e a criminalidade aguda da Crise Hercyniana explodem em uma revolução popular generalizada em todo o Berço e alguns mundos do Núcleo Galáctico. A União é tomada pela guerra civil."
+      },
+      {
+        "note": "TAMBÉM DURANTE O SEGUNDO PERÍODO DE EXPANSÃO",
+        "description": "Ras Shamra é colonizada e começa suas Eras Comedidas. Em Karrakis, a Nova Federação é dissolvida e substituída pelas Baronias Comerciais Karrakinas."
+      }
+    ]
+  },
+  {
+    "title": "PERÍODO DO TERCEIRO COMITÊ",
+    "range": "4591U–",
+    "events": [
+      {
+        "date": "4591–4600u",
+        "description": "Os membros remanescentes do Comitê Central do Segundo Comitê concordam com os termos de rendição em 4591u. Um novo governo estável é formado em 4600u: o Terceiro Comitê (TerCom). A Missão Colonial da União é imediatamente dissolvida e o Departamento Administrativo da União é reconstituído. A expansão é interrompida. Em 4600, Harrison I e alguns apoiadores fogem para Ras Shamra e estabelecem a Arsenal Harrison."
+      },
+      {
+        "date": "4630u",
+        "description": "A Arsenal Harrison e as Baronias Comerciais Karrakinas se envolvem na Guerra dos Interesses; a União age como uma parte neutra, garantindo a paz. Harrison I retorna ao Berço e enfrenta a justiça em troca da soberania contínua da Arsenal; as Baronias concordam em se tornar um estado membro da União."
+      },
+      {
+        "date": "5000u",
+        "description": "A presença de uma frota de cruzadores Áunico em Jardim da Fronteira é confirmada. Pela primeira vez, um portal \"lampejo\" é perdido para ações hostis. A Segunda Guerra Distal começa."
+      },
+      {
+        "date": "5016u",
+        "description": "O ano em que ocorrem os eventos de Lancer."
+      }
+    ]
+  }
+]

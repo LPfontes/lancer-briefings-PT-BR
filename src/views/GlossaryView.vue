@@ -17,53 +17,81 @@
 					<button :class="{ active: currentTab === 'manufacturers' }" @click="currentTab = 'manufacturers'">GRANDES FABRICANTES</button>
 				</div>
 
-				<div v-if="currentTab === 'terms'" class="tab-content">
-					<div class="search-bar">
-						<input type="text" v-model="searchQuery" :placeholder="$t('glossary.search')" class="tech-input" />
+				<div v-if="currentTab === 'terms'" class="tab-content master-detail-layout">
+					<!-- MASTER LIST (Left) -->
+					<div class="master-list-pane">
+						<div class="search-bar">
+							<input type="text" v-model="searchQuery" :placeholder="$t('glossary.search')" class="tech-input" />
+						</div>
+
+						<div class="category-filters">
+							<button 
+								v-for="catKey in categoryLabels" 
+								:key="catKey"
+								class="category-chip"
+								:class="{ active: selectedCategory === catKey }"
+								@click="selectedCategory = catKey"
+							>
+								{{ $t(`glossary.categories.${catKey}`) }}
+							</button>
+						</div>
+
+						<div class="terms-scroll-area tech-scroll">
+							<div 
+								v-for="term in filteredGlossary" 
+								:key="term.name" 
+								class="term-item" 
+								:class="{ active: selectedTermName === term.name, [getTermCategory(term.name)]: true }"
+								@click="selectTerm(term)"
+							>
+								<div class="term-selector-icon"></div>
+								<span class="term-name">{{ term.name }}</span>
+								<span class="material-symbols-outlined" v-if="selectedTermName === term.name">chevron_right</span>
+							</div>
+						</div>
+						
 						<div class="search-info">ENTRADAS DISPONÍVEIS: {{ filteredGlossary.length }}</div>
 					</div>
 
-					<div class="category-filters">
-						<button 
-							v-for="catKey in categoryLabels" 
-							:key="catKey"
-							class="category-chip"
-							:class="{ active: selectedCategory === catKey }"
-							@click="selectedCategory = catKey"
-						>
-							{{ $t(`glossary.categories.${catKey}`) }}
-						</button>
-					</div>
-
-					<div class="glossary-grid">
-						<div v-for="term in filteredGlossary" :key="term.name" class="event-window glossary-item" :class="{ expanded: isTermExpanded(term.name) }">
-							<div class="window-title-bar" @click="toggleTerm(term.name)">
-								<div class="window-controls">
-									<span class="control green"></span>
+					<!-- DETAIL PANE (Right) -->
+					<div class="detail-pane">
+						<div v-if="selectedTerm" class="data-reader-window">
+							<div class="reader-header">
+								<div class="reader-header-top">
+									<span class="protocol-id">NDL-C-DB // ENTRY: {{ selectedTerm.name }}</span>
+									<span class="category-tag">{{ getTermCategoryLabel(selectedTerm.name) }}</span>
 								</div>
-								<div class="window-title">{{ term.name }}</div>
-								<div class="window-status">{{ isTermExpanded(term.name) ? 'ACTIVE' : 'LOCKED' }}</div>
+								<h2 class="reader-title">{{ selectedTerm.name }}</h2>
 							</div>
-							<div class="window-body" v-show="isTermExpanded(term.name)">
-								<div class="term-content" v-html="term.description"></div>
+							
+							<div class="reader-body tech-scroll">
+								<div class="term-content-full" v-html="selectedTerm.description"></div>
 							</div>
+
+							<div class="reader-footer">
+								<div class="scan-line"></div>
+								<span>STATUS: DATA_STABLE // AUTH: COMP/CON</span>
+							</div>
+						</div>
+						<div v-else class="empty-reader">
+							<div class="empty-icon">
+								<span class="material-symbols-outlined">database</span>
+							</div>
+							<p>SELECIONE UMA ENTRADA PARA VISUALIZAÇÃO</p>
+							<div class="loading-bar-static"></div>
 						</div>
 					</div>
 				</div>
 
 				<div v-if="currentTab === 'manufacturers'" class="tab-content">
-					<div class="manufacturers-list">
-						<div v-for="m in manufacturers" :key="m.id" class="event-window manufacturer-card" :style="{ '--m-color': m.dark }" :class="{ expanded: isTermExpanded(m.id) }">
-							<div class="window-title-bar" :style="{ background: m.dark }" @click="toggleTerm(m.id)">
+					<div class="manufacturers-list tech-scroll">
+						<div v-for="m in manufacturers" :key="m.id" class="event-window manufacturer-card" :style="{ '--m-color': m.dark }" @click="openManufacturerModal(m)">
+							<div class="window-title-bar" :style="{ background: m.dark }">
 								<div class="window-controls">
 									<span class="control red"></span>
 								</div>
 								<div class="window-title">{{ m.name }} ({{ m.id }})</div>
-								<div class="window-status">CORPRO-ESTADO</div>
-							</div>
-							<div class="window-body" v-show="isTermExpanded(m.id)">
-								<div class="manufacturer-quote" v-html="m.quote"></div>
-								<div class="manufacturer-desc" v-html="m.description"></div>
+								<div class="window-status">VER DETALHES // CORPRO-ESTADO</div>
 							</div>
 						</div>
 					</div>
@@ -76,14 +104,24 @@
 				</div>
 			</div>
 		</section>
+
+		<ManufacturerModal 
+			:isOpen="isManufacturerModalOpen" 
+			:manufacturer="selectedManufacturer" 
+			@close="closeManufacturerModal" 
+		/>
 	</div>
 </template>
 
 <script>
 import { glossary as glossaryData, manufacturers as manufacturerData } from "lancer-data-pt-br";
+import ManufacturerModal from "@/components/modals/ManufacturerModal.vue";
 
 export default {
 	name: "GlossaryView",
+	components: {
+		ManufacturerModal
+	},
 	props: {
 		animate: {
 			type: Boolean,
@@ -98,16 +136,18 @@ export default {
 			glossary: glossaryData,
 			manufacturers: manufacturerData,
 			currentTab: "terms",
-			expandedTerms: [],
+			selectedTermName: null,
 			selectedCategory: "all",
 			categoryGroups: {
 				stats: ["Armadura", "Pontos de Sistema", "Defesa-E", "Evasão", "Brio", "Cap. de Calor", "Pontos de Vida (PV)", "Cap. de Reparo", "Estresse", "Estrutura", "Sensores", "Tamanho", "Velocidade"],
-				combat: ["Dano", "Dano Bônus", "Imunidade", "Resistência", "Acertos Críticos", "Dano/Calculando o Dano", "Calor (Queimadura)", "Calor"],
+				combat: ["Dano", "Dano Bônus", "Imunidade", "Resistência", "Acertos Críticos", "Dano/Calculando o Dano", "Queimadura", "Calor"],
 				aoe: ["Alcance", "Ameaça", "Linha", "Cone", "Explosão", "Emanação"],
 				movement: ["Movimento Involuntário", "Terreno Difícil", "Terreno Perigoso", "Levantar e Arrastar", "Pular e Escalar", "Queda/Dano de Queda", "Gravidade Zero", "Voo/Pairar", "Teletransporte"],
 				rules: ["Personagem", "Alvo de Salvamento", "Ataque Tecnológico"]
 			},
-			categoryLabels: ["all", "stats", "combat", "aoe", "movement", "rules"]
+			categoryLabels: ["all", "stats", "combat", "aoe", "movement", "rules"],
+			isManufacturerModalOpen: false,
+			selectedManufacturer: {}
 		};
 	},
 	computed: {
@@ -126,19 +166,32 @@ export default {
 				term.name.toLowerCase().includes(query) || 
 				term.description.toLowerCase().includes(query)
 			);
+		},
+		selectedTerm() {
+			if (!this.selectedTermName) return null;
+			return this.glossary.find(t => t.name === this.selectedTermName);
 		}
 	},
 	methods: {
-		toggleTerm(name) {
-			const index = this.expandedTerms.indexOf(name);
-			if (index > -1) {
-				this.expandedTerms.splice(index, 1);
-			} else {
-				this.expandedTerms.push(name);
-			}
+		selectTerm(term) {
+			this.selectedTermName = term.name;
 		},
-		isTermExpanded(name) {
-			return this.expandedTerms.includes(name);
+		getTermCategory(name) {
+			for (const [key, list] of Object.entries(this.categoryGroups)) {
+				if (list.includes(name)) return key;
+			}
+			return 'rules';
+		},
+		getTermCategoryLabel(name) {
+			const key = this.getTermCategory(name);
+			return this.$t(`glossary.categories.${key}`).toUpperCase();
+		},
+		openManufacturerModal(m) {
+			this.selectedManufacturer = m;
+			this.isManufacturerModalOpen = true;
+		},
+		closeManufacturerModal() {
+			this.isManufacturerModalOpen = false;
 		}
 	}
 };
@@ -201,12 +254,198 @@ export default {
 	overflow: hidden;
 }
 
-.search-bar {
-	display: flex;
-	flex-direction: column;
-	gap: 5px;
+/* Master-Detail Layout */
+.master-detail-layout {
+	display: grid;
+	grid-template-columns: 350px 1fr;
+	gap: 20px;
+	height: 100%;
 }
 
+.master-list-pane {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	height: 100%;
+	overflow: hidden;
+	background: rgba(0, 0, 0, 0.2);
+	border: 1px solid rgba(255, 255, 255, 0.05);
+	padding: 15px;
+}
+
+.terms-scroll-area {
+	flex: 1;
+	overflow-y: auto;
+	padding-right: 5px;
+}
+
+.term-item {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 10px 15px;
+	margin-bottom: 5px;
+	background: rgba(255, 255, 255, 0.02);
+	border-left: 3px solid #333;
+	cursor: pointer;
+	transition: all 0.2s;
+	position: relative;
+}
+
+.term-item:hover {
+	background: rgba(255, 255, 255, 0.05);
+}
+
+.term-item.active {
+	background: rgba(175, 14, 30, 0.1);
+	border-left-color: var(--primary-color);
+	box-shadow: inset 5px 0 15px rgba(175, 14, 30, 0.1);
+}
+
+.term-item.active .term-name {
+	color: white;
+	font-weight: 700;
+}
+
+/* Category Colors */
+.term-item.stats { border-left-color: #339af0; }
+.term-item.combat { border-left-color: #ff4d4d; }
+.term-item.aoe { border-left-color: #f1a92a; }
+.term-item.movement { border-left-color: #51cf66; }
+.term-item.rules { border-left-color: #be4bdb; }
+
+.term-selector-icon {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: currentColor;
+	opacity: 0.5;
+}
+
+.term-name {
+	flex: 1;
+	font-family: "Titillium Web", sans-serif;
+	font-size: 14px;
+	color: rgba(255, 255, 255, 0.7);
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+.term-item.active .material-symbols-outlined {
+	font-size: 18px;
+	color: var(--primary-color);
+}
+
+/* Detail Pane */
+.detail-pane {
+	height: 100%;
+	overflow: hidden;
+	background: rgba(0, 0, 0, 0.3);
+	border: 1px solid rgba(175, 14, 30, 0.2);
+	position: relative;
+}
+
+.data-reader-window {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.reader-header {
+	padding: 20px;
+	background: rgba(175, 14, 30, 0.05);
+	border-bottom: 1px solid rgba(175, 14, 30, 0.2);
+}
+
+.reader-header-top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.protocol-id {
+	font-family: "Inconsolata", monospace;
+	font-size: 12px;
+	color: #00ff41;
+	opacity: 0.8;
+}
+
+.category-tag {
+	font-family: "Big Shoulders Display", cursive;
+	font-size: 12px;
+	background: var(--primary-color);
+	color: white;
+	padding: 2px 8px;
+	letter-spacing: 1px;
+}
+
+.reader-title {
+	font-family: "Big Shoulders Display", cursive;
+	font-size: 32px;
+	color: white;
+	margin: 0;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+}
+
+.reader-body {
+	flex: 1;
+	padding: 30px;
+	overflow-y: auto;
+}
+
+.term-content-full {
+	font-family: "Titillium Web", sans-serif;
+	font-size: 18px;
+	line-height: 1.6;
+	color: rgba(255, 255, 255, 0.9);
+}
+
+.term-content-full ::v-deep(b), .term-content-full ::v-deep(strong) {
+	color: var(--primary-color);
+}
+
+.reader-footer {
+	padding: 10px 20px;
+	background: rgba(0, 0, 0, 0.5);
+	border-top: 1px solid rgba(255, 255, 255, 0.05);
+	font-family: "Inconsolata", monospace;
+	font-size: 10px;
+	color: var(--text-location);
+	display: flex;
+	align-items: center;
+	gap: 15px;
+}
+
+.scan-line {
+	height: 1px;
+	flex: 1;
+	background: linear-gradient(90deg, var(--primary-color), transparent);
+	opacity: 0.3;
+}
+
+.empty-reader {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	color: rgba(255, 255, 255, 0.2);
+	gap: 20px;
+}
+
+.empty-icon span {
+	font-size: 64px;
+}
+
+.empty-reader p {
+	font-family: "Big Shoulders Display", cursive;
+	font-size: 18px;
+	letter-spacing: 2px;
+}
+
+/* Utilities */
 .tech-input {
 	background: rgba(0, 0, 0, 0.4);
 	border: 1px solid var(--primary-color);
@@ -215,6 +454,7 @@ export default {
 	font-family: "Inconsolata", monospace;
 	font-size: 16px;
 	outline: none;
+	width: 100%;
 }
 
 .search-info {
@@ -222,46 +462,29 @@ export default {
 	font-family: "Inconsolata", monospace;
 	color: var(--text-location);
 	text-align: right;
+	margin-top: 10px;
 }
 
 .category-filters {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 8px;
-	margin-bottom: 5px;
+	gap: 5px;
 }
 
 .category-chip {
 	background: rgba(175, 14, 30, 0.05);
 	border: 1px solid rgba(175, 14, 30, 0.3);
 	color: rgba(255, 255, 255, 0.5);
-	padding: 4px 12px;
+	padding: 2px 10px;
 	font-family: "Big Shoulders Display", cursive;
-	font-size: 13px;
-	letter-spacing: 1px;
+	font-size: 12px;
 	cursor: pointer;
 	transition: all 0.2s;
-}
-
-.category-chip:hover {
-	background: rgba(175, 14, 30, 0.15);
-	color: white;
-	border-color: var(--primary-color);
 }
 
 .category-chip.active {
 	background: var(--primary-color);
 	color: white;
-	border-color: var(--primary-color);
-	box-shadow: 0 0 10px rgba(175, 14, 30, 0.4);
-}
-
-.glossary-grid {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 15px;
-	overflow-y: auto;
-	padding: 5px;
 }
 
 .manufacturers-list {
@@ -270,26 +493,7 @@ export default {
 	gap: 20px;
 	overflow-y: auto;
 	padding: 5px;
-}
-
-.manufacturer-card {
-	border-color: var(--m-color);
-}
-
-.manufacturer-quote {
-	font-family: "Inconsolata", monospace;
-	font-size: 14px;
-	color: var(--text-location);
-	margin-bottom: 15px;
-	padding-left: 10px;
-	border-left: 3px solid var(--m-color);
-}
-
-.manufacturer-desc {
-	font-family: "Titillium Web", sans-serif;
-	font-size: 14px;
-	line-height: 1.6;
-	color: var(--primary-color);
+	height: 100%;
 }
 
 .database-footer {
@@ -303,38 +507,12 @@ export default {
 	opacity: 0.7;
 }
 
-.glossary-item {
-	margin-bottom: 0;
-	height: auto;
-	flex: 1 1 380px;
-	max-width: 100%;
+.tech-scroll::-webkit-scrollbar {
+	width: 4px;
 }
 
-.glossary-item.expanded {
-	overflow: visible;
-}
-
-.window-title-bar {
-	cursor: pointer;
-}
-
-.term-content {
-	font-family: "Titillium Web", sans-serif;
-	font-size: 14px;
-	line-height: 1.6;
-	color: var(--text-markdown-p);
-	padding: 15px;
-}
-
-.glossary-item .window-body {
-	max-height: 0;
-	overflow: hidden;
-	transition: max-height 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-	animation: none; /* Disable global animation for nested items */
-}
-
-.glossary-item.expanded .window-body {
-	max-height: 1000px;
+.tech-scroll::-webkit-scrollbar-thumb {
+	background: var(--primary-color);
 }
 
 @keyframes blink {
@@ -342,14 +520,8 @@ export default {
 	50% { opacity: 0; }
 }
 
-/* Custom Scrollbar */
-.glossary-grid::-webkit-scrollbar,
-.manufacturers-list::-webkit-scrollbar {
-	width: 6px;
-}
-
-.glossary-grid::-webkit-scrollbar-thumb,
-.manufacturers-list::-webkit-scrollbar-thumb {
-	background: var(--primary-color);
+@keyframes scan {
+	from { top: 0; }
+	to { top: 100%; }
 }
 </style>

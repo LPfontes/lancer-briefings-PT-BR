@@ -1,125 +1,142 @@
 <template>
 	<div class="creator-step">
-		<h2>{{ $t('pilotCreator.steps.pilotGear') }}</h2>
-		<p class="desc">{{ $t('pilotCreator.gearDesc') }}</p>
+		<div class="step-header">
+			<div class="header-left">
+				<h2>{{ $t('pilotCreator.steps.pilotGear') }}</h2>
+				<p class="desc">{{ $t('pilotCreator.gearDesc') }}</p>
+			</div>
+			<div class="header-right">
+				<button class="manage-btn" @click="showModal = true">
+					<span class="material-symbols-outlined">settings_accessibility</span>
+					GERENCIAR EQUIPAMENTO
+				</button>
+			</div>
+		</div>
 		
-		<div class="gear-sections">
-			<!-- ARMOR SECTION -->
-			<div class="gear-section">
-				<h3>{{ $t('pilotCreator.gear.armor') }}</h3>
-				<div class="gear-grid">
-					<div v-for="item in armor" :key="item.id" 
-						class="event-window gear-item" 
-						:class="{ expanded: isExpanded(item.id), selected: isSelected('armor', item.id) }">
-						<div class="window-title-bar" @click="toggleExpand(item.id)">
-							<div class="window-controls">
-								<span class="control" :class="{ green: isSelected('armor', item.id) }"></span>
-							</div>
-							<div class="window-title">{{ item.name }}</div>
-							<div class="window-status" @click.stop="selectArmor(item.id)">
-								{{ isSelected('armor', item.id) ? $t('general.selected') : $t('general.select') }}
-							</div>
+		<div class="loadout-display">
+			<!-- ARMOR SLOT -->
+			<div class="loadout-category">
+				<div class="category-header">
+					<span class="material-symbols-outlined">shield</span>
+					<h3>{{ $t('pilotCreator.gear.armor') }}</h3>
+					<span class="slot-count">{{ selectedArmor ? '1/1' : '0/1' }}</span>
+				</div>
+				<div class="slot-content">
+					<div v-if="selectedArmor" class="selected-item-card armor-card">
+						<div class="item-main">
+							<span class="item-name">{{ selectedArmor.name }}</span>
+							<p class="item-effect" v-html="selectedArmor.description || selectedArmor.effect"></p>
 						</div>
-						<div class="window-body" v-if="isExpanded(item.id)">
-							<div class="gear-desc" v-html="item.description || item.effect"></div>
-						</div>
+					</div>
+					<div v-else class="empty-slot" @click="openTo('armor')">
+						<span class="material-symbols-outlined">add</span>
+						SELECIONAR ARMADURA
 					</div>
 				</div>
 			</div>
 
-			<!-- WEAPONS SECTION -->
-			<div class="gear-section">
-				<h3>{{ $t('pilotCreator.gear.weapons') }}</h3>
-				<div class="gear-grid">
-					<div v-for="item in weapons" :key="item.id" 
-						class="event-window gear-item" 
-						:class="{ expanded: isExpanded(item.id), selected: isSelected('weapons', item.id) }">
-						<div class="window-title-bar" @click="toggleExpand(item.id)">
-							<div class="window-controls">
-								<span class="control" :class="{ green: isSelected('weapons', item.id) }"></span>
+			<!-- WEAPON SLOTS -->
+			<div class="loadout-category">
+				<div class="category-header">
+					<span class="material-symbols-outlined">swords</span>
+					<h3>{{ $t('pilotCreator.gear.weapons') }}</h3>
+					<span class="slot-count">{{ selectedWeapons.length }}/2</span>
+				</div>
+				<div class="slot-grid">
+					<div v-for="weapon in selectedWeapons" :key="weapon.id" class="selected-item-card weapon-card">
+						<div class="item-main">
+							<div class="name-row">
+								<span class="item-name">{{ weapon.name }}</span>
+								<button class="remove-btn" @click="removeWeapon(weapon.id)">
+									<span class="material-symbols-outlined">close</span>
+								</button>
 							</div>
-							<div class="window-title">{{ item.name }}</div>
-							<div class="window-status" @click.stop="toggleWeapon(item.id)">
-								{{ isSelected('weapons', item.id) ? $t('general.selected') : $t('general.select') }}
-							</div>
+							<p class="item-effect" v-html="weapon.description"></p>
 						</div>
-						<div class="window-body" v-if="isExpanded(item.id)">
-							<div class="gear-desc" v-html="item.description"></div>
-						</div>
+					</div>
+					<div v-if="selectedWeapons.length < 2" class="empty-slot mini" @click="openTo('weapons')">
+						<span class="material-symbols-outlined">add</span>
 					</div>
 				</div>
 			</div>
 
-			<!-- GEAR SECTION -->
-			<div class="gear-section">
-				<h3>{{ $t('pilotCreator.gear.misc') }}</h3>
-				<div class="gear-grid">
-					<div v-for="item in miscGear" :key="item.id" 
-						class="event-window gear-item" 
-						:class="{ expanded: isExpanded(item.id), selected: isSelected('gear', item.id) }">
-						<div class="window-title-bar" @click="toggleExpand(item.id)">
-							<div class="window-controls">
-								<span class="control" :class="{ green: isSelected('gear', item.id) }"></span>
+			<!-- GEAR SLOTS -->
+			<div class="loadout-category">
+				<div class="category-header">
+					<span class="material-symbols-outlined">construction</span>
+					<h3>{{ $t('pilotCreator.gear.misc') }}</h3>
+					<span class="slot-count">{{ selectedGear.length }}/3</span>
+				</div>
+				<div class="slot-grid three-cols">
+					<div v-for="item in selectedGear" :key="item.id" class="selected-item-card gear-card">
+						<div class="item-main">
+							<div class="name-row">
+								<span class="item-name">{{ item.name }}</span>
+								<button class="remove-btn" @click="removeGear(item.id)">
+									<span class="material-symbols-outlined">close</span>
+								</button>
 							</div>
-							<div class="window-title">{{ item.name }}</div>
-							<div class="window-status" @click.stop="toggleGear(item.id)">
-								{{ isSelected('gear', item.id) ? $t('general.selected') : $t('general.select') }}
-							</div>
+							<p class="item-effect" v-html="item.description || item.effect"></p>
 						</div>
-						<div class="window-body" v-if="isExpanded(item.id)">
-							<div class="gear-desc" v-html="item.description || item.effect"></div>
-						</div>
+					</div>
+					<div v-if="selectedGear.length < 3" class="empty-slot mini" @click="openTo('gear')">
+						<span class="material-symbols-outlined">add</span>
 					</div>
 				</div>
 			</div>
 		</div>
+
+		<PilotGearSelectionModal 
+			:isOpen="showModal" 
+			ref="gearModal"
+			@close="showModal = false" 
+		/>
 	</div>
 </template>
 
 <script>
 import { pilotStore } from "@/store/pilotCreator";
 import { pilot_gear as gearData } from "lancer-data-pt-br";
+import PilotGearSelectionModal from "@/components/modals/PilotGearSelectionModal.vue";
 
 export default {
 	name: "PilotGearStep",
+	components: {
+		PilotGearSelectionModal
+	},
 	data() {
 		return {
 			allGear: gearData,
-			expandedItems: []
+			showModal: false
 		};
 	},
 	computed: {
-		armor() { return this.allGear.filter(i => i.type === 'Armor'); },
-		weapons() { return this.allGear.filter(i => i.type === 'Weapon'); },
-		miscGear() { return this.allGear.filter(i => i.type === 'Gear'); }
+		selectedArmor() {
+			const id = pilotStore.state.loadout.armor;
+			return this.allGear.find(i => i.id === id);
+		},
+		selectedWeapons() {
+			const ids = pilotStore.state.loadout.weapons;
+			return this.allGear.filter(i => ids.includes(i.id));
+		},
+		selectedGear() {
+			const ids = pilotStore.state.loadout.gear;
+			return this.allGear.filter(i => ids.includes(i.id));
+		}
 	},
 	methods: {
-		toggleExpand(id) {
-			const index = this.expandedItems.indexOf(id);
-			if (index > -1) {
-				this.expandedItems.splice(index, 1);
-			} else {
-				this.expandedItems.push(id);
-			}
+		openTo(tab) {
+			this.showModal = true;
+			this.$nextTick(() => {
+				if (this.$refs.gearModal) {
+					this.$refs.gearModal.activeTab = tab;
+				}
+			});
 		},
-		isExpanded(id) {
-			return this.expandedItems.includes(id);
-		},
-		isSelected(type, id) {
-			if (type === 'armor') return pilotStore.state.loadout.armor === id;
-			return pilotStore.state.loadout[type].includes(id);
-		},
-		selectArmor(id) {
-			if (pilotStore.state.loadout.armor === id) {
-				pilotStore.setArmor(null);
-			} else {
-				pilotStore.setArmor(id);
-			}
-		},
-		toggleWeapon(id) {
+		removeWeapon(id) {
 			pilotStore.toggleWeapon(id);
 		},
-		toggleGear(id) {
+		removeGear(id) {
 			pilotStore.toggleGear(id);
 		}
 	}
@@ -133,79 +150,174 @@ export default {
 	gap: 20px;
 }
 
-h2 {
-	font-family: "Big Shoulders Display", cursive;
-	color: var(--primary-color);
-	font-size: 24px;
-	border-bottom: 1px solid var(--primary-color);
-	padding-bottom: 5px;
-	margin-bottom: 5px;
+.step-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	padding-bottom: 15px;
+	border-bottom: 1px solid rgba(175, 14, 30, 0.3);
+}
+
+
+
+.manage-btn {
+	background: rgba(175, 14, 30, 0.1);
+	border: 1px solid var(--primary-color);
+	color: white;
+	padding: 8px 16px;
+	font-family: "Rajdhani", sans-serif;
+	font-size: 14px;
+	font-weight: 700;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	cursor: pointer;
+	transition: all 0.2s;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+.manage-btn:hover {
+	background: var(--primary-color);
+	color: black;
+	box-shadow: 0 0 15px rgba(175, 14, 30, 0.4);
 }
 
 .desc {
 	font-family: "Inconsolata", monospace;
 	color: var(--text-location);
 	font-size: 14px;
-	margin-bottom: 15px;
+	margin: 5px 0 0 0;
+	opacity: 0.8;
 }
 
-.gear-sections {
+.loadout-display {
 	display: flex;
 	flex-direction: column;
-	gap: 30px;
+	gap: 25px;
 }
 
-.gear-section h3 {
-	font-family: "Big Shoulders Display", cursive;
-	color: white;
-	font-size: 20px;
-	margin-bottom: 10px;
+.loadout-category {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.category-header {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	color: var(--primary-color);
+}
+
+.category-header h3 {
+	font-family: "Rajdhani", sans-serif;
+	font-size: 18px;
+	font-weight: 700;
+	margin: 0;
 	text-transform: uppercase;
 	letter-spacing: 1px;
-	border-left: 3px solid var(--primary-color);
-	padding-left: 10px;
+	color: white;
 }
 
-.gear-grid {
+.slot-count {
+	margin-left: auto;
+	font-family: "Inconsolata", monospace;
+	font-size: 12px;
+	background: rgba(0, 0, 0, 0.4);
+	padding: 2px 10px;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.slot-grid {
 	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 15px;
+}
+
+.slot-grid.three-cols {
 	grid-template-columns: 1fr 1fr 1fr;
-	gap: 10px;
 }
 
-.gear-item {
-	margin-bottom: 0;
-	height: fit-content;
+.selected-item-card {
+	background: rgba(22, 28, 29, 0.6);
+	border: 1px solid rgba(175, 14, 30, 0.3);
+	padding: 15px;
+	position: relative;
+	transition: all 0.2s;
 }
 
-.gear-item.selected {
-	border-color: #27c93f;
-	box-shadow: 0 0 10px rgba(39, 201, 63, 0.2);
+.selected-item-card:hover {
+	background: rgba(22, 28, 29, 0.9);
+	border-color: var(--primary-color);
 }
 
-.window-title-bar {
-	cursor: pointer;
-	transition: background 0.2s;
+.item-name {
+	font-family: "Rajdhani", sans-serif;
+	font-size: 16px;
+	font-weight: 700;
+	color: white;
+	display: block;
+	margin-bottom: 5px;
+	text-transform: uppercase;
 }
 
-.window-title-bar:hover {
-	background: #8b0b18;
-}
-
-.gear-desc {
+.item-effect {
 	font-family: "Titillium Web", sans-serif;
-	font-size: 14px;
-	color: var(--text-location);
-	line-height: 1.6;
+	font-size: 13px;
+	color: rgba(255, 255, 255, 0.6);
+	line-height: 1.5;
+	margin: 0;
 }
 
-.window-status {
+.name-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+.remove-btn {
+	background: transparent;
+	border: none;
+	color: rgba(255, 255, 255, 0.2);
+	cursor: pointer;
+	padding: 0;
+	margin-top: -2px;
+}
+
+.remove-btn:hover {
+	color: var(--primary-color);
+}
+
+.remove-btn .material-symbols-outlined {
+	font-size: 18px;
+}
+
+.empty-slot {
+	background: rgba(0, 0, 0, 0.2);
+	border: 1px dashed rgba(255, 255, 255, 0.1);
+	height: 80px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	color: rgba(255, 255, 255, 0.2);
+	font-family: "Rajdhani", sans-serif;
+	font-size: 12px;
+	font-weight: 700;
 	cursor: pointer;
 	transition: all 0.2s;
-	font-weight: bold;
 }
 
-.window-status:hover {
-	background: white;
+.empty-slot:hover {
+	border-color: var(--primary-color);
 	color: var(--primary-color);
+	background: rgba(175, 14, 30, 0.05);
+}
+
+.empty-slot.mini {
+	height: 80px;
 }
 </style>

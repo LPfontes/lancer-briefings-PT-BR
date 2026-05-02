@@ -9,7 +9,9 @@
     "save": "SAVE",
     "active": "ACTIVE",
     "locked": "LOCKED",
-    "installed": "INSTALLED"
+    "installed": "INSTALLED",
+    "search": "SEARCH",
+    "remove": "REMOVE"
   },
   "header": {
     "year": "Year",
@@ -23,6 +25,7 @@
     "pilots": "Pilots",
     "logs": "Logs",
     "glossary": "Glossary",
+    "history": "History",
     "creator": "Pilot Creator"
   },
   "pilotCreator": {
@@ -76,7 +79,13 @@
       "hull": "Hull (HULL)",
       "agility": "Agility (AGI)",
       "systems": "Systems (SYS)",
-      "engineering": "Engineering (ENG)"
+      "engineering": "Engineering"
+    },
+    "bonuses": {
+      "hull": "+2 HP/point; +1 Repair Cap/2 points",
+      "agility": "+1 EVASION/point; +1 SPEED/2 points",
+      "systems": "+1 Tech Atk & E-Def/point; +1 SP/2 points",
+      "engineering": "+1 Heat Cap/point; +1 Limited Uses/2 points"
     }
   },
   "mech": {
@@ -103,6 +112,35 @@
     "traits": "TRAITS",
     "mounts": "MOUNTS",
     "mount": "MOUNT",
+    "mountTypes": {
+      "main": "Main",
+      "flex": "Flex",
+      "heavy": "Heavy",
+      "aux": "Auxiliary",
+      "auxiliary": "Auxiliary",
+      "integrated": "Integrated",
+      "superheavy": "Superheavy"
+    },
+    "weaponTypes": {
+      "melee": "Melee",
+      "rifle": "Rifle",
+      "cannon": "Cannon",
+      "launcher": "Launcher",
+      "cqb": "CQB",
+      "nexus": "Nexus",
+      "special": "Special"
+    },
+    "systemTypes": {
+      "ai": "AI",
+      "deployable": "Deployable",
+      "tech": "Tech",
+      "shield": "Shield",
+      "flight": "Flight",
+      "flight system": "Flight System",
+      "mod": "Modification",
+      "drone": "Drone",
+      "mine": "Mine"
+    },
     "activate": "Activate"
   },
   "glossary": {
@@ -177,5 +215,17 @@
   },
   "reserve": {
     "owner": "Reserve Owner"
+  },
+  "history": {
+    "title": "HISTORY",
+    "chronology": "ACCEPTED UNION CHRONOLOGY",
+    "note": "\"au\" means \"ante-Union\", while \"u\" means \"Union Era\".",
+    "tabs": {
+      "chronology": "CHRONOLOGY",
+      "universe": "UNIVERSE",
+      "history": "HISTORY",
+      "politics": "POLITICS",
+      "pillars": "PILLARS"
+    }
   }
 }

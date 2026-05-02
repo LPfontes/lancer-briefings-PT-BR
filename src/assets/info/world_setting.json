@@ -1,0 +1,158 @@
+{
+  "galaxy_shape": {
+    "title": "A FORMA DA GALÁXIA",
+    "description": "A União classifica territórios de acordo com um sistema de anéis concêntricos que irradiam a partir do Sol. Os anéis são concêntricos: quanto mais distantes estão do Berço, maiores são. Cada anel foi batizado em homenagem a uma das cordilheiras do Berço. As estações de lampejo recebem seu nome segundo picos encontrados nessas cordilheiras.",
+    "rings": [
+      { "id": "Sol", "line": "Andes", "stations": ["Aconcágua", "Cerro Bonete", "Galán"] },
+      { "id": "Anel 1", "line": "Montanhas Rochosas", "stations": ["Elbert", "Lincoln", "Castelo"] },
+      { "id": "Anel 2", "line": "Kunlun", "stations": ["Kongur Tagh", "Deusa Kunlun", "Arka Tagh"] },
+      { "id": "Anel 3", "line": "Urais", "stations": ["Manaraga", "Elbrus", "Iremel"] },
+      { "id": "Anel 4", "line": "Atlas", "stations": ["Toubkal", "Ouanoukrim", "M'Goun"] },
+      { "id": "Anel 5", "line": "Himalaia", "stations": ["Evereste", "Kangchenjunga", "Annapurna"] },
+      { "id": "Anel 6", "line": "Altai", "stations": ["Belukha", "Nairamdal", "Kharkhiraa"] },
+      { "id": "Anel 7", "line": "Cárpatos", "stations": ["Gerlachovský štít", "Ľadový štít", "Moldoveanu"] },
+      { "id": "Anel 8", "line": "Sierra Madre", "stations": ["Cerro Mohinora", "Cerro Gordo", "Cerro Barajas"] },
+      { "id": "Anel 9", "line": "Caracórum", "stations": ["Chhogori", "Gasherbrum", "Broad Peak"] },
+      { "id": "Anel 10", "line": "Cascatas", "stations": ["Rainier", "Adams", "Hood"] },
+      { "id": "Anel 11", "line": "Anamitas", "stations": ["Phou Bia", "Phu Xai Lai Leng", "Ngọc Linh"] }
+    ],
+    "footer": "A Linha de Anamita é a atual \"fronteira\" do espaço da União. Além dela, há território inexplorado — estrelas e sistemas não cartografados em direção ao núcleo profundo da Via Láctea, e estrelas e sistemas em direção à borda fria do espaço intergaláctico."
+  },
+  "institutions": {
+    "title": "ADMINISTRAÇÃO GALÁCTICA",
+    "description": "A administração galáctica da União é possibilitada por três instituições fundamentais: a rede de lampejo, mana e a omninet. Sem elas, os bastiões dispersos da humanidade estariam separados por um tempo e distância demasiadamente grandes para que a União pudesse gerir.",
+    "items": [
+      {
+        "id": "LAMPEJO",
+        "title": "Rede de Lampejo",
+        "content": "Permite viagens interestelares mais rápidas que a luz através do espaço lampejo, um espaço paralelo ao nosso."
+      },
+      {
+        "id": "MANA",
+        "title": "Mana",
+        "content": "Uma moeda universal e sistema de crédito usado pela União para facilitar o comércio e a alocação de recursos em escala galáctica."
+      },
+      {
+        "id": "OMNINET",
+        "title": "Omninet",
+        "content": "Um sistema de comunicação e transferência de dados quase instantâneo que liga todos os mundos sob a hegemonia da União."
+      }
+    ],
+    "footer": "A União busca garantir a existência humana em uma escala grandiosa. O vasto aparato da União trabalha para assegurar que a humanidade nunca mais enfrente uma ameaça existencial. Se os departamentos secretos estiverem corretos, essa ameaça está se tornando mais provável."
+  },
+  "the_beginning": {
+    "title": "O COMEÇO",
+    "content": [
+      "A União foi a única maneira de construirmos um novo mundo. Mas antes que pudesse haver União, tinha que haver uma Queda.",
+      "Os historiadores da União situam os primeiros dias da Queda cerca de 6.000 anos antes da fundação da União; além dessa data, os registros específicos são poucos e muitas vezes contraditórios. O que sabemos é que o Berço (antes conhecido como \"Terra\") estava morrendo bem antes dessa data. Uma acumulação de golpes fatais — milhares de cortes feitos ao mundo pelas pessoas que vivam nele — tornara o único lar da humanidade praticamente inóspito.",
+      "A Queda não foi um único golpe cataclísmico. Houve tempo para atos de esperança desesperada. A criação dos Dez foi um desses esforços.",
+      "Conforme a longa era das trevas se aproximava e então atravessava o Berço, seus governos criaram e povoaram dez enormes naves coloniais \"os Dez\" e as lançaram em direção a mundos terrestres distantes, previamente identificados. Essas naves eram lentas, seus enormes cascos cilíndricos fechados empurrados por motores sub-luz convencionais, mas marcaram a maior realização da humanidade antiga: uma segunda chance.",
+      "Os Dez eram a última esperança da humanidade. Eles viajariam por milhares de anos, acelerando lentamente até uma fração significativa da velocidade da luz antes de desacelerar à medida que se aproximavam de seus destinos. Gerações de passageiros viveriam, morreriam e procriariam, sustentando-se a si mesmos e às suas naves até chegarem a mundos capazes de sustentar a vida humana.",
+      "Essa era a segunda chance da humanidade: um punhado de pedras lançadas na noite. Os bilhões deixados para trás assistiram os Dez sumirem na noite, olhando através de nuvens sufocantes de poluição, poeira e a fumaça de incêndios florestais.",
+      "Então, lutaram pelo que restava. Na esteira da partida dos Dez, o mundo explodiu em um pandemônio crescente violento que acabaria com a humanidade antiga. O clima arruinado sufocou a atmosfera, a fome e o fogo dilaceraram o campo e a doença varreu as cidades. A guerra devastou o mundo. Postos avançados solitários e estações por todo o sistema solar, estabelecidos quando a Terra estava declinando, mas ainda não totalmente, observavam sua terra natal se apagar. A maioria murchou ou sucumbiu a conflitos internos; alguns poucos raros conseguiram sobreviver.",
+      "Milhares de anos se passaram no tempo real. A bordo dos Dez, o tempo passava mais devagar e os relógios ficavam atrasados em relação aos do Berço. Após a passagem das primeiras gerações, os novos capitães dos Dez tomaram uma decisão mútua: para evitar o perigo de um retorno nostálgico e garantir o sucesso de sua missão, os Dez se isolaram, cessando a comunicação com o mundo que deixaram para trás.",
+      "Enquanto colônias moribundas clamavam desesperadamente por ajuda, o Berço continuava a girar, silencioso sem responder. Os polos descongelaram e cidades mortas afundaram sob oceanos em ascensão, desprovidos de vida. Fogo e névoa fétida varreram o equador enquanto tempestades titânicas devastavam os trópicos. Cinzas caíam sobre todo o mundo. Satélites e estações se deterioravam em suas órbitas. Grandes estaleiros silenciaram. Habitats reluzentes em Marte e na Lua, outrora faróis de conquistas humanas, colapsaram em falência.",
+      "O primeiro Antropoceno, a era da Velha Humanidade, desapareceu, enterrada sob cinzas, água, doença e violência desesperada. O silêncio caiu. Mesmo assim, a Terra não estava vazia, nem perdida. Bilhões morreram, mas a humanidade é resiliente, centenas de milhares sobreviveram, perseverando na escuridão interminável da Queda.",
+      "Após um período indeterminado de tempo — agora estimado em quatro ou cinco mil anos — a população de Berço começou a se estabilizar, depois a crescer à medida que o clima encontrava um novo equilíbrio. Variedades há muito mortas de culturas alimentares básicas retornaram. Arbustos retorcidos cresceram e se transformaram em novas árvores. Os oceanos recuaram, esfriaram e se preencheram com a vida que sobreviveu. Os incêndios diminuíram, depois cessaram. A mancha preta e laranja gordurosa que era o céu deu lugar à luz e ao azul profundo. O ar tornou-se seguro para respirar.",
+      "A civilização também cresceu novamente, e ao fazê-lo, proporcionou a semente de outra queda. Primeiro, tiranos locais reivindicaram as ruínas do passado, organizando seus domínios em torno de altares de sucata e restos. Máquinas errantes foram domadas ou caçadas, seguidas e adoradas. Pequenos lotes se transformaram em fazendas. Como antes, linhas e fronteiras foram traçadas; terras reivindicadas, lealdades juradas. Retalhos de tecido, tinta, penas e bandeiras ganharam significado e foram usados para dividir as pessoas em tribos, cidades, reinos, depois nações e fatalmente, finalmente, impérios.",
+      "Então, o mundo em recuperação foi humilhado pela primeira de três grandes revelações, alguns historiadores as pintam como três grandes traumas, a descoberta dos cofres Massif, grandes depósitos de informações e artefatos de antes da Queda. Tão distantes da Velha Humanidade, os sobreviventes passaram a pensar que eram os primeiros a caminhar sob o Sol. Os cofres mostraram o contrário. Eles não eram os primeiros, eram os últimos.",
+      "Atordoados por esse conhecimento, à medida que as riquezas da Velha Humanidade foram libertadas em um mundo ferido, os poderes incipientes da Terra se retiraram para seus cantos. O segundo trauma foi um acerto de contas: guerra global, as Pequenas Guerras, uma amarga luta para controlar e consumir os restos do passado há muito morto.",
+      "Os sobreviventes se reuniram ao final das Pequenas Guerras para prometer paz. As ferramentas de guerra e capital foram descartadas, para que nunca mais matassem a Terra. Coroas e fronteiras foram derrubadas, deixadas para apodrecer em meio às ruínas do império. A Nova Humanidade, finalmente unida em confiança, contrição e solidariedade, levantou uma bandeira e se comprometeu a um propósito: União."
+    ]
+  },
+  "current_era": {
+    "title": "A UNIÃO EM 5016U",
+    "description": "Lancer se passa em 5016u, durante a era do TerCom, a terceira reiteração do Comitê Central da União. Definido pela rejeição dos valores antrochauvinistas e pela readoção dos Pilares Utópicos.",
+    "content": [
+      "O TerCom surgiu após a derrubada do Segundo Comitê Antrochauvinista. Sua abordagem é baseada na hegemonia e no poder suave (comércio, viagem e comunicação) em vez da agressão direta.",
+      "As principais instituições administrativas são o Departamento Administrativo da União (DAU), o Escritório de Administração Colonial (EAC) e o Departamento de Justiça e Direitos Humanos (DJ/DH).",
+      "O DAU é o primeiro ponto de contato para diplomacia e troca cultural, buscando construir consentimento e integração. O EAC gerencia novos empreendimentos coloniais em mundos desabitados. O DJ/DH tem a tarefa de investigar violações dos Pilares Utópicos, respondendo com força se necessário.",
+      "A Doutrina Auxiliar busca integrar as culturas da Diáspora no espaço ideológico da União através de lutas de libertação, troca cultural e a escolha entre serviço cívico ou marcial."
+    ],
+    "challenges": "A abordagem do TerCom enfrenta desafios: muitos criticam a falta de urgência na resposta a violações dos Pilares. Os reformistas enfrentam resistência de Antrochauvinistas tradicionais enraizados em órgãos como o Escritório da Economia (EEU). Além disso, a Nova Coalizão Solidária defende uma postura muito mais assertiva e intervencionista."
+  },
+  "politics": {
+    "title": "POLÍTICA E COALIZÕES",
+    "description": "O órgão deliberativo do Terceiro Comitê, o Comitê Central (CentCom), é composto por cinco grandes coalizões que disputam a direção da hegemonia.",
+    "coalitions": [
+      {
+        "id": "A INTERESTELAR",
+        "lean": "Centro-Esquerda Moderada",
+        "power": "35%",
+        "content": "A coalizão fundadora do TerCom. Adere ao espírito dos Pilares Utópicos e prefere uma abordagem discreta nos assuntos galácticos. É frequentemente criticada por radicais por fazer muitas concessões e por conservadores por ser ao mesmo tempo totalitária e frágil."
+      },
+      {
+        "id": "A QUARTA COLUNA",
+        "lean": "Conservadora de Direita",
+        "power": "20% (em declínio)",
+        "content": "Liderada pelas Baronias de Karrakis, defende a expansão econômica e políticas liberais. Busca privatizar serviços e reduzir a fiscalização da União. Inclui delegações da SSC–EIP-EN e mundos diaspóricos cautelosos com a influência da União."
+      },
+      {
+        "id": "FRENTE DA NOVA HUMANIDADE",
+        "lean": "Extrema-Direita / Antrochauvinista",
+        "power": "10% (em crescimento)",
+        "content": "Liderada pela Arsenal Harrison. Defende a rápida expansão colonial, o fim de proibições transumanas e a descentralização da União em direção a um sistema federal. Críticos a veem como o retorno do Antrochauvinismo do SegCom."
+      },
+      {
+        "id": "NOVA COALIZÃO SOLIDÁRIA",
+        "lean": "Extrema-Esquerda / Anarquista",
+        "power": "15%",
+        "content": "Composta por radicais que exigem uma União mais assertiva que 'lute pela humanidade'. Opõe-se à Arsenal e às Baronias, pressionando pela ratificação imediata dos Pilares em toda a galáxia. Influente no DJ/DH."
+      },
+      {
+        "id": "ARCO SOCIAL VERDE",
+        "lean": "Social-Democrata / Anticolonial",
+        "power": "15% (em declínio)",
+        "content": "Surgiu como uma frente anticolonial contra o SegCom. É mais radical que a Interestelar, mas moderada em comparação à NCS. Sua base de poder tem migrado para facções mais à esquerda."
+      }
+    ],
+    "antrochauvinism": {
+      "title": "ANTROCHAUVINISMO",
+      "content": "Ideologia que adota o 'destino manifesto' para a humanidade. Sustenta que, por ter sobrevivido à Queda, a Humanidade tem o direito de reivindicar e povoar as estrelas livremente. Enfatiza o controle central forte, militarismo e a assimilação de culturas diversas em uma estética e ideologia centrada no Berço. Foi a doutrina dominante do Segundo Comitê (SegCom), justificando a expansão colonial agressiva através da força."
+    }
+  },
+  "society": {
+    "title": "UMA GALÁXIA CHEIA DE VIDA",
+    "description": "A Nova Humanidade vive no alvorecer de uma era dourada, espalhada por incontáveis mundos. No entanto, a utopia ainda está sendo conquistada nas margens.",
+    "groups": [
+      {
+        "id": "METROPOLITANOS",
+        "content": "Habitantes dos mundos capitais utópicos do Núcleo Galáctico. Vivem em uma rede descentralizada ligada por portais de lampejo. Desfrutam de estabilidade, segurança e uma diversidade infinita de expressões culturais e sociais."
+      },
+      {
+        "id": "COSMOPOLITAS",
+        "content": "Pessoas que vivem no espaço, em trânsito ou além da fronteira. Suas naves são seus lares. Viajam pela 'maneira antiga' (quase à velocidade da luz), vivendo entre o tempo subjetivo e o tempo real da galáxia."
+      },
+      {
+        "id": "DIASPÓRICOS",
+        "content": "A vastidão da diáspora humana em mundos distantes. Para eles, a utopia é um projeto contínuo. Muitos vivem em ignorância da União ou sob a sombra do legado agressivo do Segundo Comitê."
+      },
+      {
+        "id": "A PERIFERIA",
+        "content": "As bordas do espaço da União, onde fantasmas do passado e novas ameaças testam a resiliência da hegemonia. É aqui que os lancers se tornam necessários para defender o sonho utópico."
+      }
+    ]
+  },
+  "pillars": {
+    "title": "OS PILARES UTÓPICOS",
+    "description": "As três verdades fundamentais que guiam a União e garantem a dignidade da vida humana na galáxia.",
+    "items": [
+      {
+        "id": "I",
+        "title": "TODOS DEVEM TER SUAS NECESSIDADES MATERIAIS ATENDIDAS.",
+        "content": "O estado deve disponibilizar alimentos, água, abrigo e trabalho justo a todos. Negar esses direitos viola o contrato social básico."
+      },
+      {
+        "id": "II",
+        "title": "NENHUM MURO DEVE SE ERGUER ENTRE MUNDOS.",
+        "content": "Qualquer mundo ou estação deve permitir acesso a quem solicita, garantindo o direito de sentir o chão firme e respirar ar limpo."
+      },
+      {
+        "id": "III",
+        "title": "NENHUM SER HUMANO DEVE SER MANTIDO EM ESCRAVIDÃO POR FORÇA, TRABALHO OU DÍVIDA.",
+        "content": "A escassez é um mito usado para opressão. A dignidade humana é primordial; explorar o trabalho alheio é abominável."
+      }
+    ],
+    "footer": "A realização deste projeto requer pessoas corajosas que tomem as decisões corretas e construam juntas a utopia."
+  }
+}
