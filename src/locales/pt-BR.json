@@ -7,12 +7,16 @@
     "view": "VISUALIZAR",
     "ready": "PRONTO",
     "save": "SALVAR",
+    "edit": "EDITAR",
+    "delete": "EXCLUIR",
+    "close": "FECHAR",
     "active": "ATIVO",
     "locked": "BLOQUEADO",
     "installed": "INSTALADO",
     "search": "BUSCAR",
     "remove": "REMOVER",
-    "no_cascade": "NO_CASCADE_ATIVO"
+    "no_cascade": "NO_CASCADE_ATIVO",
+    "no_records": "SEM REGISTROS DISPONÍVEIS"
   },
   "header": {
     "year": "Ano",
@@ -230,6 +234,7 @@
     "licenseAudit": "AUDITORIA DE LICENÇA DE AQUISIÇÃO",
     "level": "NÍVEL",
     "biometricValid": "REGISTRO BIOMÉTRICO VÁLIDO",
+    "bio_short": "BIO",
     "blueprintValid": "PROJETO MECÂNICO VÁLIDO",
     "identProtocol": "Protocolo de Identificação de Piloto RM-4 (IDENT) do Escritório Administrativo da União",
     "callsignAvailable": "APELIDO DISPONÍVEL",

@@ -1,424 +1,244 @@
 <template>
-  <div class="grid-item pilot-identity" style="color:white!important">
-    <div class="header">
-      <div class="col grow-max">
-        <div class="heading h1">{{ pilot.callsign }}</div>
-        <div class="heading h2">({{ pilot.name }}) </div>
+  <div class="pilot-card-compact shadow-2" @click="openDetailedModal">
+    <div class="pilot-header">
+      <div class="avatar-block">
+         <div class="avatar-frame">
+            <img v-if="pilot.image" :src="pilot.image" class="avatar-img" />
+            <i v-else class="mdi mdi-account-outline placeholder-icon"></i>
+         </div>
       </div>
-      <div class="col"><img src="/faction-logos/msmc.svg"></div>
+      <div class="callsign-block">
+        <div class="label">{{ $t('pilot.callsign') }}</div>
+        <div class="callsign">{{ pilot.callsign || $t('pilot.callsign').toUpperCase() }}</div>
+      </div>
+      <div class="level-block">
+        <div class="label">{{ $t('pilotCreator.rank') }}</div>
+        <div class="level">{{ pilot.level || 0 }}</div>
+      </div>
     </div>
-    <div class="body">
-      <div class="add-padding"> {{ $t('pilot.identProtocol') }}
-        {{ pilot.id }} </div>
-      <div class="flex-container-rows">
-        <div class="row add-padding">
-          {{ reverse(this.pilot.name) }}:{{ pilot.id }}//NDL-C-BLIND-REACH
-        </div>
-        <div class="row flex-container-cols add-padding">
-          <div class="col grow-max flex-container-rows" style="padding-top:5px">
-            <div class="row flex-container-cols">
-              <div class="col col-primary"><span class="flavor-text"> {{ $t('pilot.callsign') }}: <b class="accent--text">{{
-                capitalize(pilot.callsign) }}</b><br> {{ $t('pilot.name') }}: <b class="accent--text">{{ pilot.name
-                    }}</b><br> {{ $t('pilot.background') }}: <b class="accent--text"> {{ pilot.background }} </b></span></div>
-              <div class="col">{{ $t('pilot.callsignAvailable') }} <br> {{ $t('pilot.identityVerified') }} <br> {{ $t('pilot.dataRegistered') }}</div>
-            </div>
-            <div style="padding-top:5px"> {{ $t('pilot.frameOptions') }} <span class="subtle--text">
-                {{ $t('pilot.omninetVault') }})</span></div>
-            <div class="row" style="padding-top:5px"><span style="font-size: 22px; line-height: 15px;"> [
-                {{ $t('pilot.stats.hull') }}: <span class="stat-text accent--text" style="font-size: 24px;"> {{ pilot.mechSkills[0] }} </span>
-                {{ $t('pilot.stats.agi') }}: <span class="stat-text accent--text" style="font-size: 24px;"> {{ pilot.mechSkills[1] }} </span>
-                {{ $t('pilot.stats.sys') }}: <span class="stat-text accent--text" style="font-size: 24px;"> {{ pilot.mechSkills[2] }} </span>
-                {{ $t('pilot.stats.eng') }}: <span class="stat-text accent--text" style="font-size: 24px;"> {{ pilot.mechSkills[3] }} </span> ]
-              </span></div>
-            <div class="row flex-container-cols">
-              <div class="col col-share">
-                <span>{{ $t('pilot.skillAudit') }}</span>
-                <br>
-                <div class="chip-container" v-for="skill in pilot.skills" :key="skill.id">
-                  <span class="chip"><i aria-hidden="true" class="notranslate cci cci-skill"></i>{{ getSkill(skill)
-                  }}</span>
-                </div>
-              </div>
-              <div class="col col-share">
-                <span>{{ $t('pilot.talentAudit') }}</span>
-                <br>
-                <div class="chip-container" v-for="talent in pilot.talents" :key="talent.id">
-                  <span class="chip"><i aria-hidden="true" class="notranslate cci cci-talent"></i>{{
-                    getTalent(talent.id, talent.rank) }}</span>
-                </div>
-              </div>
-            </div>
-            <div v-if="pilot.level > 0" class="row flex-container-cols">
-              <div class="col" style="padding-top:5px">
-                <span>{{ $t('pilot.licenseAudit') }}: {{ $t('pilot.level') }} {{ pilot.level }}</span>
-                <br>
-                <div class="chip-container" v-for="license in pilot.licenses" :key="license.id">
-                  <span class="chip"><i aria-hidden="true" class="notranslate cci cci-license"></i>{{
-                    getLicense(license.id, license.rank) }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="pilot-image-container">
-              <div class="pilot-image-border">
-                <img :src="pilotPortrait" class="portrait" />
-              </div>
-            </div>
-          </div>
-        </div>
+    
+    <div class="pilot-footer">
+      <div class="mech-info">
+        <i class="cci cci-reserve-mech"></i>
+        <span>{{ (activeMech.manufacturer || 'N/A') }} // {{ (activeMech.frame_name || 'N/A') }}</span>
       </div>
-      <div class="flex-container-cols modal-buttons">
-        <div class="row biometrics-container">
-          <div class="biometrics flex-container-cols" @click="pilotModal">
-            <div>
-              <i aria-hidden="true" class="v-icon notranslate mdi mdi-fingerprint theme--dark grey--text text--darken-2"
-                style="font-size: 36px; margin-top:36px;"></i>
-            </div>
-            <div style="width:100%">
-              {{ $t('pilot.biometricValid') }} [[{{ randomNumber(14, 22) }}PB]]<br />
-              OHM C//{{ timeStamp(pilot.lastModified) }}
-            </div>
-          </div>
-        </div>
-        <div class="row biometrics-container">
-          <div class="mech-record flex-container-cols" @click="mechModal">
-            <div style="width:100%">
-              {{ $t('pilot.blueprintValid') }} [[{{ randomNumber(14, 22) }}TB]] <br />
-              {{ activeMech.manufacturer.toUpperCase() }}-{{ activeMech.frame_name.toUpperCase() }} :: "{{ activeMech.name.toUpperCase() }}"
-            </div>
-            <div>
-              <i aria-hidden="true"
-                class="v-icon notranslate cci cci-reserve-mech theme--dark grey--text text--darken-2 larger"
-                style="font-size: 42px; margin-top:1em;"></i>
-            </div>
-          </div>
-        </div>
-        <div v-if="pilot.isCustom" class="row biometrics-container custom-actions">
-           <div class="edit-btn" @click="editPilot">
-              <i class="v-icon mdi mdi-pencil"></i> EDITAR NO CRIADOR
-           </div>
-           <div class="delete-btn" @click="deletePilot">
-              <i class="v-icon mdi mdi-delete"></i> DELETAR
-           </div>
-        </div>
+      <div class="quick-actions" v-if="pilot.isCustom" @click.stop>
+        <i class="mdi mdi-pencil" @click="editPilot" :title="$t('general.edit')"></i>
+        <i class="mdi mdi-delete" @click="deletePilot" :title="$t('general.delete')"></i>
       </div>
-      <hr role="separator" aria-orientation="horizontal" class="ma-2 v-divider theme--dark">
-      <div class="row row--dense"><span class="overline" style="line-height: 13px !important; opacity: 0.4;">
-          {{ $t('pilot.legalDisclaimer') }}   V-CDL//M-265-114-831 (A) </span></div>
     </div>
+    
+    <!-- Borda decorativa tática -->
+    <div class="corner-top-right"></div>
+    <div class="corner-bottom-left"></div>
   </div>
 </template>
 
-<style scoped>
-.custom-actions {
-  display: flex;
-  gap: 10px;
-  padding: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.edit-btn, .delete-btn {
-  padding: 8px 15px;
-  font-family: "Big Shoulders Display", cursive;
-  font-size: 14px;
-  letter-spacing: 1px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  transition: all 0.2s;
-}
-
-.edit-btn {
-  background: var(--primary-color);
-  color: white;
-}
-
-.edit-btn:hover {
-  background: var(--highlight-hover);
-}
-
-.delete-btn {
-  background: rgba(255, 0, 0, 0.2);
-  color: #ff4444;
-  border: 1px solid #ff4444;
-}
-
-.delete-btn:hover {
-  background: #ff4444;
-  color: white;
-}
-.larger::before {
-  margin-top: 9px;
-}
-
-.mdi::before {
-  margin-top: 9px;
-}
-
-.mech-record {
-  margin-left: auto;
-  text-align: right;
-}
-
-.modal-buttons {
-  margin-top: 5px;
-}
-</style>
-
 <script>
-import 'external-svg-loader'
-import lancerData from '@massif/lancer-data'
-import ktbData from 'lancer-ktb-data'
-import nrfawData from 'lancer-nrfaw-data'
-import longrimData from 'lancer-longrim-data'
-
-import wallflowerData from '@/assets/LCPs/wallflower-data-2.0.5'
-/*Append the datasets within computed if your LCP has new items.
-EX:
-pilotGear() {
-  return [...lancerData.pilot_gear, ...wallflowerData.pilot_gear]
-},
-*/
-
-import PilotModal from '@/components/modals/PilotModal.vue'
-import MechModal from '@/components/modals/MechModal.vue'
-
-import Typer from '@/components/Typer.vue'
-
-import ProgressBar from '@/components/ProgressBar.vue'
-import Burden from '@/components/Burden.vue'
-import { pilotStore } from "@/store/pilotCreator"
+import * as lancerData from "lancer-data-pt-br";
+import * as ktbData from "lancer-ktb-data";
+import * as nrfawData from "lancer-nrfaw-data";
+import * as longrimData from "lancer-longrim-data";
+import PilotModal from "./modals/PilotModal.vue";
+import { pilotStore } from "@/store/pilotCreator";
 
 export default {
-  components: {
-    Burden,
-    ProgressBar,
-    Typer,
-  },
   props: {
-    animate: {
-      type: Boolean,
-      required: true,
-    },
-    pilot: {
-      type: Object,
-      required: true,
-    },
+    pilot: Object,
+    animate: Boolean
   },
   data() {
     return {
-      activeMech: {},
-      bond: {},
+      activeMech: { manufacturer: 'N/A', frame_name: 'N/A' }
     }
   },
   computed: {
-    pilotPortrait() {
-      return `/pilots/${this.pilot.callsign.toUpperCase()}.webp`
-    },
-    mechPortrait() {
-      return `/mechs/${this.pilot.callsign.toUpperCase()}.webp`
-    },
-    pilotGear() {
-      return [...lancerData.pilot_gear]
-    },
-    mechWeapons() {
-      return [...lancerData.weapons, ...ktbData.weapons, ...nrfawData.weapons, ...longrimData.weapons]
-    },
-    mechSystems() {
-      return [...lancerData.systems, ...ktbData.systems, ...nrfawData.systems, ...longrimData.systems]
-    },
-    talents() {
-      return [...lancerData.talents, ...ktbData.talents, ...nrfawData.talents, ...longrimData.talents]
-    },
-    skills() {
-      return [...lancerData.skills]    
-    },
-    bonds() {
-      return [...ktbData.bonds]
-    },
     frames() {
-      return [...lancerData.frames, ...ktbData.frames, ...nrfawData.frames, ...longrimData.frames]
-    },
-    mechManufacturerIcon() {
-      if (this.activeMech.manufacturer)
-        return `/faction-logos/${this.activeMech.manufacturer.toLowerCase()}.svg`
-      return ''
-    },
-    pilotCode() {
-      const identNameParts = this.pilot.name.split(' ')
-      const identFirstName = identNameParts[0]
-      const identLastNameParts = identNameParts.slice(1)
-      let identName = ''
-      identLastNameParts.forEach((part) => {
-        identName += `${part}.`
-      })
-      identName += identFirstName;
-			return `${this.$t('pilot.identRecord')} ${identName}: ${this.pilot.id} // ${this.pilot.background} // LOADOUT ${this.pilot.loadout.id} - MECH ${this.pilot.mechs[0].id} // HARDPOINTS ${this.pilot.mechs[0].loadouts[0].id}`;
-		},
-    pilotInfo() {
-      const info = this.pilot
+      // Função auxiliar para extrair frames de pacotes ESM ou CommonJS
+      const getFrames = (pkg) => {
+        if (!pkg) return [];
+        return pkg.frames || (pkg.default && pkg.default.frames) || [];
+      };
 
-      let resolveGear = (type, item, idx, arr) => {
-        item = item || {id: "", flavorName: ""};
-        const gear = this.pilotGear.find((obj) => { return item.id === obj.id }) || null;
-        item.flavorName = gear?.name || "ERR: DATA NOT FOUND";
-        arr[idx] = item;
-      }
-
-      info.loadout.armor.forEach((item, index, array) => resolveGear('armor', item, index, array));
-      info.loadout.weapons.forEach((item, index, array) => resolveGear('weapon', item, index, array));
-      info.loadout.gear.forEach((item, index, array) =>resolveGear('gear', item, index, array));
-
-      return info;
-    },
+      const baseFrames = getFrames(lancerData);
+      const allFrames = [...baseFrames];
+      
+      allFrames.push(...getFrames(ktbData));
+      allFrames.push(...getFrames(nrfawData));
+      allFrames.push(...getFrames(longrimData));
+      
+      return allFrames;
+    }
   },
   created() {
     this.getActiveMech();
-    this.getBond();
   },
   methods: {
+    openDetailedModal() {
+      this.$oruga.modal.open({
+        component: PilotModal,
+        props: {
+          pilot: this.pilot,
+          getSkill: this.getSkill,
+          getTalent: this.getTalent
+        },
+        custom: true,
+        trapFocus: true
+      });
+    },
+    getActiveMech() {
+      const activeMechID = this.pilot.state ? this.pilot.state.active_mech_id : this.pilot.active_mech_id;
+      if (this.pilot.mechs && this.pilot.mechs[0]) {
+        this.activeMech = this.pilot.mechs[0];
+      } else {
+        const missingFrame = this.frames.find((obj) => obj.id === 'missing_frame');
+        this.activeMech = missingFrame || { manufacturer: 'N/A', frame_name: 'N/A' };
+      }
+    },
+    getSkill(skill) {
+      const skills = lancerData.skills || (lancerData.default && lancerData.default.skills) || [];
+      const s = skills.find((obj) => obj.id === skill.id);
+      return s ? `${s.name} (${skill.rank})` : skill.id;
+    },
+    getTalent(id, rank) {
+      const talents = lancerData.talents || (lancerData.default && lancerData.default.talents) || [];
+      const t = talents.find((obj) => obj.id === id);
+      return t ? `${t.name} ${rank}` : id;
+    },
     editPilot() {
       pilotStore.loadPilot(this.pilot);
       this.$router.push("/creator");
     },
-    deletePilot() {
-      if (confirm(`DESEJA EXCLUIR O PILOTO "${this.pilot.callsign}"? ESTA AÇÃO É IRREVERSÍVEL.`)) {
-        pilotStore.deletePilot(this.pilot.id);
+    async deletePilot() {
+      if (confirm(`DESEJA EXCLUIR O PILOTO "${this.pilot.callsign || 'ESTE PILOTO'}"?`)) {
+        await pilotStore.deletePilot(this.pilot.id);
         window.location.reload();
       }
-    },
-    getBond() {
-      this.bond = this.bonds.find((obj) => {
-        return obj.id === this.pilot.bondId
-      })
-    },
-    getActiveMech() {
-      const activeMechID = this.pilot.state.active_mech_id
-      const mech = this.pilot.mechs.find((obj) => {
-        return obj.id === activeMechID
-      })
-
-      if (mech) {
-        this.activeMech = mech
-      }
-      else {
-        // default to missing frame in case pilot has no mechs
-        this.pilot.mechs[0] ? this.activeMech = this.pilot.mechs[0] : lancerData.frames.find((obj) => { return obj.id === 'missing_frame' })
-      }
-
-      let frame = this.frames.find((obj) => {
-        return obj.id === this.activeMech.frame
-      })
-
-      if (!frame)
-        frame = lancerData.frames[0]
-
-      this.activeMech.frame_description = frame.description
-      this.activeMech.frame_name = frame.name
-      this.activeMech.manufacturer = frame.source
-      this.activeMech.mechtype = frame.mechtype.join(' // ')
-    },
-    getHistory() {
-      if (this.pilot.history === "") {
-        return `<p> <h2> ${this.$t('pilot.history.redacted')} </h2> </p>`
-      }
-
-      let response = "<p>"
-
-      if (this.pilot.text_appearance !== "") {
-        response += `<h2>${this.$t('pilot.history.appearance')}</h2> ${this.pilot.text_appearance} </hr>`;
-      }
-
-      if (this.pilot.history !== "") {
-        response += `<h2>${this.$t('pilot.history.history')}</h2> ${this.pilot.history} </hr>`;
-      }
-
-      response += "</p>"
-
-      return response;
-    },
-    getSkill(skill) {
-      let sk = this.skills.find((x) => x.id == skill.id);
-      return sk.name + " +" + (skill.rank * 2)
-    },
-    getTalent(id, value) {
-      let talent = this.talents.find((x) => x.id == id);
-      let response = talent.name + " "
-
-      for (let i = 0; i < value; i++) {
-        response += "I"
-      }
-      return response;
-    },
-    getLicense(id, value) {
-      let frame = this.frames.find((x) => x.id == id);
-      let response = frame.source + " " + frame.name + " "
-
-      for (let i = 0; i < value; i++) {
-        response += "I"
-      }
-      return response;
-    },
-    capitalize(str) {
-      return str.split(' ').map(word => word[0].toUpperCase() + word.slice(1)).join(' ');
-    },
-    reverse(str) {
-      const words = str.split(' ')
-      const reversed = words.reverse()
-      const reversedResult = words.join('.')
-      return reversedResult
-    },
-    randomNumber(max, min) {
-      const rand = Math.random() * (max - min) + min
-      const power = Math.pow(10, 2)
-      return Math.floor(rand * power) / power
-    },
-    timeStamp(str) {
-      let date = new Date(str);
-      let y = date.getFullYear();
-      let m = date.getMonth();
-      let d = date.getDate();
-      let h = date.getHours();
-      let mi = date.getMinutes();
-      let s = date.getSeconds();
-      let ms = date.getMilliseconds();
-      let tz = date.getTimezoneOffset();
-      y += 2990;
-      return new Date(y, m, d, h, mi, s, ms).toISOString();
-    },
-    pilotModal() {
-      this.$oruga.modal.open({
-        component: PilotModal,
-        custom: true,
-        trapFocus: true,
-        props: {
-          pilot: this.pilot,
-          talents: this.talents,
-          skills: this.skills,
-          frames: this.frames,
-        },
-        class: 'custom-modal',
-        width: 1920,
-      })
-    },
-    mechModal() {
-      this.$oruga.modal.open({
-        component: MechModal,
-        custom: true,
-        trapFocus: true,
-        props: {
-          animate: this.animate,
-          mech: this.activeMech,
-          systemsData: this.mechSystems,
-          weaponsData: this.mechWeapons,
-          pilot: this.pilot,
-        },
-        class: 'custom-modal',
-        width: 1920,
-      })
-    },
-  },
+    }
+  }
 }
 </script>
+
+<style scoped>
+.pilot-card-compact {
+  position: relative;
+  background: rgba(20, 20, 25, 0.8);
+  border-left: 4px solid var(--union-crimson);
+  padding: 15px;
+  min-width: 300px;
+  flex: 1;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.pilot-card-compact:hover {
+  background: rgba(40, 40, 50, 0.9);
+  transform: translateY(-2px);
+  border-left-width: 8px;
+}
+
+.pilot-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  gap: 15px;
+}
+
+.avatar-block {
+  flex-shrink: 0;
+}
+
+.avatar-frame {
+  width: 50px;
+  height: 50px;
+  background: rgba(175, 14, 30, 0.1);
+  border: 1px solid var(--union-crimson);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholder-icon {
+  font-size: 1.5rem;
+  color: var(--union-crimson);
+  opacity: 0.7;
+}
+
+.callsign-block {
+  flex-grow: 1;
+}
+
+.callsign {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: white;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.label {
+  font-size: 0.7rem;
+  color: var(--union-crimson);
+  font-weight: bold;
+  opacity: 0.8;
+}
+
+.level-block {
+  text-align: right;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 2px 8px;
+}
+
+.level { font-size: 1.2rem; font-weight: bold; }
+
+.pilot-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.mech-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quick-actions i {
+  margin-left: 12px;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: 0.2s;
+}
+
+.quick-actions i:hover { opacity: 1; color: var(--union-crimson); }
+
+/* Decorative Elements */
+.corner-top-right {
+  position: absolute;
+  top: 0; right: 0;
+  width: 20px; height: 20px;
+  border-top: 2px solid rgba(255, 255, 255, 0.1);
+  border-right: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.corner-bottom-left {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 10px; height: 10px;
+  border-bottom: 2px solid var(--union-crimson);
+  border-left: 2px solid var(--union-crimson);
+}
+</style>

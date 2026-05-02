@@ -1,0 +1,53 @@
+{
+  "id": "raven-test-001",
+  "name": "Elias Thorne",
+  "callsign": "RAVEN",
+  "image": "https://i.pinimg.com/736x/07/7d/53/077d530068573138f615f7956e545466.jpg",
+  "level": 3,
+  "background": "Colono Espacial",
+  "bio": "Veterano das Guerras de Fronteira, especializado em reconhecimento e ataques rápidos.",
+  "mechSkills": [
+    2,
+    2,
+    1,
+    0
+  ],
+  "skills": [
+    {
+      "id": "sk_spot",
+      "rank": 2
+    },
+    {
+      "id": "sk_take_control",
+      "rank": 1
+    }
+  ],
+  "talents": [
+    {
+      "id": "t_skirmisher",
+      "rank": 2
+    },
+    {
+      "id": "t_infiltrator",
+      "rank": 1
+    }
+  ],
+  "active_mech_id": "mech_raven_01",
+  "mechs": [
+    {
+      "id": "mech_raven_01",
+      "name": "BLACK_WING",
+      "frame_id": "gms_everest",
+      "frame_name": "Everest",
+      "manufacturer": "GMS",
+      "loadouts": [
+        {
+          "id": "ld_01"
+        }
+      ]
+    }
+  ],
+  "loadout": {
+    "id": "p_ld_01"
+  }
+}

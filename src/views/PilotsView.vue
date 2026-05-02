@@ -52,28 +52,22 @@ export default {
 
 <style scoped>
 .pilot-list-container {
-	display: flex;
-	flex-wrap: wrap;
-	padding: 1em;
-	gap: 1em;
-}
-
-.grid-item {
-	flex: 45%;
-}
-
-.pilot-list-container {
-	height:calc(100vh - 96px);
+	display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+	padding: 2em;
+	gap: 1.5em;
+  overflow-y: auto;
 }
 
 .section-content-container {
 	border: 0px solid transparent;
+  width: 100%;
 }
 
 section.section-container#pilots {
 	display: flex;
 	flex-direction: column;
-	margin: 50px 30px;
-	width: 1755px;
+	margin: 20px;
+	width: calc(100% - 40px);
 }
 </style>

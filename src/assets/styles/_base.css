@@ -1896,7 +1896,7 @@ div.markdown ol li {
 
 .horus::before,
 .horus::after {
-	content: "[PARABÉNS, PILOTO.\A VOCÊ FOI ESCOLHIDO.\A O ACESSO É SEU,\A ENQUANTO PUDER MANTÊ-LO.]";
+	content: "[PARABÃ‰NS, PILOTO.\A VOCÃŠ FOI ESCOLHIDO.\A O ACESSO Ã‰ SEU,\A ENQUANTO PUDER MANTÃŠ-LO.]";
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -2015,4 +2015,14 @@ div.markdown ol li {
 	100% {
 		clip: rect(10px, 9999px, 55px, 0);
 	}
+}
+
+/* --- Oruga Modal Z-Index Fix --- */
+.o-modal__overlay {
+	z-index: 9998 !important;
+}
+
+.o-modal__content {
+	z-index: 9999 !important;
+	position: relative;
 }

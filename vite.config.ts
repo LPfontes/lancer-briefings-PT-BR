@@ -21,7 +21,7 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: [
-      "lancer-data",
+      "@massif/lancer-data",
       "lancer-ktb-data",
       "lancer-nrfaw-data",
       "lancer-longrim-data"
