@@ -1,0 +1,375 @@
+/* ================================================
+   _mobile.css — Lancer Briefings PT-BR
+   Responsividade para dispositivos móveis (≤768px)
+   ================================================ */
+
+@media (max-width: 768px) {
+
+  /* ---- Layout Raiz ---- */
+  div#router-view-container {
+    left: 0 !important;
+    top: 56px !important;
+    width: 100% !important;
+    padding-bottom: 68px;
+    box-sizing: border-box;
+  }
+
+  /* ---- Header Comprimido ---- */
+  header {
+    height: 56px !important;
+    overflow: hidden;
+    padding: 0;
+  }
+
+  .title {
+    width: auto !important;
+    flex: 1;
+    min-width: 0;
+    padding: 0 10px;
+  }
+
+  .title .logo {
+    width: 32px !important;
+    height: 40px !important;
+    margin-left: 8px;
+  }
+
+  .title #title-header {
+    font-size: 16px !important;
+    letter-spacing: 0.08em !important;
+  }
+
+  .title #title-subheader {
+    font-size: 14px !important;
+  }
+
+  .title #subtitle-header,
+  .title #subtitle-subheader,
+  #title-first-line {
+    display: none !important;
+  }
+
+  .rhombus {
+    display: none !important;
+  }
+
+  .planet-location-container {
+    display: none !important;
+  }
+
+  /* ---- Sidebar → Hidden em mobile ---- */
+  .sidebar-page {
+    display: none !important;
+  }
+
+  /* ---- Layout Geral de Conteúdo ---- */
+  div .content-container {
+    flex-direction: column !important;
+    width: 100% !important;
+    overflow-x: hidden;
+  }
+
+  section.section-container,
+  section.section-container#assignment,
+  section.section-container#missions,
+  section.section-container#pilots,
+  section.section-container#events-logs,
+  section.section-container#glossary-section,
+  section.section-container#history-section,
+  section.section-container.full-width {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    box-sizing: border-box;
+  }
+
+  /* Section header (barra vermelha) */
+  section .section-header {
+    height: 44px !important;
+    margin-top: 15px !important;
+  }
+
+  section .section-header h1 {
+    font-size: 16px !important;
+  }
+
+  section .section-header img {
+    width: 26px !important;
+    height: 26px !important;
+  }
+
+  /* ---- StatusView — empilhado ---- */
+  #status .section-header {
+    display: none !important;
+  }
+
+  #status.content-container {
+    flex-direction: column !important;
+    overflow-y: auto;
+    height: calc(100vh - 56px - 68px);
+  }
+
+  #status section#missions {
+    height: auto !important;
+    min-height: 200px;
+    max-height: 40vh;
+  }
+
+  #status section#missions .section-content-container,
+  #status .mission-list-container {
+    height: auto !important;
+    max-height: 35vh;
+    overflow-y: auto;
+  }
+
+  #status section#assignment {
+    flex: 1;
+    height: auto !important;
+    min-height: 200px;
+  }
+
+  #status section#assignment .section-content-container {
+    height: auto !important;
+    overflow-y: auto;
+    max-height: 50vh;
+  }
+
+  /* ---- PilotsView — grid ajustado ---- */
+  .pilot-list-container {
+    grid-template-columns: 1fr !important;
+    padding: 1em !important;
+    gap: 1em !important;
+  }
+
+  /* ---- EventsView — coluna + tabs ---- */
+  .events-container.master-detail-layout {
+    grid-template-columns: 1fr !important;
+    flex-direction: column !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .master-list-pane {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(175, 14, 30, 0.2);
+  }
+
+  /* Quando detalhe está ativo em mobile, esconder lista */
+  .mobile-show-detail .master-list-pane {
+    display: none !important;
+  }
+
+  .mobile-show-detail .detail-pane {
+    display: block !important;
+  }
+
+  .events-scroll-area {
+    max-height: 45vh;
+  }
+
+  .detail-pane {
+    height: auto !important;
+    min-height: 60vh;
+  }
+
+  .window-body {
+    max-height: 60vh !important;
+  }
+
+  /* ---- GlossaryView — coluna ---- */
+  .glossary-container {
+    height: auto !important;
+    overflow: visible !important;
+    padding: 8px !important;
+  }
+
+  .tab-content.master-detail-layout {
+    grid-template-columns: 1fr !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .master-list-pane {
+    height: auto !important;
+    overflow: visible !important;
+    max-height: none !important;
+  }
+
+  .terms-scroll-area {
+    max-height: 40vh;
+  }
+
+  /* Glossary: esconder detail se nenhum selecionado */
+  .glossary-detail-hidden .detail-pane {
+    display: none !important;
+  }
+
+  /* Glossary: botão voltar quando detalhe aberto */
+  .mobile-show-detail .master-list-pane {
+    display: none !important;
+  }
+
+  .mobile-show-detail .detail-pane {
+    min-height: 60vh;
+  }
+
+  /* ---- HistoryView ---- */
+  .history-outer-container {
+    height: auto !important;
+    overflow: visible !important;
+    padding: 10px !important;
+  }
+
+  .history-tabs {
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+  }
+
+  .history-tabs button {
+    font-size: 12px !important;
+    padding: 6px 10px !important;
+  }
+
+  /* Cronologia: tab-content e timeline rolam em mobile */
+  .tab-content {
+    overflow: visible !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  .timeline-container {
+    overflow-y: auto !important;
+    max-height: 65vh;
+    min-height: 0;
+  }
+
+  .scroll-content {
+    overflow-y: auto !important;
+    max-height: 65vh;
+  }
+
+  .institutions-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ---- Glossary tabs em mobile ---- */
+  .glossary-tabs {
+    flex-wrap: wrap !important;
+  }
+
+  .glossary-tabs button {
+    font-size: 12px !important;
+    padding: 6px 12px !important;
+  }
+
+  .category-filters {
+    flex-wrap: wrap;
+  }
+
+  /* ---- Mission list item ---- */
+  .mission {
+    padding-left: 0.5em !important;
+    margin: 0.3em 0.5em !important;
+  }
+
+  /* ---- Markdown sections ---- */
+  div.section-content-container .markdown,
+  .reader-body,
+  .reader-content-wrap {
+    font-size: 16px !important;
+    padding: 15px !important;
+  }
+
+  .reader-header {
+    padding: 15px !important;
+  }
+
+  .reader-title {
+    font-size: 24px !important;
+  }
+
+  /* ---- Mobile Back Button (para master-detail) ---- */
+  .mobile-back-btn {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    background: rgba(175, 14, 30, 0.15);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 8px 16px;
+    font-family: "Big Shoulders Display", cursive;
+    font-size: 14px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: left;
+  }
+
+}
+
+/* Garantir que mobile-back-btn fica oculto em desktop */
+.mobile-back-btn {
+  display: none;
+}
+
+/* Garantir que a bottom nav fica oculta em desktop */
+.mobile-bottom-nav {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-bottom-nav {
+    display: flex !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: var(--primary-color);
+    border-top: 2px solid rgba(0, 0, 0, 0.3);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+    height: 58px;
+  }
+
+  .mobile-bottom-nav a {
+    flex: 1;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: "Titillium Web", sans-serif;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 4px 0;
+    transition: all 0.2s;
+    gap: 2px;
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+  }
+
+  .mobile-bottom-nav a:last-child {
+    border-right: none;
+  }
+
+  .mobile-bottom-nav a img {
+    width: 22px !important;
+    height: 22px !important;
+    filter: brightness(0) invert(1);
+    opacity: 0.7;
+  }
+
+  .mobile-bottom-nav a.router-link-exact-active {
+    color: white;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .mobile-bottom-nav a.router-link-exact-active img {
+    opacity: 1;
+    filter: brightness(0) invert(1) drop-shadow(0 0 4px rgba(255, 255, 255, 0.8));
+  }
+}

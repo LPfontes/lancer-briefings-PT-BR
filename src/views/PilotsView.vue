@@ -53,7 +53,7 @@ export default {
 <style scoped>
 .pilot-list-container {
 	display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 	padding: 2em;
 	gap: 1.5em;
   overflow-y: auto;

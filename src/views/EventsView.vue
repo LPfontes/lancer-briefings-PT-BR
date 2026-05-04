@@ -1,12 +1,13 @@
 <template>
 	<div id="eventsView" :class="{ animate: animateView }" :style="{ 'animation-delay': animationDelay }" class="content-container">
+
 		<section id="events" class="section-container full-width">
 			<div class="section-header clipped-medium-backward">
 				<img src="/icons/clockwork.svg" />
 				<h1>{{ $t('events.title') }} // {{ $t('events.log') }}</h1>
 			</div>
 			
-			<div class="window-body events-container master-detail-layout">
+			<div class="window-body events-container master-detail-layout" :class="{ 'mobile-show-detail': mobileShowDetail }">
 				<!-- MASTER LIST (Left) -->
 				<div class="master-list-pane">
 					<div class="database-info">
@@ -23,7 +24,7 @@
 							:key="item.title" 
 							class="event-list-item" 
 							:class="{ active: selectedEventTitle === item.title }"
-							@click="selectedEventTitle = item.title"
+							@click="selectEvent(item.title)"
 						>
 							<div class="event-meta-sidebar">
 								<span class="event-time-tag">{{ item.time }}</span>
@@ -41,6 +42,10 @@
 
 				<!-- DETAIL PANE (Right) -->
 				<div class="detail-pane">
+					<button class="mobile-back-btn" @click="mobileShowDetail = false">
+						<span class="material-symbols-outlined">arrow_back</span>
+						VOLTAR AOS REGISTROS
+					</button>
 					<div v-if="selectedEvent" class="data-reader-window">
 						<div class="reader-header">
 							<div class="reader-header-top">
@@ -108,13 +113,20 @@ export default {
 		return {
 			animateView: this.animate,
 			animationDelay: "0.5s",
-			selectedEventTitle: null
+			selectedEventTitle: null,
+			mobileShowDetail: false,
 		};
 	},
 	computed: {
 		selectedEvent() {
 			if (!this.selectedEventTitle) return null;
 			return this.events.find(e => e.title === this.selectedEventTitle);
+		}
+	},
+	methods: {
+		selectEvent(title) {
+			this.selectedEventTitle = title;
+			this.mobileShowDetail = true;
 		}
 	}
 };

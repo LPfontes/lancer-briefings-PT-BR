@@ -3,6 +3,7 @@
 		<Header :planet-path="planetPath" :class="{ animate: animate }" :header="header" />
 		<Sidebar :animate="animate" :class="{ animate: animate }" />
 	</div>
+	<MobileNav />
 	<div id="router-view-container">
 		<router-view :animate="animate" :initial-slug="initialSlug" :missions="missions" :events="events"
 			:pilots="pilots" :clocks="clocks" :reserves="reserves" />
@@ -24,6 +25,7 @@
 <script>
 import Header from "./components/layout/Header.vue";
 import Sidebar from "./components/layout/Sidebar.vue";
+import MobileNav from "./components/layout/MobileNav.vue";
 import Config from "@/assets/info/general-config.json";
 import { pilotStore } from "@/store/pilotCreator";
 
@@ -31,6 +33,7 @@ export default {
 	components: {
 		Header,
 		Sidebar,
+		MobileNav,
 	},
 
 	data() {

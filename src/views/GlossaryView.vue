@@ -17,7 +17,7 @@
 					<button :class="{ active: currentTab === 'manufacturers' }" @click="currentTab = 'manufacturers'">GRANDES FABRICANTES</button>
 				</div>
 
-				<div v-if="currentTab === 'terms'" class="tab-content master-detail-layout">
+				<div v-if="currentTab === 'terms'" class="tab-content master-detail-layout" :class="{ 'mobile-show-detail': mobileShowDetail }">
 					<!-- MASTER LIST (Left) -->
 					<div class="master-list-pane">
 						<div class="search-bar">
@@ -55,6 +55,10 @@
 
 					<!-- DETAIL PANE (Right) -->
 					<div class="detail-pane">
+						<button class="mobile-back-btn" @click="mobileShowDetail = false">
+							<span class="material-symbols-outlined">arrow_back</span>
+							VOLTAR AO GLOSSÁRIO
+						</button>
 						<div v-if="selectedTerm" class="data-reader-window">
 							<div class="reader-header">
 								<div class="reader-header-top">
@@ -138,6 +142,7 @@ export default {
 			currentTab: "terms",
 			selectedTermName: null,
 			selectedCategory: "all",
+			mobileShowDetail: false,
 			categoryGroups: {
 				stats: ["Armadura", "Pontos de Sistema", "Defesa-E", "Evasão", "Brio", "Cap. de Calor", "Pontos de Vida (PV)", "Cap. de Reparo", "Estresse", "Estrutura", "Sensores", "Tamanho", "Velocidade"],
 				combat: ["Dano", "Dano Bônus", "Imunidade", "Resistência", "Acertos Críticos", "Dano/Calculando o Dano", "Queimadura", "Calor"],
@@ -175,6 +180,7 @@ export default {
 	methods: {
 		selectTerm(term) {
 			this.selectedTermName = term.name;
+			this.mobileShowDetail = true;
 		},
 		getTermCategory(name) {
 			for (const [key, list] of Object.entries(this.categoryGroups)) {

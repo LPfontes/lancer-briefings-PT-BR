@@ -226,6 +226,8 @@ export default {
 	gap: 15px;
 	padding: 20px;
 	overflow: hidden;
+	height: 100%;
+	box-sizing: border-box;
 	color: white;
 }
 
@@ -255,6 +257,7 @@ export default {
 
 .tab-content {
 	flex-grow: 1;
+	min-height: 0;
 	display: flex;
 	flex-direction: column;
 	gap: 15px;
