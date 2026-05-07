@@ -2024,4 +2024,6 @@ div.markdown ol li {
 .o-modal__content {
 	z-index: 9999 !important;
 	position: relative;
+	width: auto !important;
+	max-width: 98vw !important;
 }

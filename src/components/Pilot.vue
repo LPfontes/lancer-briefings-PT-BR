@@ -18,13 +18,14 @@
     </div>
     
     <div class="pilot-footer">
-      <div class="mech-info">
+      <div class="mech-info clickable" @click.stop="openMechModal">
         <i class="cci cci-reserve-mech"></i>
         <span>{{ (activeMech.manufacturer || 'N/A') }} // {{ (activeMech.frame_name || 'N/A') }}</span>
       </div>
-      <div class="quick-actions" v-if="pilot.isCustom" @click.stop>
-        <i class="mdi mdi-pencil" @click="editPilot" :title="$t('general.edit')"></i>
-        <i class="mdi mdi-delete" @click="deletePilot" :title="$t('general.delete')"></i>
+      <div class="quick-actions" @click.stop>
+        <i class="mdi mdi-robot" @click="openMechModal" :title="$t('pilotCreator.steps.mechBuilder')"></i>
+        <i v-if="pilot.isCustom" class="mdi mdi-pencil" @click="editPilot" :title="$t('general.edit')"></i>
+        <i v-if="pilot.isCustom" class="mdi mdi-delete" @click="deletePilot" :title="$t('general.delete')"></i>
       </div>
     </div>
     
@@ -40,6 +41,7 @@ import * as ktbData from "lancer-ktb-data";
 import * as nrfawData from "lancer-nrfaw-data";
 import * as longrimData from "lancer-longrim-data";
 import PilotModal from "./modals/PilotModal.vue";
+import MechDisplayModal from "./modals/MechDisplayModal.vue";
 import { pilotStore } from "@/store/pilotCreator";
 
 export default {
@@ -83,13 +85,39 @@ export default {
           getTalent: this.getTalent
         },
         custom: true,
+        width: 1200,
+        trapFocus: true
+      });
+    },
+    openMechModal() {
+      if (!this.activeMech) return;
+      this.$oruga.modal.open({
+        component: MechDisplayModal,
+        props: {
+          mech: this.activeMech,
+          pilot: this.pilot
+        },
+        width: 1200,
+        custom: true,
         trapFocus: true
       });
     },
     getActiveMech() {
+      // Prioridade 1: Pilotos customizados (Nuvem/LocalStore) que usam 'activeMech'
+      if (this.pilot.activeMech) {
+        this.activeMech = JSON.parse(JSON.stringify(this.pilot.activeMech));
+        // Mapear 'frame' para 'frame_id' se necessário para o modal
+        if (!this.activeMech.frame_id && this.activeMech.frame) {
+          this.activeMech.frame_id = this.activeMech.frame;
+        }
+        return;
+      }
+
+      // Prioridade 2: Pilotos do sistema (JSON) que usam array 'mechs'
       const activeMechID = this.pilot.state ? this.pilot.state.active_mech_id : this.pilot.active_mech_id;
-      if (this.pilot.mechs && this.pilot.mechs[0]) {
-        this.activeMech = this.pilot.mechs[0];
+      if (this.pilot.mechs && this.pilot.mechs.length > 0) {
+        const active = this.pilot.mechs.find(m => m.id === activeMechID);
+        this.activeMech = active || this.pilot.mechs[0];
       } else {
         const missingFrame = this.frames.find((obj) => obj.id === 'missing_frame');
         this.activeMech = missingFrame || { manufacturer: 'N/A', frame_name: 'N/A' };
@@ -208,6 +236,18 @@ export default {
   align-items: center;
   font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.6);
+}
+
+.mech-info.clickable {
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.mech-info.clickable:hover {
+  background: rgba(175, 14, 30, 0.2);
+  color: #fff;
 }
 
 .mech-info {

@@ -14,6 +14,9 @@
           </div>
         </div>
         <div class="action-buttons">
+           <div v-if="activeMech" class="modal-action-btn mech" @click="openMechModal" :title="$t('pilotCreator.steps.mechBuilder')">
+              <i class="mdi mdi-robot"></i>
+           </div>
            <div v-if="pilot.isCustom" class="modal-action-btn edit" @click="editPilot" :title="$t('general.edit')">
               <i class="mdi mdi-pencil"></i>
            </div>
@@ -48,14 +51,19 @@
           <!-- Left Column: Portrait & Biometrics -->
           <div class="dossier-col left-col">
             <div class="portrait-section">
-              <div class="portrait-frame">
+              <div class="portrait-frame" :class="{ clickable: pilot.isCustom }" @click="triggerFileUpload">
                 <img v-if="pilot.image" :src="pilot.image" class="portrait-img" />
                 <div v-else class="no-signal">
                    <div class="glitch-text">DATA_REDACTED</div>
                    <div class="static-overlay"></div>
                 </div>
+                <div v-if="pilot.isCustom" class="upload-overlay">
+                   <i class="mdi mdi-camera"></i>
+                   <span>UPLOAD</span>
+                </div>
                 <div class="scan-line-anim"></div>
               </div>
+              <input type="file" ref="fileInput" style="display: none" @change="onFileChange" accept="image/*" />
               <div class="portrait-metadata">
                 <span>PH/HR STATUS: <span class="status-active">VERIFIED</span></span>
                 <span>BIOMETRIC HASH: {{ Math.random().toString(36).substring(7).toUpperCase() }}</span>
@@ -134,10 +142,10 @@
 
 <script>
 import { pilotStore } from "@/store/pilotCreator";
-import MechDetailModal from "./MechDetailModal.vue";
+import MechDisplayModal from "./MechDisplayModal.vue";
 
 export default {
-  components: { MechDetailModal },
+  components: { MechDisplayModal },
   props: {
     pilot: Object,
     getSkill: Function,
@@ -149,6 +157,13 @@ export default {
   },
   computed: {
     activeMech() {
+      // Prioridade 1: Pilotos customizados (Nuvem)
+      if (this.pilot.activeMech) {
+        const am = { ...this.pilot.activeMech };
+        if (!am.frame_id) am.frame_id = am.frame;
+        return am;
+      }
+      // Prioridade 2: Pilotos do sistema
       if (!this.pilot.mechs || !this.pilot.mechs.length) return null;
       const active = this.pilot.mechs.find((m) => m.id === this.pilot.active_mech_id);
       return active || this.pilot.mechs[0];
@@ -158,12 +173,12 @@ export default {
     openMechModal() {
       console.log("Opening Mech Modal for:", this.activeMech?.name);
       this.$oruga.modal.open({
-        component: MechDetailModal,
+        component: MechDisplayModal,
         props: {
           mech: this.activeMech,
           pilot: this.pilot
         },
-        width: 1000,
+        width: 1200,
         custom: true,
         trapFocus: true
       });
@@ -178,12 +193,74 @@ export default {
         await pilotStore.deletePilot(this.pilot.id);
         window.location.reload();
       }
+    },
+    triggerFileUpload() {
+      if (this.pilot.isCustom) {
+        this.$refs.fileInput.click();
+      }
+    },
+    async onFileChange(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = async (event) => {
+        const base64 = event.target.result;
+        this.pilot.image = base64;
+        
+        // Update store if custom
+        if (this.pilot.isCustom) {
+          const saved = JSON.parse(localStorage.getItem('lancer_saved_pilots') || '[]');
+          const idx = saved.findIndex(p => p.id === this.pilot.id);
+          if (idx > -1) {
+            // Update the record with all current pilot data
+            saved[idx] = { ...this.pilot, image: base64, lastSaved: new Date().toISOString() };
+            localStorage.setItem('lancer_saved_pilots', JSON.stringify(saved));
+            
+            // Sync to Database
+            try {
+              const response = await fetch('/api/pilots', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(saved[idx])
+              });
+              if (response.ok) console.log("Pilot image synced to database");
+            } catch (err) { console.error("Database sync failed", err); }
+          }
+        }
+      };
+      reader.readAsDataURL(file);
     }
   }
 }
 </script>
 
 <style scoped>
+.portrait-frame.clickable {
+  cursor: pointer;
+}
+
+.upload-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(175, 14, 30, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 5;
+  color: #fff;
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.portrait-frame:hover .upload-overlay {
+  opacity: 1;
+}
+
 .military-dossier {
   background: #050505;
   border: 2px solid #333;

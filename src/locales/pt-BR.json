@@ -187,7 +187,29 @@
       "free": "Ação Livre",
       "none": "Nenhuma"
     },
-    "activate": "Ativar"
+    "activate": "Ativar",
+    "tags": {
+      "tg_loading": "Carregamento",
+      "tg_ordnance": "Artilharia",
+      "tg_ap": "PA",
+      "tg_accurate": "Precisa",
+      "tg_inaccurate": "Imprecisa",
+      "tg_reliable": "Confiável",
+      "tg_smart": "Inteligente",
+      "tg_seeking": "Perseguidora",
+      "tg_knockback": "Repulsão",
+      "tg_thrown": "Arremessável",
+      "tg_reach": "Alcance",
+      "tg_unique": "Única",
+      "tg_hidden": "Oculta",
+      "tg_danger_zone": "Zona de Perigo",
+      "tg_overkill": "Excesso",
+      "tg_bracing": "Apoio",
+      "tg_unreliable": "Inconstante",
+      "tg_arcing": "Arco",
+      "tg_burn": "Queimadura",
+      "tg_heat_self": "Auto-Calor"
+    }
   },
   "glossary": {
     "title": "GLOSSÁRIO",
