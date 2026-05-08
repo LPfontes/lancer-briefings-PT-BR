@@ -120,15 +120,17 @@ export default {
       
       return {
         'TAM': s.size || 0,
-        'PV': (s.hp || 0) + (p[0] * 2),
+        'PV': (s.hp || 0) + (p[0] * 2) + grit,
         'ARM': s.armor || 0,
         'EV': (s.evasion || 0) + p[1],
-        'DEF-E': (s.edef || 0) + p[2],
-        'CAP-C': (s.heatcap || 0) + p[3],
+        'DEF_E': (s.edef || 0) + p[2],
+        'CAP_C': (s.heatcap || 0) + p[3],
         'VEL': (s.speed || 0) + Math.floor(p[1] / 2),
+        'CAP_R': (s.repcap || 0) + Math.floor(p[0] / 2),
+        'ATK_T': (s.tech_attack || 0) + p[2] + grit,
         'SEN': s.sensor_range || 0,
-        'SALV': s.save || 0,
-        'PS': (s.sp || 0) + p[2] + Math.ceil(grit / 2)
+        'SALV': (s.save || 10) + grit,
+        'PS': (s.sp || 0) + Math.floor(p[2] / 2) + grit
       };
     },
     frameMounts() {

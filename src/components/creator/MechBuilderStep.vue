@@ -401,12 +401,12 @@ export default {
 				const p = this.mechSkills; // [Hull, Agi, Sys, Eng]
 				const grit = this.grit;
 				
-				// System Points (SP) = base SP + Systems skill + ceil(Grit/2)
-				const maxSp = (s.sp || 0) + (p[2] || 0) + Math.ceil(grit / 2);
+				// System Points (SP) = base SP + floor(Systems skill / 2) + Grit
+				const maxSp = (s.sp || 0) + Math.floor((p[2] || 0) / 2) + grit;
 
 				return {
 					'TAM': s.size || 0,
-					'PV': (s.hp || 0) + ((p[0] || 0) * 2),
+					'PV': (s.hp || 0) + ((p[0] || 0) * 2) + grit,
 					'ARM': s.armor || 0,
 					'EV': (s.evasion || 0) + (p[1] || 0),
 					'DEF_E': (s.edef || 0) + (p[2] || 0),
@@ -414,8 +414,8 @@ export default {
 					'VEL': (s.speed || 0) + Math.floor((p[1] || 0) / 2),
 					'CAP_R': (s.repcap || 0) + Math.floor((p[0] || 0) / 2),
 					'SEN': s.sensor_range || 0,
-					'ATK_T': (s.tech_attack >= 0 ? '+' : '') + ((s.tech_attack || 0) + (p[2] || 0)),
-					'SALV': s.save || 0,
+					'ATK_T': (s.tech_attack >= 0 ? '+' : '') + ((s.tech_attack || 0) + (p[2] || 0) + grit),
+					'SALV': (s.save || 10) + grit,
 					'PS': maxSp,
 					'STRUC': 4,
 					'STRESS': 4

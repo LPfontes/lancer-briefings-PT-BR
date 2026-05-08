@@ -121,7 +121,7 @@
                <!-- SYSTEMS -->
                <div class="stat-mini blue">
                   <span class="label">{{ $t('mech.stats.techAttack') }}</span>
-                  <span class="val">{{ stats.ATQ_T >= 0 ? '+' : '' }}{{ stats.ATQ_T }}</span>
+                  <span class="val">{{ stats.ATK_T >= 0 ? '+' : '' }}{{ stats.ATK_T }}</span>
                </div>
                <div class="stat-mini blue">
                   <span class="label">{{ $t('mech.stats.edef') }}</span>
@@ -238,17 +238,17 @@ export default {
       
       return {
         'TAM': s.size || 0,
-        'PV': (s.hp || 0) + (p[0] * 2),
+        'PV': (s.hp || 0) + (p[0] * 2) + grit,
         'ARM': s.armor || 0,
         'CAP_R': (s.repcap || 0) + Math.floor(p[0] / 2),
         'VEL': (s.speed || 0) + Math.floor(p[1] / 2),
         'EV': (s.evasion || 0) + p[1],
-        'ATQ_T': (s.tech_attack || 0) + p[2],
+        'ATK_T': (s.tech_attack || 0) + p[2] + grit,
         'DEF_E': (s.edef || 0) + p[2],
         'SEN': s.sensor_range || 0,
         'SALV': (s.save || 10) + grit,
         'CAP_C': (s.heatcap || 0) + p[3],
-        'PS': (s.sp || 0) + p[2] + Math.ceil(grit / 2)
+        'PS': (s.sp || 0) + Math.floor(p[2] / 2) + grit
       };
     },
     frameMounts() {
