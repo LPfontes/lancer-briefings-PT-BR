@@ -12,6 +12,28 @@
 				{{ mount.type === 'Integrated' ? $t('pilotCreator.integratedMount') : $t(`mech.mountTypes.${mount.type.toLowerCase()}`) }} 
 				// {{ mount.source === 'frame' ? $t('mech.mount') : mount.source }}
 			</span>
+			
+			<div v-if="mount.originalType === 'Flex'" class="mount-config">
+				<button 
+					class="config-btn" 
+					:class="{ active: mount.type === 'Flex' }"
+					@click="$emit('change-type', mount.index, null)"
+					title="Flex"
+				>F</button>
+				<button 
+					class="config-btn" 
+					:class="{ active: mount.type === 'Aux/Aux' }"
+					@click="$emit('change-type', mount.index, 'Aux/Aux')"
+					title="Aux/Aux"
+				>A/A</button>
+				<button 
+					class="config-btn" 
+					:class="{ active: mount.type === 'Main/Aux' }"
+					@click="$emit('change-type', mount.index, 'Main/Aux')"
+					title="Main/Aux"
+				>M/A</button>
+			</div>
+
 			<span v-if="mount.isBlocked" class="blocked-tag">{{ $t('pilotCreator.blockedBySuperheavy') }}</span>
 		</div>
 		
@@ -38,7 +60,7 @@
 				<div class="slot-marker"></div>
 				<div class="weapon-slot-ui">
 					<div class="selected-weapon-card fixed">
-						<div class="weapon-info">
+						<div class="weapon-info" @click="$emit('view-details', mount.weaponId)">
 							<span class="weapon-name">{{ weaponNames[0] || 'Unknown' }}</span>
 							<span class="fixed-tag">{{ $t('pilotCreator.integratedSystem') }}</span>
 						</div>
@@ -88,7 +110,7 @@ export default {
 		hasPartner: Boolean,
 		selectingPartnerFor: Number
 	},
-	emits: ['open-modal', 'remove-weapon', 'select-partner'],
+	emits: ['open-modal', 'remove-weapon', 'select-partner', 'change-type', 'view-details'],
 	computed: {
 		isSuperheavy0() {
 			return this.isSuperheavyFlags && this.isSuperheavyFlags[0];
@@ -121,6 +143,35 @@ export default {
 	align-items: center;
 	gap: 10px;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.mount-config {
+	display: flex;
+	gap: 4px;
+	margin-left: 10px;
+}
+
+.config-btn {
+	background: rgba(255, 255, 255, 0.05);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	color: rgba(255, 255, 255, 0.4);
+	font-family: "Rajdhani", sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	padding: 2px 6px;
+	cursor: pointer;
+	transition: all 0.2s;
+}
+
+.config-btn:hover {
+	background: rgba(255, 255, 255, 0.1);
+	color: rgba(255, 255, 255, 0.8);
+}
+
+.config-btn.active {
+	background: var(--primary-color);
+	border-color: var(--primary-color);
+	color: white;
 }
 
 .mount-icon {

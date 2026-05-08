@@ -27,8 +27,11 @@
 						<button class="action-btn reset-btn" @click="resetPilot">
 							NOVO PILOTO
 						</button>
-						<button class="export-btn" @click="exportToFoundry">
-							{{ $t('pilotCreator.export') }}
+						<button class="export-btn" @click="exportToCompcon">
+							EXPORTAR COMP/CON
+						</button>
+						<button class="export-btn foundry-btn" @click="exportToFoundry">
+							EXPORTAR FOUNDRY
 						</button>
 					</div>
 				</div>
@@ -51,6 +54,7 @@ import MechSkillsStep from "@/components/creator/MechSkillsStep.vue";
 import MechBuilderStep from "@/components/creator/MechBuilderStep.vue";
 import { pilotStore } from "@/store/pilotCreator";
 import { downloadPilotJson } from "@/utils/exportCompconJson";
+import { downloadFoundryExport } from "@/utils/exportFoundryJson";
 
 export default {
 	name: "PilotCreatorView",
@@ -85,8 +89,11 @@ export default {
 		};
 	},
 	methods: {
-		exportToFoundry() {
+		exportToCompcon() {
 			downloadPilotJson(pilotStore.state);
+		},
+		exportToFoundry() {
+			downloadFoundryExport(pilotStore.state);
 		},
 		savePilot() {
 			if (pilotStore.savePilot()) {
@@ -210,9 +217,8 @@ export default {
 	background: rgba(255, 255, 255, 0.1);
 }
 
-.export-btn {
-	padding: 15px;
-	font-size: 18px;
+.foundry-btn {
+	background: #ff6400; /* Laranja Foundry */
 }
 
 .export-btn:hover {

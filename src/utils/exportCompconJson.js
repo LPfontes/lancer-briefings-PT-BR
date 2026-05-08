@@ -5,7 +5,7 @@ export function generateCompconPilot(state) {
   const grit = Math.ceil(level / 2);
   const maxHp = 6 + grit;
   const mechId = "mech-" + state.id;
-  
+
   const currentFrame = framesData.find(f => f.id === state.activeMech.frame);
   const frameMounts = currentFrame ? currentFrame.mounts : [];
 
@@ -80,12 +80,12 @@ export function generateCompconPilot(state) {
     expireTime: "",
     deleteTime: "",
     lastModified: new Date().toString(),
-    
-    skills: state.skills.map(s => ({ id: s.id, rank: s.rank })),
+
+    skills: state.skills.map(s => ({ id: s.id, rank: s.rank / 2 })),
     talents: state.talents.map(t => ({ id: t.id, rank: t.rank })),
     mechSkills: [...state.mech_skills],
-    licenses: state.licenses.map(l => ({ 
-      id: l.id, 
+    licenses: state.licenses.map(l => ({
+      id: l.id,
       rank: l.rank,
       stub: {
         id: l.id,
@@ -95,14 +95,14 @@ export function generateCompconPilot(state) {
         brew: { LcpId: "", LcpName: "Lancer Core Book", LcpVersion: "", Website: "", Status: "OK" }
       }
     })),
-    
+
     core_bonuses: [],
     reserves: [],
     orgs: [],
     counter_data: [],
     custom_counters: [],
     special_equipment: { PilotGear: [], Frames: [], MechWeapons: [], WeaponMods: [], MechSystems: [] },
-    
+
     // Bond fields (required by some importers)
     bondId: "",
     bondPowers: [],
@@ -110,11 +110,11 @@ export function generateCompconPilot(state) {
     xp: 0,
     stress: 0,
     isBroken: false,
-    
+
     combat_history: {
       moves: 0, kills: 0, damage: 0, hp_damage: 0, structure_damage: 0, overshield: 0, heat_damage: 0, reactor_damage: 0, overcharge_uses: 0, core_uses: 0
     },
-    
+
     state: {
       active_mech_id: mechId,
       remote_mech_id: "",
@@ -132,7 +132,7 @@ export function generateCompconPilot(state) {
       },
       deployed: []
     },
-    
+
     loadout: {
       name: "Primary",
       armor: state.loadout.armor ? [mapPilotGear(state.loadout.armor)] : [],
@@ -141,7 +141,7 @@ export function generateCompconPilot(state) {
       extendedWeapons: [],
       extendedGear: []
     },
-    
+
     mechs: [
       {
         id: mechId,
@@ -174,7 +174,7 @@ export function generateCompconPilot(state) {
             mounts: frameMounts.map((mType, mIdx) => {
               const slots = [];
               const slotSizes = mType.includes('/') ? mType.split('/') : [mType];
-              
+
               slotSizes.forEach((size, sIdx) => {
                 const weaponId = state.activeMech.mounts[`${mIdx}_${sIdx}`];
                 slots.push({
@@ -215,12 +215,12 @@ export function downloadPilotJson(state) {
   const data = generateCompconPilot(state);
   const jsonString = JSON.stringify(data, null, 2);
   const blob = new Blob([jsonString], { type: "application/json" });
-  
+
   const a = document.createElement("a");
   const filename = `${state.callsign || 'pilot'}_${state.name || 'new'}_CC.json`;
   a.href = URL.createObjectURL(blob);
   a.download = filename;
-  
+
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);

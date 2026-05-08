@@ -43,6 +43,15 @@
 				</div>
 			</div>
 		</div>
+		<!--<div class="header-actions">
+			<div class="notification-trigger" :class="{ 'has-new': hasNewMessage }" @click="$emit('open-encrypted')" title="Mensagens Encriptadas">
+				<span class="material-symbols-outlined icon">mail</span>
+				<div class="ping"></div>
+			</div>
+			<div class="notification-trigger" @click="$emit('open-notification')" title="Notificações do Sistema">
+				<span class="material-symbols-outlined icon">notifications</span>
+			</div>
+		</div>-->
 	</header>
 </template>
 
@@ -59,16 +68,76 @@ export default {
 			required: true,
 		},
 	},
-	data() {
-		return {};
-	},
-	created() { },
 	mounted() {
 		this.$refs.planetVideo.onloadedmetadata = () => {
 			this.$refs.planetVideo.playbackRate = 0.7;
 		};
 	},
+	data() {
+		return {
+			hasNewMessage: false
+		};
+	}
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.header-actions {
+	display: flex;
+	align-items: center;
+	padding-right: 30px;
+	gap: 15px;
+}
+
+.notification-trigger {
+	position: relative;
+	cursor: pointer;
+	color: rgba(255, 255, 255, 0.4);
+	transition: all 0.2s;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	background: rgba(0, 0, 0, 0.2);
+
+	&:hover {
+		color: #00f0ff;
+		border-color: #00f0ff;
+		background: rgba(0, 240, 255, 0.05);
+	}
+
+	&.has-new {
+		color: #00f0ff;
+		border-color: rgba(0, 240, 255, 0.4);
+
+		.ping {
+			position: absolute;
+			top: -4px;
+			right: -4px;
+			width: 10px;
+			height: 10px;
+			background: #00f0ff;
+			border-radius: 50%;
+			box-shadow: 0 0 10px #00f0ff;
+			animation: ping-pulse 1.5s infinite;
+		}
+	}
+
+	.icon {
+		font-size: 24px;
+	}
+}
+
+@keyframes ping-pulse {
+	0% {
+		transform: scale(1);
+		opacity: 1;
+	}
+	100% {
+		transform: scale(2.5);
+		opacity: 0;
+	}
+}
+</style>

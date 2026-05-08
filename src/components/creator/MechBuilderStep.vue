@@ -217,6 +217,8 @@
 						@open-modal="openWeaponModal"
 						@remove-weapon="setWeapon"
 						@select-partner="selectPartner"
+						@change-type="setMountOverride"
+						@view-details="openDetailModal"
 					/>
 				</div>
 			</div>
@@ -286,25 +288,34 @@
 			@close="modalOpen = false"
 			@select="handleGearSelect"
 		/>
+
+		<GearDetailModal 
+			v-if="detailOpen" 
+			:item="detailItem" 
+			@close="detailOpen = false" 
+		/>
 	</div>
 </template>
 
 <script>
 import { pilotStore } from "@/store/pilotCreator";
 import { frames as framesData, weapons as weaponsData, systems as systemsData, tags as tagsData, talents as talentsData } from "lancer-data-pt-br";
+import { extraWeapons } from "@/data/extraData";
 import GearSelectionModal from "../modals/GearSelectionModal.vue";
+import GearDetailModal from "../modals/GearDetailModal.vue";
 import MechMountSlot from "./MechMountSlot.vue";
 
 export default {
 	name: "MechBuilderStep",
 	components: {
 		GearSelectionModal,
+		GearDetailModal,
 		MechMountSlot
 	},
 	data() {
 		return {
 			frames: framesData,
-			weapons: weaponsData,
+			weapons: [...weaponsData, ...extraWeapons],
 			systems: systemsData,
 			mechName: pilotStore.state.activeMech.name,
 			selectedFrameId: pilotStore.state.activeMech.frame,
@@ -318,6 +329,8 @@ export default {
 			modalOpen: false,
 			modalType: 'weapon',
 			modalContext: null,
+			detailOpen: false,
+			detailItem: null,
 			talentsData: talentsData,
 			selectingPartnerFor: null
 		};
@@ -438,24 +451,38 @@ export default {
 				const talentDef = this.talentsData?.find(td => td.id === t.id);
 				if (!talentDef) return;
 				
+				// Temporary list for this talent to handle exclusivity
+				let talentItems = [];
+				
 				// Check each rank up to current rank
 				for (let i = 0; i < t.rank; i++) {
 					const rank = talentDef.ranks[i];
 					if (rank && rank.integrated) {
+						if (rank.exclusive) {
+							talentItems = []; // Clear previous ranks' items if this rank is exclusive
+						}
 						rank.integrated.forEach(itemId => {
 							const item = this.weapons.find(w => w.id === itemId) || this.systems.find(s => s.id === itemId);
-							if (item && !items.find(existing => existing.id === item.id)) {
-								items.push({ ...item, sourceTalent: talentDef.name, integrated: true });
+							if (item && !talentItems.find(existing => existing.id === item.id)) {
+								talentItems.push({ ...item, sourceTalent: talentDef.name, integrated: true });
 							}
 						});
 					}
 				}
+				
+				// Add items from this talent to the global list if not already there
+				talentItems.forEach(item => {
+					if (!items.find(existing => existing.id === item.id)) {
+						items.push(item);
+					}
+				});
 			});
 			return items;
 		},
 		allMounts() {
 			if (!this.selectedFrame) return [];
 			const shPartners = pilotStore.state.activeMech.sh_partners || {};
+			const overrides = pilotStore.state.activeMech.mount_overrides || {};
 			
 			const mounts = this.selectedFrame.mounts.map((m, i) => {
 				// Check if this mount is blocked by a Superheavy weapon in ANOTHER mount
@@ -467,8 +494,12 @@ export default {
 					}
 				}
 				
+				const originalType = m;
+				const currentType = overrides[i] || m;
+				
 				return { 
-					type: m, 
+					type: currentType,
+					originalType: originalType,
 					index: i, 
 					source: 'frame',
 					isBlocked: blockedBy !== null,
@@ -490,6 +521,9 @@ export default {
 		}
 	},
 	methods: {
+		setMountOverride(mountIdx, type) {
+			pilotStore.setMechMountOverride(mountIdx, type);
+		},
 		toggleExpand(id) {
 			const index = this.expandedItems.indexOf(id);
 			if (index > -1) {
@@ -508,7 +542,8 @@ export default {
 			pilotStore.setMechFrame(this.selectedFrameId);
 		},
 		getSlotCount(type) {
-			if (type === 'Aux/Aux' || type === 'Main/Aux') return 2;
+			const t = (type || '').toLowerCase();
+			if (t === 'aux/aux' || t === 'main/aux' || t === 'aux/main' || t === 'flex') return 2;
 			return 1;
 		},
 		getWeapon(mountIdx, slotIdx) {
@@ -535,12 +570,14 @@ export default {
 			
 			if (mt === 'aux/aux') {
 				restrictions = ['Auxiliary'];
-			} else if (mt === 'main/aux') {
-				if (slotIdx === 0) restrictions = ['Main', 'Auxiliary'];
-				else restrictions = ['Auxiliary'];
-			} else if (mt === 'flex') {
-				if (slotIdx === 0) restrictions = ['Main', 'Auxiliary'];
-				else restrictions = ['Auxiliary'];
+			} else if (mt === 'main/aux' || mt === 'aux/main' || mt === 'flex') {
+				if (slotIdx === 0) {
+					// Slot 0 of Flex/Main-Aux can be Main or Aux
+					restrictions = ['Main', 'Auxiliary'];
+				} else {
+					// Slot 1 of Flex/Main-Aux is always Aux
+					restrictions = ['Auxiliary'];
+				}
 			} else if (mt === 'main') {
 				restrictions = ['Main', 'Auxiliary'];
 			} else if (mt === 'heavy') {
@@ -575,6 +612,13 @@ export default {
 				this.modalOpen = false;
 			} else if (this.modalType === 'system') {
 				this.toggleSystem(itemId);
+			}
+		},
+		openDetailModal(itemId) {
+			const item = this.weapons.find(w => w.id === itemId) || this.systems.find(s => s.id === itemId);
+			if (item) {
+				this.detailItem = item;
+				this.detailOpen = true;
 			}
 		},
 		isSuperheavy(weaponId) {

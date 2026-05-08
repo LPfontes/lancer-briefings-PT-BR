@@ -28,6 +28,7 @@ export const usePilotCreator = () => {
       name: "Mecha Ativo",
       frame: "mf_standard_pattern_i_everest",
       mounts: {}, // { "mount_index_slot_index": weaponId }
+      mount_overrides: {}, // { mount_index: type }
       systems: [], // Array of IDs
       sh_partners: {} // { "mountIdx": partnerIdx }
     }
@@ -59,8 +60,17 @@ export const usePilotCreator = () => {
   const setMechFrame = (frameId) => {
     state.activeMech.frame = frameId;
     state.activeMech.mounts = {}; // Reset mounts on frame change
+    state.activeMech.mount_overrides = {}; // Reset overrides on frame change
     state.activeMech.systems = []; // Reset systems on frame change
     state.activeMech.sh_partners = {}; // Reset SH partners
+  };
+
+  const setMechMountOverride = (mountIdx, type) => {
+    if (type === null) {
+      delete state.activeMech.mount_overrides[mountIdx];
+    } else {
+      state.activeMech.mount_overrides[mountIdx] = type;
+    }
   };
 
   const setMechName = (name) => {
@@ -284,6 +294,7 @@ export const usePilotCreator = () => {
       name: "Mecha Ativo",
       frame: "mf_standard_pattern_i_everest",
       mounts: {},
+      mount_overrides: {},
       systems: [],
       sh_partners: {}
     };
@@ -300,6 +311,7 @@ export const usePilotCreator = () => {
     setMechFrame,
     setMechName,
     setMechMountWeapon,
+    setMechMountOverride,
     setSuperheavyPartner,
     toggleMechSystem,
     updateMechSkill,

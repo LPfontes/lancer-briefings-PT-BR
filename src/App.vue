@@ -1,6 +1,12 @@
 <template>
 	<div class="page-wrapper">
-		<Header :planet-path="planetPath" :class="{ animate: animate }" :header="header" />
+		<Header 
+			:planet-path="planetPath" 
+			:class="{ animate: animate }" 
+			:header="header" 
+			@open-encrypted="encryptedModalOpen = true" 
+			@open-notification="showSampleNotification"
+		/>
 		<Sidebar :animate="animate" :class="{ animate: animate }" />
 	</div>
 	<MobileNav />
@@ -8,6 +14,17 @@
 		<router-view :animate="animate" :initial-slug="initialSlug" :missions="missions" :events="events"
 			:pilots="pilots" :clocks="clocks" :reserves="reserves" />
 	</div>
+
+	<EncryptedMessageModal :is-open="encryptedModalOpen" @close="encryptedModalOpen = false" />
+	
+	<NotificationModal 
+		:is-open="notification.isOpen" 
+		:title="notification.title" 
+		:message="notification.message" 
+		:type="notification.type"
+		@close="notification.isOpen = false" 
+	/>
+
 	<svg style="visibility: hidden; position: absolute" width="0" height="0" xmlns="http://www.w3.org/2000/svg"
 		version="1.1">
 		<defs>
@@ -26,6 +43,8 @@
 import Header from "./components/layout/Header.vue";
 import Sidebar from "./components/layout/Sidebar.vue";
 import MobileNav from "./components/layout/MobileNav.vue";
+import EncryptedMessageModal from "./components/modals/EncryptedMessageModal.vue";
+import NotificationModal from "./components/modals/NotificationModal.vue";
 import Config from "@/assets/info/general-config.json";
 import { pilotStore } from "@/store/pilotCreator";
 
@@ -34,6 +53,8 @@ export default {
 		Header,
 		Sidebar,
 		MobileNav,
+		EncryptedMessageModal,
+		NotificationModal,
 	},
 
 	data() {
@@ -43,6 +64,13 @@ export default {
 			planetPath: Config.planetPath,
 			header: { ...Config.header, icon: Config.icon },
 			pilotSpecialInfo: Config.pilotSpecialInfo,
+			encryptedModalOpen: false,
+			notification: {
+				isOpen: false,
+				title: "",
+				message: "",
+				type: "info"
+			},
 			clocks: [],
 			events: [],
 			missions: [],
@@ -61,6 +89,14 @@ export default {
 	},
 	mounted() {
 		this.$router.push("/status");
+		
+		// Add global notification trigger
+		window.showNotification = (title, message, type = 'info') => {
+			this.notification.title = title;
+			this.notification.message = message;
+			this.notification.type = type;
+			this.notification.isOpen = true;
+		};
 	},
 	methods: {
 		setTitleFavicon(title, favicon) {
@@ -178,6 +214,13 @@ export default {
 			} catch (e) {
 				console.error("Erro ao carregar pilotos customizados:", e);
 			}
+		},
+		showSampleNotification() {
+			window.showNotification(
+				"SISTEMA DE DIAGNÓSTICO",
+				"Integridade do reator em 98.4%. Todos os sistemas de armas modulares carregados com sucesso. Protocolo de comunicação Míngzhì ativo.",
+				"info"
+			);
 		},
 	},
 };
