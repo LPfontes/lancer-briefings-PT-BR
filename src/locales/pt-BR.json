@@ -31,7 +31,9 @@
     "logs": "Registros",
     "glossary": "Glossário",
     "history": "História",
-    "creator": "Criador de Ficha"
+    "creator": "Criador de Ficha",
+    "missionReport": "Relatório de Missão",
+    "personas": "Personas"
   },
   "pilotCreator": {
     "title": "CRIADOR DE PILOTOS",
@@ -296,5 +298,30 @@
       "politics": "POLÍTICA",
       "pillars": "PILARES"
     }
+  },
+  "missionReport": {
+    "title": "RELATÓRIO DE MISSÃO",
+    "aar": "AFTER ACTION REPORT (AAR)",
+    "summary": "RESUMO DA OPERAÇÃO",
+    "objectives": "OBJETIVOS",
+    "outcomes": "RESULTADOS",
+    "pilotPerformance": "DESEMPENHO DOS PILOTOS",
+    "casualties": "BAIXAS / DANOS",
+    "notes": "NOTAS DO COMANDO",
+    "noMission": "SELECIONE UMA MISSÃO PARA VISUALIZAR O RELATÓRIO",
+    "missionId": "ID DA MISSÃO",
+    "status": "STATUS FINAL",
+    "debriefing": "PROTOCOLO DE DEBRIEFING",
+    "decrypting": "DECRIPTANDO DADOS DA MISSÃO..."
+  },
+  "personas": {
+    "title": "PERSONAS",
+    "database": "BANCO DE DADOS DE IDENTIDADES",
+    "search": "BUSCAR PERSONA NO ARQUIVO...",
+    "noPersona": "SELECIONE UMA IDENTIDADE PARA VISUALIZAR O DOSSIÊ",
+    "biography": "BIOGRAFIA",
+    "traits": "TRAÇOS E MOTIVAÇÕES",
+    "faction": "AFILIAÇÃO",
+    "status": "STATUS OPERACIONAL"
   }
 }

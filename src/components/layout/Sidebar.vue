@@ -34,6 +34,14 @@
 					<img src="/icons/deployable.svg" />
 					<span>{{ $t('sidebar.creator') }}</span>
 				</router-link>
+				<router-link class="clipped-bottom-right" to="/report">
+					<img src="/icons/campaign.svg" />
+					<span>{{ $t('sidebar.missionReport') }}</span>
+				</router-link>
+				<router-link class="clipped-bottom-right" to="/personas">
+					<img src="/icons/pilot.svg" />
+					<span>{{ $t('sidebar.personas') }}</span>
+				</router-link>
 			</o-sidebar>
 		</section>
 	</div>

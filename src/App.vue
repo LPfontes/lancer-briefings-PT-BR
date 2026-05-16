@@ -11,7 +11,7 @@
 	</div>
 	<MobileNav />
 	<div id="router-view-container">
-		<router-view :animate="animate" :initial-slug="initialSlug" :missions="missions" :events="events"
+		<router-view :animate="animate" :initial-slug="initialSlug" :missions="missions" :reports="reports" :personas="personas" :events="events"
 			:pilots="pilots" :clocks="clocks" :reserves="reserves" />
 	</div>
 
@@ -74,6 +74,8 @@ export default {
 			clocks: [],
 			events: [],
 			missions: [],
+			reports: [],
+			personas: [],
 			pilots: [],
 			reserves: [],
 			bonds: [],
@@ -82,6 +84,8 @@ export default {
 	created() {
 		this.setTitleFavicon(Config.defaultTitle + " MISSION BRIEFING", Config.icon);
 		this.importMissions(import.meta.glob("@/assets/missions/*.md", { query: '?raw', import: 'default' }));
+		this.importReports(import.meta.glob("@/assets/reports/*.md", { query: '?raw', import: 'default' }));
+		this.importPersonas(import.meta.glob("@/assets/personas/*.md", { query: '?raw', import: 'default' }));
 		this.importEvents(import.meta.glob("@/assets/events/*.md", { query: '?raw', import: 'default' }));
 		this.importClocks(import.meta.glob("@/assets/clocks/*.json"));
 		this.importReserves(import.meta.glob("@/assets/reserves/*.json"));
@@ -121,6 +125,34 @@ export default {
 			this.missions = this.missions.sort(function (a, b) {
 				return b["slug"] - a["slug"];
 			})
+		},
+		async importReports(files) {
+			let filePromises = Object.keys(files).map(path => files[path]());
+			let fileContents = await Promise.all(filePromises);
+			fileContents.forEach(content => {
+				let report = {};
+				report["slug"] = content.split("\n")[0];
+				report["name"] = content.split("\n")[1];
+				report["status"] = content.split("\n")[2];
+				report["content"] = content.split("\n").splice(3).join("\n");
+				this.reports = [...this.reports, report];
+			});
+			this.reports = this.reports.sort(function (a, b) {
+				return b["slug"] - a["slug"];
+			})
+		},
+		async importPersonas(files) {
+			let filePromises = Object.keys(files).map(path => files[path]());
+			let fileContents = await Promise.all(filePromises);
+			fileContents.forEach(content => {
+				let persona = {};
+				persona["name"] = content.split("\n")[0];
+				persona["faction"] = content.split("\n")[1];
+				persona["status"] = content.split("\n")[2];
+				persona["image"] = content.split("\n")[3];
+				persona["content"] = content.split("\n").splice(4).join("\n");
+				this.personas = [...this.personas, persona];
+			});
 		},
 		async importEvents(files) {
 			let filePromises = Object.keys(files).map(path => files[path]());
@@ -218,7 +250,7 @@ export default {
 		showSampleNotification() {
 			window.showNotification(
 				"SISTEMA DE DIAGNÓSTICO",
-				"Integridade do reator em 98.4%. Todos os sistemas de armas modulares carregados com sucesso. Protocolo de comunicação Míngzhì ativo.",
+				"Integridade do reator em 98.4%. Todos os sistemas de armas modulares carregados com sucesso. Protocolo de comunicação Alia ativo.",
 				"info"
 			);
 		},

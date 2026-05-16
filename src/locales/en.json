@@ -26,7 +26,9 @@
     "logs": "Logs",
     "glossary": "Glossary",
     "history": "History",
-    "creator": "Pilot Creator"
+    "creator": "Pilot Creator",
+    "missionReport": "Mission Report",
+    "personas": "Personas"
   },
   "pilotCreator": {
     "title": "PILOT CREATOR",
@@ -227,5 +229,30 @@
       "politics": "POLITICS",
       "pillars": "PILLARS"
     }
+  },
+  "missionReport": {
+    "title": "MISSION REPORT",
+    "aar": "AFTER ACTION REPORT (AAR)",
+    "summary": "OPERATION SUMMARY",
+    "objectives": "OBJECTIVES",
+    "outcomes": "OUTCOMES",
+    "pilotPerformance": "PILOT PERFORMANCE",
+    "casualties": "CASUALTIES / DAMAGE",
+    "notes": "COMMAND NOTES",
+    "noMission": "SELECT A MISSION TO VIEW REPORT",
+    "missionId": "MISSION ID",
+    "status": "FINAL STATUS",
+    "debriefing": "DEBRIEFING PROTOCOL",
+    "decrypting": "DECRYPTING MISSION DATA..."
+  },
+  "personas": {
+    "title": "PERSONAS",
+    "database": "IDENTITY DATABASE",
+    "search": "SEARCH PERSONA IN ARCHIVE...",
+    "noPersona": "SELECT AN IDENTITY TO VIEW DOSSIER",
+    "biography": "BIOGRAPHY",
+    "traits": "TRAITS AND MOTIVATIONS",
+    "faction": "AFFILIATION",
+    "status": "OPERATIONAL STATUS"
   }
 }

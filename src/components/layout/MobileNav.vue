@@ -20,6 +20,14 @@
       <img src="/icons/calendar.svg" alt="História" />
       <span>{{ $t('sidebar.history') }}</span>
     </router-link>
+    <router-link to="/report" id="mobile-nav-report">
+      <img src="/icons/campaign.svg" alt="Relatório" />
+      <span>{{ $t('sidebar.missionReport') }}</span>
+    </router-link>
+    <router-link to="/personas" id="mobile-nav-personas">
+      <img src="/icons/pilot.svg" alt="Personas" />
+      <span>{{ $t('sidebar.personas') }}</span>
+    </router-link>
   </nav>
 </template>
 
