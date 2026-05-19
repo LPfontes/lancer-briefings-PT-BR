@@ -289,7 +289,7 @@ export default {
 }
 
 .report-status-tag {
-	font-family: \"Big Shoulders Display\", cursive;
+	
 	font-size: 12px;
 	letter-spacing: 1px;
 	text-transform: uppercase;
@@ -385,7 +385,6 @@ export default {
 }
 
 .section-tag {
-	font-family: \"Big Shoulders Display\", cursive;
 	font-size: 14px;
 	color: #00e5ff;
 	background: rgba(0, 229, 255, 0.1);
@@ -442,7 +441,6 @@ export default {
 	position: absolute;
 	top: 10px;
 	right: 10px;
-	font-family: \"Big Shoulders Display\", cursive;
 	font-size: 40px;
 	color: rgba(255, 145, 0, 0.05);
 	transform: rotate(-15deg);
@@ -465,7 +463,7 @@ export default {
 }
 
 .sign-name {
-	font-family: \"Big Shoulders Display\", cursive;
+	
 	font-size: 18px;
 	color: #ff9100;
 	letter-spacing: 1px;
@@ -506,7 +504,7 @@ export default {
 }
 
 .empty-reader p {
-	font-family: \"Big Shoulders Display\", cursive;
+	
 	font-size: 20px;
 	letter-spacing: 2px;
 	text-transform: uppercase;
@@ -580,7 +578,7 @@ export default {
 	border: none;
 	border-bottom: 1px solid #333;
 	color: #00e5ff;
-	font-family: \"Big Shoulders Display\", cursive;
+	
 	font-size: 16px;
 	align-items: center;
 	gap: 10px;
