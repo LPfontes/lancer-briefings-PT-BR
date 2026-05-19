@@ -85,7 +85,7 @@
       "background": "Histórico",
       "customBackground": "Histórico Personalizado",
       "bio": "Biografia",
-      "hull": "Estrutura",
+      "hull": "Casco",
       "agility": "Agilidade",
       "systems": "Sistemas",
       "engineering": "Engenharia"
@@ -264,7 +264,7 @@
     "callsignAvailable": "APELIDO DISPONÍVEL",
     "omninetVault": "REMESSA DO COFRE DA OMNINET",
     "stats": {
-      "hull": "ESTRUTURA",
+      "hull": "CASCO",
       "agi": "AGILIDADE",
       "sys": "SISTEMAS",
       "eng": "ENGENHARIA"
