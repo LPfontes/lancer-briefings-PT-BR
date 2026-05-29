@@ -43,7 +43,7 @@
 				</div>
 			</div>
 		</div>
-		<!--<div class="header-actions">
+		<div class="header-actions">
 			<div class="notification-trigger" :class="{ 'has-new': hasNewMessage }" @click="$emit('open-encrypted')" title="Mensagens Encriptadas">
 				<span class="material-symbols-outlined icon">mail</span>
 				<div class="ping"></div>
@@ -51,7 +51,7 @@
 			<div class="notification-trigger" @click="$emit('open-notification')" title="Notificações do Sistema">
 				<span class="material-symbols-outlined icon">notifications</span>
 			</div>
-		</div>-->
+		</div>
 	</header>
 </template>
 
@@ -75,7 +75,7 @@ export default {
 	},
 	data() {
 		return {
-			hasNewMessage: false
+			hasNewMessage: true
 		};
 	}
 };
