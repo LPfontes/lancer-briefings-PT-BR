@@ -19,12 +19,24 @@
 							<p>ESTA MENSAGEM ESTÁ PROTEGIDA POR CRIPTOGRAFIA DE NÍVEL OMNINET.</p>
 						</div>
 						
+						<div class="signal-selector" v-if="messages.length > 1">
+							<div class="signal-label">SELECIONAR SINAL //</div>
+							<div class="signal-buttons">
+								<button 
+									v-for="(msg, index) in messages" 
+									:key="index"
+									:class="['signal-btn', { active: currentMessageIndex === index }]"
+									@click="selectMessage(index)"
+								>
+									SINAL 0{{ index + 1 }}
+								</button>
+							</div>
+						</div>
+
 						<div class="hint-box">
 							<div class="hint-label">TRANSMISSÃO PÚBLICA</div>
 							<div class="hint-content">
-								<p>Fé baseada na razão</p>
-								<p>Sakyamuni deu a resposta.</p>
-								<p>A chave é o caminho.</p>
+								<p v-for="(hint, i) in messages[currentMessageIndex].hints" :key="i">{{ hint }}</p>
 							</div>
 						</div>
 
@@ -59,7 +71,7 @@
 							<div class="origin">ORIGEM: {{ messageOrigin }}</div>
 							<div class="timestamp">DATA: {{ currentTimestamp }}</div>
 						</div>
-						<div class="message-content markdown" v-html="decryptedMessage"></div>
+						<div class="message-content markdown" v-html="messages[currentMessageIndex].content"></div>
 						<div class="decrypted-footer">
 							<div class="footer-line">ESTA MENSAGEM SE AUTO-DESTRUIRÁ AO FECHAR.</div>
 						</div>
@@ -82,16 +94,63 @@ export default {
 			isDecrypted: false,
 			isDecrypting: false,
 			password: "",
-			correctPassword: "CAMINHODOMEIO",
 			error: false,
 			cipherChars: "0123456789ABCDEF!@#$%^&*()_+-=[]{}|;:,.<>?",
 			displayedCipherText: "",
 			cipherInterval: null,
-			decryptedMessage: `
-				<p>Sirvo a décadas o glorioso Míngzhì, entretanto não sou cega a mazela que se alastra sobre o meu povo.</p>
-				<p>Protegemos a humanidade da queda, somos as correntes que impedem o frenesi da ganância. Mesmo assim, esse mal se alastra sobre nosso belo planeta.</p>
-				<p><i>Fé baseada na razão... Sakyamuni deu a resposta.</i></p>
-			`,
+			currentMessageIndex: 0,
+			messages: [
+				{
+					password: "CAMINHODOMEIO",
+					hints: ["Fé baseada na razão", "Sakyamuni deu a resposta.", "A chave é o caminho."],
+					content: `
+						<p>Sirvo a décadas o glorioso Míngzhì, entretanto não sou cega a mazela que se alastra sobre o meu povo.</p>
+						<p>Protegemos a humanidade da queda, somos as correntes que impedem o frenesi da ganância. Mesmo assim, esse mal se alastra sobre nosso belo planeta.</p>
+						<p><i>Fé baseada na razão... Sakyamuni deu a resposta.</i></p>
+					`
+				},
+				{
+					password: "CAMINHODOMEIO",
+					hints: ["Fé baseada na razão", "Sakyamuni deu a resposta.", "A chave é o caminho."],
+					content: `
+						<p>Quando a <i>Xīnshēng</i> finalmente alcançou Hélio, nossa população não estava pronta para o que viria. Seis gerações inteiras haviam nascido e morrido no vazio do espaço; a degradação tecnológica e cultural fora inevitável. O novo planeta era um desafio de escala monstruosa, e milhares de nós pereceram nos primeiros anos.</p>
+						<p>Então, Míngzhì ascendeu para nos guiar. Ele resgatou conhecimentos e tecnologias há muito esquecidos, fundando os pilares que sustentariam a humanidade neste mundo hostil. A Inquisição surgiu logo em seguida, como uma resposta desesperada, mas necessária, às monstruosidades que nos destruíam por fora... e por dentro.</p>
+						<p>Quando finalmente fincamos nossas raízes, uma nova verdade se impôs: era preciso garantir que a humanidade não seguisse a mesma trilha que condenou a Terra. Era preciso, a qualquer custo, quebrar o ciclo da eterna repetição.</p>
+					`
+				},
+				{
+					password: "XINSHENG",
+					hints: ["A origem"],
+					content: `
+						<p>Mas então vocês chegaram. Um lembrete vivo da ganância humana, espalhando-se novamente pelo cosmos, devorando, consumindo e destruindo tudo em seu caminho.</p>
+						<p>Míngzhì nos alertou de que vocês viriam. Que trariam consigo o Código, o verdadeiro mal da tecnologia. Previu que seus olhos brilhariam cobiçosos sobre Hélio e suas riquezas, e que suas línguas de prata prometeriam milagres: saúde, abrigo, educação e liberdade. Mentiras disfarçadas de salvação. O que vocês realmente oferecem é apenas a liberdade de servir. A obrigação de consumir.</p>
+						<p>Contudo, abruptamente, Míngzhì se calou. Muitos viram o silêncio como uma provação; acreditavam que deveríamos provar ao nosso Sábio que não sucumbiríamos à tentação. Antes a morte do que a perda do Caminho do Meio.</p>
+					`
+				},
+				{
+					password: "MINGZHI",
+					hints: ["O Sábio"],
+					content: `
+						<p>No entanto, um pequeno grupo interpretou o silêncio de Míngzhì como uma conclusão. Nosso Sábio cumprira seu propósito ao nos guiar através do vazio, agora, cabia a nós escolher o próprio destino.</p>
+						<p>Por muito tempo, encarei tais pensamentos como heresia. Acreditei que a guerra seria a chama da purificação, e que os sobreviventes dessa provação seriam abençoados pelo Sábio com a verdade absoluta. Então, nós lutamos. Enfrentamos a ganância humana, suas máquinas de destruição, seus exércitos. Julgávamos ser os guias iluminados, mas fomos esmagados pelo poder bruto daquela avareza.</p>
+						<p>O fim era inevitável. Nosso povo definhava, a fome se espalhava e, das sombras, os Lordes surgiram como sanguessugas oportunistas.</p>
+						<p>Mas então a guerra cessou. Outros de vocês apareceram, trazendo palavras de paz.</p>
+						<p>Não negarei que isso feriu meu orgulho. Dilacerou minha fé. Mas minha obrigação com o povo de Hélio é infinitamente maior do que qualquer lealdade cega a um Sábio ausente. Agora eu compreendo... o Caminho sempre foi sobre preservar a vida dos meus semelhantes.</p>
+					`
+				},
+				{
+					password: "VERDADE",
+					hints: ["Conhecereis e ela vos libertará"],
+					content: `
+						<p>Míngzhì segue em silêncio, e os poucos de nós que restam estão divididos. A maior parte da Inquisição clama pela morte em batalha; preferem queimar todo o planeta a permitir que a avareza humana o herde.</p>
+						<p>Mas foi exatamente esse tipo de fanatismo que levou a humanidade ao colapso original.</p>
+						<p>Não se enganem: eu ainda não confio em suas palavras. Vocês vêm com promessas de paz, prosperidade e estabilidade, mas resguardam tudo isso atrás de suas máquinas de guerra e de seus soldados descartáveis. Nós sabemos sobre os "Restos". Sabemos sobre os seus crimes.</p>
+						<p>Ainda assim, se vocês são mesmo diferentes daqueles que vieram antes, eu devo, pelo bem de Hélio, dar-lhes a chance de provar seu valor.</p>
+						<p>Seguem anexas as coordenadas. Uma pequena vila isolada, abandonada devido à escassez de nossas tropas. Seu povo sofre com o desamparo. As monstruosidades da fronteira já farejam o medo deles, e elas estão vindo para reivindicar o que antes era delas.</p>
+						<p>-A Vigia.</p>
+					`
+				}
+			],
 			messageOrigin: "COMUNICAÇÃO MÍNGZHÌ",
 			currentTimestamp: new Date().toLocaleString(),
 		};
@@ -103,6 +162,11 @@ export default {
 		if (this.cipherInterval) clearInterval(this.cipherInterval);
 	},
 	methods: {
+		selectMessage(index) {
+			this.currentMessageIndex = index;
+			this.error = false;
+			this.password = "";
+		},
 		startCipherAnimation() {
 			this.cipherInterval = setInterval(() => {
 				let text = "";
@@ -119,7 +183,12 @@ export default {
 			
 			// Simulate processing time
 			setTimeout(() => {
-				if (this.password.toUpperCase() === this.correctPassword) {
+				const targetPassword = this.messages[this.currentMessageIndex].password.toUpperCase();
+				// Remove acentos da senha digitada para facilitar
+				const inputPassword = this.password.toUpperCase().trim()
+					.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+				
+				if (inputPassword === targetPassword || this.password.toUpperCase() === targetPassword) {
 					this.isDecrypted = true;
 					if (this.cipherInterval) clearInterval(this.cipherInterval);
 				} else {
@@ -132,6 +201,7 @@ export default {
 	watch: {
 		isOpen(val) {
 			if (val) {
+				this.currentMessageIndex = 0;
 				this.isDecrypted = false;
 				this.password = "";
 				this.error = false;
@@ -167,6 +237,49 @@ export default {
 	display: flex;
 	flex-direction: column;
 	position: relative;
+}
+
+.signal-selector {
+	margin-bottom: 25px;
+}
+
+.signal-label {
+	font-family: "Inconsolata", monospace;
+	font-size: 11px;
+	color: #00f0ff;
+	opacity: 0.7;
+	margin-bottom: 8px;
+	letter-spacing: 1px;
+}
+
+.signal-buttons {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+.signal-btn {
+	background: rgba(0, 0, 0, 0.5);
+	border: 1px solid rgba(0, 240, 255, 0.3);
+	color: rgba(0, 240, 255, 0.7);
+	padding: 8px 12px;
+	font-family: "Rajdhani", sans-serif;
+	font-weight: bold;
+	font-size: 14px;
+	cursor: pointer;
+	transition: all 0.2s;
+}
+
+.signal-btn:hover {
+	background: rgba(0, 240, 255, 0.1);
+	color: #00f0ff;
+}
+
+.signal-btn.active {
+	background: #00f0ff;
+	color: #000;
+	border-color: #00f0ff;
+	box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
 }
 
 .hint-box {

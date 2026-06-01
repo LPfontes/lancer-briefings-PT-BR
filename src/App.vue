@@ -237,7 +237,36 @@ export default {
 				saved.forEach(pilot => {
 					// Evitar duplicatas por callsign
 					if (!this.pilots.find(p => p.callsign.toUpperCase() === pilot.callsign.toUpperCase())) {
-						customPilots.push({ ...pilot, isCustom: true });
+						const pilotWithImage = { ...pilot, isCustom: true };
+						
+						// Vincular imagens locais otimizadas nos arquivos da página baseadas no callsign
+						const callsign = pilot.callsign ? pilot.callsign.toUpperCase().trim() : "";
+						
+						const imageMap = {
+							"ROSA NEGRA": "/images/pilots/rosa_negra.png",
+							"NAS KANTA": "/images/pilots/Nas-kanta.png",
+							"KANTA": "/images/pilots/Nas-kanta.png",
+							"NAS-KANTA": "/images/pilots/Nas-kanta.png",
+							"CARMESIN": "/images/pilots/carmesin.png",
+							"DIA DO JULGAMENTO": "/images/pilots/dia_do_Julgamento.png",
+							"OCELOT": "/images/pilots/ocelot.png",
+							"SCOP-OLEAD": "/images/pilots/scop-olead.png",
+							"SCOP OLEAD": "/images/pilots/scop-olead.png",
+							"SULLA VIA DELLA GLORIA": "/images/pilots/sulla_via_della_gloria.webp",
+							"THE NERGAL": "/images/pilots/the_nergal.png",
+							"TRASH": "/images/pilots/trash.png",
+							"WOLF": "/images/pilots/wolf.png"
+						};
+						
+						if (imageMap[callsign]) {
+							pilotWithImage.image = imageMap[callsign];
+						} else if (callsign === "ROSA NEGRA") { // Fallback if the png is missing but jpg was there
+							pilotWithImage.image = "/images/pilots/rosa_negra.jpg";
+						} else if (callsign === "NAS KANTA" || callsign === "KANTA" || callsign === "NAS-KANTA") {
+							pilotWithImage.image = "/images/pilots/nas_kanta.webp";
+						}
+						
+						customPilots.push(pilotWithImage);
 					}
 				});
 				

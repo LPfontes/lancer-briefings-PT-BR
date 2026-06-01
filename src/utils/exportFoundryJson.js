@@ -17,28 +17,26 @@ function generateId() {
 }
 
 const STATS_TEMPLATE = {
-  coreVersion: "13.346",
+  coreVersion: "13.351",
   systemId: "lancer",
-  systemVersion: "3.0.0-rc1"
+  systemVersion: "3.0.0"
 };
 
 const DEFAULT_TOKEN = (name, img) => ({
   name: name,
-  displayName: 0,
+  displayName: 30,
   actorLink: true,
-  appendNumber: false,
-  prependAdjective: false,
   width: 1,
   height: 1,
   texture: {
     src: img || "systems/lancer/assets/icons/pilot.svg",
     anchorX: 0.5, anchorY: 0.5, offsetX: 0, offsetY: 0, fit: "contain", scaleX: 1, scaleY: 1, rotation: 0, tint: "#ffffff", alphaThreshold: 0.75
   },
-  lockRotation: true,
+  lockRotation: false,
   rotation: 0,
   alpha: 1,
   disposition: 1,
-  displayBars: 0,
+  displayBars: 50,
   bar1: { attribute: "hp" },
   bar2: { attribute: "heat" },
   light: { negative: false, priority: 0, alpha: 0.5, angle: 360, bright: 0, color: null, coloration: 1, dim: 0, attenuation: 0.5, luminosity: 0.5, saturation: 0, contrast: 0, shadows: 0, animation: { type: null, speed: 5, intensity: 5, reverse: false }, darkness: { min: 0, max: 1 } },
@@ -47,8 +45,11 @@ const DEFAULT_TOKEN = (name, img) => ({
   occludable: { radius: 0 },
   ring: { enabled: false, colors: { ring: null, background: null }, effects: 1, subject: { scale: 1, texture: null } },
   turnMarker: { mode: 1, animation: null, src: null, disposition: false },
+  movementAction: null,
   flags: {},
-  randomImg: false
+  randomImg: false,
+  appendNumber: false,
+  prependAdjective: false
 });
 
 const DEFAULT_ACTION_TRACKER = {
@@ -61,7 +62,37 @@ const DEFAULT_ACTION_TRACKER = {
   used_reactions: []
 };
 
+/**
+ * Converts a bonus from lancer-data format to the Foundry/LAS format.
+ * Armor.svelte calls Object.keys() on damage_types, range_types, weapon_sizes,
+ * weapon_types — so these MUST be present and be objects, never undefined.
+ */
+function normalizePilotBonus(b) {
+  return {
+    lid: b.lid || b.id || "",
+    val: String(b.val ?? ""),
+    damage_types: b.damage_types ?? {
+      Kinetic: true, Energy: true, Explosive: true,
+      Heat: true, Burn: true, Variable: true
+    },
+    range_types: b.range_types ?? {
+      Range: true, Threat: true, Thrown: true,
+      Line: true, Cone: true, Blast: true, Burst: true
+    },
+    weapon_sizes: b.weapon_sizes ?? {
+      Auxiliary: true, Main: true, Heavy: true, Superheavy: true
+    },
+    weapon_types: b.weapon_types ?? {
+      Rifle: true, Cannon: true, Launcher: true,
+      CQB: true, Nexus: true, Melee: true
+    },
+    overwrite: b.overwrite ?? false,
+    replace: b.replace ?? false
+  };
+}
+
 export function generateFoundryPilot(state, mechActorId) {
+
   const items = [];
   const loadoutRefs = { armor: [], gear: [], weapons: [] };
   
@@ -97,12 +128,51 @@ export function generateFoundryPilot(state, mechActorId) {
     if (!id) return;
     const data = pilotGearData.find(gd => gd.id === id);
     const fvttId = generateId();
+
+    // Build the system object using real data from the database when available
+    const baseSystem = {
+      actions:    (data?.actions    ?? []).map(a => Object.assign({}, a)),
+      bonuses:    (data?.bonuses    ?? []).map(b => normalizePilotBonus(b)),
+      synergies:  (data?.synergies  ?? []).map(s => Object.assign({}, s)),
+      counters:   (data?.counters   ?? []).map(c => Object.assign({}, c)),
+      deployables:(data?.deployables?? []).map(d => Object.assign({}, d)),
+      tags:       (data?.tags       ?? []).map(t => ({ lid: t.id || t.lid || "", val: t.val ?? "" })),
+      uses: 0,
+      integrated: [],
+      lid: id,
+      description: data?.description || ""
+    };
+
+    if (type === "pilot_weapon") {
+      baseSystem.range  = (data?.range  ?? [{ type: "Threat", val: 1 }]).map(r => Object.assign({}, r));
+      baseSystem.damage = (data?.damage ?? [{ type: "Kinetic", val: "1" }]).map(d => Object.assign({}, d));
+      baseSystem.loaded = false;
+      if (data?.effect) baseSystem.effect = data.effect;
+    }
+
+    if (type === "pilot_armor") {
+      if (data?.hp_bonus  !== undefined) baseSystem.hp_bonus  = data.hp_bonus;
+      if (data?.evasion   !== undefined) baseSystem.evasion   = data.evasion;
+      if (data?.edef      !== undefined) baseSystem.edef      = data.edef;
+      if (data?.speed     !== undefined) baseSystem.speed     = data.speed;
+      if (data?.effect) baseSystem.effect = data.effect;
+    }
+
+    if (type === "pilot_gear") {
+      if (data?.effect) baseSystem.effect = data.effect;
+      if (data?.uses !== undefined) baseSystem.uses = data.uses;
+    }
+
     items.push({
       name: data ? data.name : id,
       type: type,
       _id: fvttId,
-      system: { lid: id, description: data?.description || "" },
-      img: "systems/lancer/assets/icons/generic_item.svg",
+      system: baseSystem,
+      img: type === "pilot_armor"
+        ? "systems/lancer/assets/icons/role_tank.svg"
+        : type === "pilot_weapon"
+          ? "systems/lancer/assets/icons/role_artillery.svg"
+          : "systems/lancer/assets/icons/generic_item.svg",
       _stats: STATS_TEMPLATE,
       effects: [], flags: {}, sort: 0
     });
@@ -112,6 +182,29 @@ export function generateFoundryPilot(state, mechActorId) {
   addPilotItem(state.loadout.armor, "pilot_armor", "armor");
   state.loadout.weapons.forEach(id => addPilotItem(id, "pilot_weapon", "weapons"));
   state.loadout.gear.forEach(id => addPilotItem(id, "pilot_gear", "gear"));
+
+  // Licenses
+  if (state.licenses) {
+    state.licenses.forEach(l => {
+      const fData = framesData.find(fd => fd.id === l.id);
+      if (fData) {
+        items.push({
+          name: fData.name,
+          type: "license",
+          _id: generateId(),
+          system: {
+            lid: `lic_${l.id}`,
+            key: l.id,
+            manufacturer: fData.source || "GMS",
+            curr_rank: l.rank
+          },
+          img: "systems/lancer/assets/icons/license.svg",
+          _stats: STATS_TEMPLATE,
+          effects: [], flags: {}, sort: 0
+        });
+      }
+    });
+  }
 
   const grit = Math.ceil((state.level || 0) / 2);
   const pilotImg = state.image || "systems/lancer/assets/icons/pilot.svg";
@@ -124,7 +217,7 @@ export function generateFoundryPilot(state, mechActorId) {
       active_mech: mechActorId ? `Actor.${mechActorId}` : null,
       background: state.background,
       history: "",
-      last_cloud_update: new Date().toISOString(),
+      last_cloud_update: "never",
       level: state.level,
       loadout: loadoutRefs,
       hull: state.mech_skills[0],
@@ -144,8 +237,7 @@ export function generateFoundryPilot(state, mechActorId) {
       inherited_effects: null,
       action_tracker: DEFAULT_ACTION_TRACKER,
       callsign: state.callsign,
-      player_name: "",
-      status: "Active"
+      cloud_id: ""
     },
     items: items,
     effects: [],
@@ -166,7 +258,18 @@ export function generateFoundryMech(state, pilotActorId) {
       name: frameData.name,
       type: "frame",
       _id: frameFvttId,
-      system: { lid: frameData.id, description: frameData.description || "" },
+      system: { 
+        lid: frameData.id, 
+        description: frameData.description || "",
+        core_system: frameData.core_system ? {
+          name: frameData.core_system.name || "",
+          active_name: frameData.core_system.active_name || "",
+          active_effect: frameData.core_system.active_effect || "",
+          activation: frameData.core_system.activation || "Quick",
+          description: frameData.core_system.description || "",
+          deactivation: frameData.core_system.deactivation || ""
+        } : undefined
+      },
       img: "systems/lancer/assets/icons/mech.svg",
       _stats: STATS_TEMPLATE,
       effects: [], flags: {}, sort: 0
