@@ -95,9 +95,10 @@ export default {
 		exportToFoundry() {
 			downloadFoundryExport(pilotStore.state);
 		},
-		savePilot() {
-			if (pilotStore.savePilot()) {
-				alert("PILOTO SALVO COM SUCESSO NO BANCO DE DADOS LOCAL");
+		async savePilot() {
+			const success = await pilotStore.savePilot();
+			if (success) {
+				alert("PILOTO SALVO COM SUCESSO E SINCRONIZADO");
 			}
 		},
 		resetPilot() {

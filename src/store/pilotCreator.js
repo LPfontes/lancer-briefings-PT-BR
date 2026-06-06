@@ -230,6 +230,11 @@ export const usePilotCreator = () => {
     else saved.push(pilotData);
     localStorage.setItem('lancer_saved_pilots', JSON.stringify(saved));
 
+    // Remove from deleted list if it was there
+    const deletedIds = JSON.parse(localStorage.getItem('lancer_deleted_pilots') || '[]');
+    const filteredDeleted = deletedIds.filter(id => id !== state.id);
+    localStorage.setItem('lancer_deleted_pilots', JSON.stringify(filteredDeleted));
+
     // 2. Try Cloud Save
     try {
       const response = await fetch('/api/pilots', {
@@ -247,14 +252,103 @@ export const usePilotCreator = () => {
   };
 
   const getSavedPilots = async () => {
-    // Try Cloud first
+    const localPilots = JSON.parse(localStorage.getItem('lancer_saved_pilots') || '[]');
+    const deletedIds = JSON.parse(localStorage.getItem('lancer_deleted_pilots') || '[]');
+
+    let remotePilots = [];
+    let isOnline = false;
+
+    // Try fetching from the cloud
     try {
       const response = await fetch('/api/pilots');
-      if (response.ok) return await response.json();
+      if (response.ok) {
+        remotePilots = await response.json();
+        isOnline = true;
+      }
     } catch (e) {
-      console.warn("Falha ao buscar da nuvem, usando local");
+      console.warn("Falha ao conectar com o servidor remoto. Usando banco de dados local.", e.message);
     }
-    return JSON.parse(localStorage.getItem('lancer_saved_pilots') || '[]');
+
+    if (!isOnline) {
+      // Offline: just return the local list
+      return localPilots;
+    }
+
+    // Process pending deletions on remote
+    const successfulDeletes = [];
+    for (const id of deletedIds) {
+      try {
+        const delResponse = await fetch(`/api/pilots?id=${id}`, { method: 'DELETE' });
+        if (delResponse.ok) {
+          successfulDeletes.push(id);
+        }
+      } catch (e) {
+        console.warn(`Falha ao sincronizar deleção do piloto ${id} na nuvem:`, e.message);
+      }
+    }
+    // Update local deleted list
+    if (successfulDeletes.length > 0) {
+      const updatedDeletedIds = deletedIds.filter(id => !successfulDeletes.includes(id));
+      localStorage.setItem('lancer_deleted_pilots', JSON.stringify(updatedDeletedIds));
+    }
+
+    // Create a map to merge local and remote pilots
+    const localMap = new Map(localPilots.map(p => [p.id, p]));
+    const remoteMap = new Map(remotePilots.map(p => [p.id, p]));
+    const allIds = new Set([...localMap.keys(), ...remoteMap.keys()]);
+    const mergedList = [];
+    const updatedLocalDeletedIds = JSON.parse(localStorage.getItem('lancer_deleted_pilots') || '[]');
+
+    for (const id of allIds) {
+      // If the pilot is marked as deleted locally, skip it
+      if (updatedLocalDeletedIds.includes(id)) {
+        continue;
+      }
+
+      const localPilot = localMap.get(id);
+      const remotePilot = remoteMap.get(id);
+
+      if (localPilot && remotePilot) {
+        const localTime = new Date(localPilot.lastSaved || 0).getTime();
+        const remoteTime = new Date(remotePilot.lastSaved || 0).getTime();
+
+        if (localTime > remoteTime) {
+          // Local is newer, upload to remote
+          mergedList.push(localPilot);
+          try {
+            await fetch('/api/pilots', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(localPilot)
+            });
+          } catch (e) {
+            console.warn(`Falha ao sincronizar piloto ${localPilot.callsign || id} na nuvem:`, e.message);
+          }
+        } else {
+          // Remote is newer (or equal), use remote
+          mergedList.push(remotePilot);
+        }
+      } else if (localPilot) {
+        // Only local exists, upload to remote
+        mergedList.push(localPilot);
+        try {
+          await fetch('/api/pilots', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(localPilot)
+          });
+        } catch (e) {
+          console.warn(`Falha ao salvar piloto local ${localPilot.callsign || id} na nuvem:`, e.message);
+        }
+      } else if (remotePilot) {
+        // Only remote exists, download to local
+        mergedList.push(remotePilot);
+      }
+    }
+
+    // Save finalized synced list to local storage
+    localStorage.setItem('lancer_saved_pilots', JSON.stringify(mergedList));
+    return mergedList;
   };
 
   const loadPilot = (pilotData) => {
@@ -271,9 +365,21 @@ export const usePilotCreator = () => {
     const filtered = saved.filter(p => p.id !== id);
     localStorage.setItem('lancer_saved_pilots', JSON.stringify(filtered));
 
+    // Add to deleted list
+    const deletedIds = JSON.parse(localStorage.getItem('lancer_deleted_pilots') || '[]');
+    if (!deletedIds.includes(id)) {
+      deletedIds.push(id);
+      localStorage.setItem('lancer_deleted_pilots', JSON.stringify(deletedIds));
+    }
+
     // 2. Delete Cloud
     try {
-      await fetch(`/api/pilots?id=${id}`, { method: 'DELETE' });
+      const delResponse = await fetch(`/api/pilots?id=${id}`, { method: 'DELETE' });
+      if (delResponse.ok) {
+        // Remove from deleted list since it succeeded
+        const updatedDeleted = JSON.parse(localStorage.getItem('lancer_deleted_pilots') || '[]').filter(dId => dId !== id);
+        localStorage.setItem('lancer_deleted_pilots', JSON.stringify(updatedDeleted));
+      }
     } catch (e) {
       console.warn("Erro ao deletar da nuvem");
     }
