@@ -68,7 +68,7 @@
 
 					<div v-else class="decrypted-content">
 						<div class="decrypted-header">
-							<div class="origin">ORIGEM: {{ messageOrigin }}</div>
+							<div class="origin">ORIGEM: {{ messages[currentMessageIndex].origin || messageOrigin }}</div>
 							<div class="timestamp">DATA: {{ currentTimestamp }}</div>
 						</div>
 						<div class="message-content markdown" v-html="messages[currentMessageIndex].content"></div>
@@ -148,6 +148,15 @@ export default {
 						<p>Ainda assim, se vocês são mesmo diferentes daqueles que vieram antes, eu devo, pelo bem da humanidade de Helior, dar-lhes a chance de provar seu valor.</p>
 						<p>Seguem anexas coordenadas. Uma pequena vila isolada, abandonada devido à escassez de nossas tropas. Seu povo sofre com o desamparo. As monstruosidades da fronteira já farejam o medo deles, e elas estão vindo para reivindicar o que antes era delas.</p>
 						<p>-A Vigia.</p>
+					`
+				},
+				{
+					password: "PRESENTE",
+					origin: "CASSANDRA // DIPLOMATA ADM-UNIÃO",
+					hints: ["Espero que tenha gostado...", "De: C. Para: Ocelot.", "A União recompensa o bom trabalho."],
+					content: `
+						<p>Espero que tenha gostado do presente. A União recompensa o bom trabalho.</p>
+						<p>Mantenha seus amigos na linha e talvez a liberdade total não seja um sonho impossível.</p>
 					`
 				}
 			],

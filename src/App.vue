@@ -111,15 +111,17 @@ export default {
 			faviconEl.setAttribute('href', favicon);
 			headEl.appendChild(faviconEl);
 		},
+
 		async importMissions(files) {
 			let filePromises = Object.keys(files).map(path => files[path]());
 			let fileContents = await Promise.all(filePromises);
 			fileContents.forEach(content => {
 				let mission = {};
-				mission["slug"] = content.split("\n")[0];
-				mission["name"] = content.split("\n")[1];
-				mission["status"] = content.split("\n")[2];
-				mission["content"] = content.split("\n").splice(3).join("\n");
+				let cleanContent = content.replace(/\r/g, "");
+				mission["slug"] = cleanContent.split("\n")[0].trim();
+				mission["name"] = cleanContent.split("\n")[1].trim();
+				mission["status"] = cleanContent.split("\n")[2].trim();
+				mission["content"] = cleanContent.split("\n").splice(3).join("\n");
 				this.missions = [...this.missions, mission];
 			});
 			this.missions = this.missions.sort(function (a, b) {
@@ -131,10 +133,11 @@ export default {
 			let fileContents = await Promise.all(filePromises);
 			fileContents.forEach(content => {
 				let report = {};
-				report["slug"] = content.split("\n")[0];
-				report["name"] = content.split("\n")[1];
-				report["status"] = content.split("\n")[2];
-				report["content"] = content.split("\n").splice(3).join("\n");
+				let cleanContent = content.replace(/\r/g, "");
+				report["slug"] = cleanContent.split("\n")[0].trim();
+				report["name"] = cleanContent.split("\n")[1].trim();
+				report["status"] = cleanContent.split("\n")[2].trim();
+				report["content"] = cleanContent.split("\n").splice(3).join("\n");
 				this.reports = [...this.reports, report];
 			});
 			this.reports = this.reports.sort(function (a, b) {
@@ -146,11 +149,12 @@ export default {
 			let fileContents = await Promise.all(filePromises);
 			fileContents.forEach(content => {
 				let persona = {};
-				persona["name"] = content.split("\n")[0];
-				persona["faction"] = content.split("\n")[1];
-				persona["status"] = content.split("\n")[2];
-				persona["image"] = content.split("\n")[3];
-				persona["content"] = content.split("\n").splice(4).join("\n");
+				let cleanContent = content.replace(/\r/g, "");
+				persona["name"] = cleanContent.split("\n")[0].trim();
+				persona["faction"] = cleanContent.split("\n")[1].trim();
+				persona["status"] = cleanContent.split("\n")[2].trim();
+				persona["image"] = cleanContent.split("\n")[3].trim();
+				persona["content"] = cleanContent.split("\n").splice(4).join("\n");
 				this.personas = [...this.personas, persona];
 			});
 		},
@@ -159,11 +163,12 @@ export default {
 			let fileContents = await Promise.all(filePromises);
 			fileContents.forEach(content => {
 				let event = {};
-				event["title"] = content.split("\n")[0];
-				event["location"] = content.split("\n")[1];
-				event["time"] = content.split("\n")[2];
-				event["thumbnail"] = content.split("\n")[3];
-				event["content"] = content.split("\n").splice(4).join("\n");
+				let cleanContent = content.replace(/\r/g, "");
+				event["title"] = cleanContent.split("\n")[0].trim();
+				event["location"] = cleanContent.split("\n")[1].trim();
+				event["time"] = cleanContent.split("\n")[2].trim();
+				event["thumbnail"] = cleanContent.split("\n")[3].trim();
+				event["content"] = cleanContent.split("\n").splice(4).join("\n");
 				this.events = [...this.events, event];
 			});
 			this.events = this.events.reverse();

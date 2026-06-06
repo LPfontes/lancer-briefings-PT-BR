@@ -1,5 +1,17 @@
 <template>
 	<div id="personasView" :class="{ animate: animateView }" :style="{ 'animation-delay': animationDelay }" class="content-container">
+		<!-- Image Viewer Modal/Overlay -->
+		<transition name="fade">
+			<div v-if="activeImage" class="image-overlay" @click="activeImage = null">
+				<div class="image-overlay-content" @click.stop>
+					<img :src="activeImage" />
+					<button class="close-overlay-btn" @click="activeImage = null">
+						<span class="material-symbols-outlined">close</span>
+					</button>
+				</div>
+			</div>
+		</transition>
+
 		<section id="personas" class="section-container full-width">
 			<div class="section-header clipped-medium-backward">
 				<img src="/icons/pilot.svg" />
@@ -47,7 +59,7 @@
 					<div v-if="selectedPersona" class="persona-reader-window">
 						<div class="reader-header">
 							<div class="persona-profile-top">
-								<div class="persona-image-large">
+								<div class="persona-image-large" @click="activeImage = selectedPersona.image" style="cursor: pointer;" title="Clique para ampliar">
 									<img v-if="selectedPersona.image" :src="selectedPersona.image" />
 									<div v-else class="no-image-placeholder">
 										<span class="material-symbols-outlined">person</span>
@@ -122,6 +134,7 @@ export default {
 			selectedPersonaName: null,
 			mobileShowDetail: false,
 			searchQuery: "",
+			activeImage: null,
 		};
 	},
 	computed: {
@@ -168,6 +181,8 @@ export default {
 	border-right: 1px solid rgba(255, 255, 255, 0.1);
 	padding: 20px;
 	gap: 20px;
+	height: 100%;
+	overflow: hidden;
 }
 
 .search-bar {
@@ -238,6 +253,11 @@ export default {
 	overflow: hidden;
 }
 
+.persona-content-grid{
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 50px;
+}
 .persona-avatar-mini img {
 	width: 100%;
 	height: 100%;
@@ -389,6 +409,7 @@ export default {
 	flex: 1;
 	padding: 40px;
 	overflow-y: auto;
+	min-height: 0;
 }
 
 .section-tag {
@@ -492,5 +513,62 @@ export default {
 	.mobile-back-btn {
 		display: flex;
 	}
+}
+
+/* Image overlay modal */
+.image-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.9);
+	backdrop-filter: blur(8px);
+	z-index: 9999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.image-overlay-content {
+	position: relative;
+	max-width: 90vw;
+	max-height: 90vh;
+	border: 2px solid var(--union-crimson);
+	box-shadow: 0 0 30px rgba(175, 14, 30, 0.4);
+	display: flex;
+	background: #000;
+}
+
+.image-overlay-content img {
+	max-width: 100%;
+	max-height: 85vh;
+	object-fit: contain;
+}
+
+.close-overlay-btn {
+	position: absolute;
+	top: -40px;
+	right: 0;
+	background: transparent;
+	border: none;
+	color: var(--union-crimson);
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.close-overlay-btn span {
+	font-size: 30px;
+}
+
+/* Transitions */
+.fade-enter-active, .fade-leave-active {
+	transition: opacity 0.3s ease;
+}
+.fade-enter-from, .fade-leave-to {
+	opacity: 0;
 }
 </style>
