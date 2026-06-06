@@ -8,34 +8,21 @@
 			
 			<div class="window-body creator-container">
 				<div class="creator-sidebar">
-					<button 
-						v-for="(stepName, index) in steps" 
-						:key="index"
-						:class="{ active: currentStep === index }"
-						@click="currentStep = index"
-						class="step-btn"
-					>
-						<span class="step-num">0{{ index + 1 }}</span>
-						<span class="step-name">{{ $t('pilotCreator.steps.' + stepName.key) }}</span>
-					</button>
-
-					<div class="actions-label">AÇÕES DE DADOS //</div>
-					<div class="export-container">
-						<button class="action-btn save-btn" @click="savePilot">
-							SALVAR PILOTO
-						</button>
-						<button class="action-btn reset-btn" @click="resetPilot">
-							NOVO PILOTO
-						</button>
-						<button class="export-btn" @click="exportToCompcon">
-							EXPORTAR COMP/CON
-						</button>
-						<button class="export-btn foundry-btn" @click="exportToFoundry">
-							EXPORTAR FOUNDRY
+					<div class="steps-menu">
+						<button 
+							v-for="(stepName, index) in steps" 
+							:key="index"
+							:class="{ active: currentStep === index }"
+							@click="currentStep = index"
+							class="step-btn"
+						>
+							<span class="step-num">0{{ index + 1 }}</span>
+							<span class="step-name">{{ $t('pilotCreator.steps.' + stepName.key) }}</span>
 						</button>
 					</div>
-				</div>
 
+				</div>
+ 
 				<div class="creator-content">
 					<component :is="steps[currentStep].component" />
 				</div>
@@ -52,9 +39,7 @@ import SkillsStep from "@/components/creator/SkillsStep.vue";
 import TalentsStep from "@/components/creator/TalentsStep.vue";
 import MechSkillsStep from "@/components/creator/MechSkillsStep.vue";
 import MechBuilderStep from "@/components/creator/MechBuilderStep.vue";
-import { pilotStore } from "@/store/pilotCreator";
-import { downloadPilotJson } from "@/utils/exportCompconJson";
-import { downloadFoundryExport } from "@/utils/exportFoundryJson";
+import SaveStep from "@/components/creator/SaveStep.vue";
 
 export default {
 	name: "PilotCreatorView",
@@ -65,7 +50,8 @@ export default {
 		SkillsStep,
 		TalentsStep,
 		MechSkillsStep,
-		MechBuilderStep
+		MechBuilderStep,
+		SaveStep
 	},
 	props: {
 		animate: {
@@ -84,28 +70,10 @@ export default {
 				{ key: 'licenses', component: 'LicensesStep' },
 				{ key: 'skills', component: 'SkillsStep' },
 				{ key: 'talents', component: 'TalentsStep' },
-				{ key: 'mechBuilder', component: 'MechBuilderStep' }
+				{ key: 'mechBuilder', component: 'MechBuilderStep' },
+				{ key: 'savePilot', component: 'SaveStep' }
 			],
 		};
-	},
-	methods: {
-		exportToCompcon() {
-			downloadPilotJson(pilotStore.state);
-		},
-		exportToFoundry() {
-			downloadFoundryExport(pilotStore.state);
-		},
-		async savePilot() {
-			const success = await pilotStore.savePilot();
-			if (success) {
-				alert("PILOTO SALVO COM SUCESSO E SINCRONIZADO");
-			}
-		},
-		resetPilot() {
-			if (confirm("DESEJA REALMENTE REINICIAR? TODOS OS DADOS NÃO SALVOS SERÃO PERDIDOS.")) {
-				pilotStore.reset();
-			}
-		}
 	}
 };
 </script>
@@ -126,6 +94,11 @@ export default {
 	flex-direction: column;
 	gap: 10px;
 	border-right: 1px solid var(--primary-color);
+}
+
+.steps-menu {
+	display: flex;
+	flex-direction: column;
 }
 
 .step-btn {
