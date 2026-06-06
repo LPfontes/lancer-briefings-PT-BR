@@ -113,7 +113,7 @@ export default {
 					password: "CAMINHODOMEIO",
 					hints: ["Fé baseada na razão", "Sakyamuni deu a resposta.", "A chave é o caminho."],
 					content: `
-						<p>Quando a <i>Xīnshēng</i> finalmente alcançou Hélio, nossa população não estava pronta para o que viria. Seis gerações inteiras haviam nascido e morrido no vazio do espaço; a degradação tecnológica e cultural fora inevitável. O novo planeta era um desafio de escala monstruosa, e milhares de nós pereceram nos primeiros anos.</p>
+						<p>Quando a <i>Xīnshēng</i> finalmente alcançou Helior, nossa população não estava pronta para o que viria. Seis gerações inteiras haviam nascido e morrido no vazio do espaço; a degradação tecnológica e cultural fora inevitável. O novo planeta era um desafio de escala monstruosa, e milhares de nós pereceram nos primeiros anos.</p>
 						<p>Então, Míngzhì ascendeu para nos guiar. Ele resgatou conhecimentos e tecnologias há muito esquecidos, fundando os pilares que sustentariam a humanidade neste mundo hostil. A Inquisição surgiu logo em seguida, como uma resposta desesperada, mas necessária, às monstruosidades que nos destruíam por fora... e por dentro.</p>
 						<p>Quando finalmente fincamos nossas raízes, uma nova verdade se impôs: era preciso garantir que a humanidade não seguisse a mesma trilha que condenou a Terra. Era preciso, a qualquer custo, quebrar o ciclo da eterna repetição.</p>
 					`
@@ -123,7 +123,7 @@ export default {
 					hints: ["A origem"],
 					content: `
 						<p>Mas então vocês chegaram. Um lembrete vivo da ganância humana, espalhando-se novamente pelo cosmos, devorando, consumindo e destruindo tudo em seu caminho.</p>
-						<p>Míngzhì nos alertou de que vocês viriam. Que trariam consigo o Código, o verdadeiro mal da tecnologia. Previu que seus olhos brilhariam cobiçosos sobre Hélio e suas riquezas, e que suas línguas de prata prometeriam milagres: saúde, abrigo, educação e liberdade. Mentiras disfarçadas de salvação. O que vocês realmente oferecem é apenas a liberdade de servir. A obrigação de consumir.</p>
+						<p>Míngzhì nos alertou de que vocês viriam. Que trariam consigo o Código, o verdadeiro mal da tecnologia. Previu que seus olhos brilhariam cobiçosos sobre Helior e suas riquezas, e que suas línguas de prata prometeriam milagres: saúde, abrigo, educação e liberdade. Mentiras disfarçadas de salvação. O que vocês realmente oferecem é apenas a liberdade de servir. A obrigação de consumir.</p>
 						<p>Contudo, abruptamente, Míngzhì se calou. Muitos viram o silêncio como uma provação; acreditavam que deveríamos provar ao nosso Sábio que não sucumbiríamos à tentação. Antes a morte do que a perda do Caminho do Meio.</p>
 					`
 				},
@@ -135,7 +135,7 @@ export default {
 						<p>Por muito tempo, encarei tais pensamentos como heresia. Acreditei que a guerra seria a chama da purificação, e que os sobreviventes dessa provação seriam abençoados pelo Sábio com a verdade absoluta. Então, nós lutamos. Enfrentamos a ganância humana, suas máquinas de destruição, seus exércitos. Julgávamos ser os guias iluminados, mas fomos esmagados pelo poder bruto daquela avareza.</p>
 						<p>O fim era inevitável. Nosso povo definhava, a fome se espalhava e, das sombras, os Lordes surgiram como sanguessugas oportunistas.</p>
 						<p>Mas então a guerra cessou. Outros de vocês apareceram, trazendo palavras de paz.</p>
-						<p>Não negarei que isso feriu meu orgulho. Dilacerou minha fé. Mas minha obrigação com o povo de Hélio é infinitamente maior do que qualquer lealdade cega a um Sábio ausente. Agora eu compreendo... o Caminho sempre foi sobre preservar a vida dos meus semelhantes.</p>
+						<p>Não negarei que isso feriu meu orgulho. Dilacerou minha fé. Mas minha obrigação com meu povo  é infinitamente maior do que qualquer lealdade cega a um Sábio ausente. Agora eu compreendo... o Caminho sempre foi sobre preservar a vida dos meus semelhantes.</p>
 					`
 				},
 				{
@@ -145,8 +145,8 @@ export default {
 						<p>Míngzhì segue em silêncio, e os poucos de nós que restam estão divididos. A maior parte da Inquisição clama pela morte em batalha; preferem queimar todo o planeta a permitir que a avareza humana o herde.</p>
 						<p>Mas foi exatamente esse tipo de fanatismo que levou a humanidade ao colapso original.</p>
 						<p>Não se enganem: eu ainda não confio em suas palavras. Vocês vêm com promessas de paz, prosperidade e estabilidade, mas resguardam tudo isso atrás de suas máquinas de guerra e de seus soldados descartáveis. Nós sabemos sobre os "Restos". Sabemos sobre os seus crimes.</p>
-						<p>Ainda assim, se vocês são mesmo diferentes daqueles que vieram antes, eu devo, pelo bem de Hélio, dar-lhes a chance de provar seu valor.</p>
-						<p>Seguem anexas as coordenadas. Uma pequena vila isolada, abandonada devido à escassez de nossas tropas. Seu povo sofre com o desamparo. As monstruosidades da fronteira já farejam o medo deles, e elas estão vindo para reivindicar o que antes era delas.</p>
+						<p>Ainda assim, se vocês são mesmo diferentes daqueles que vieram antes, eu devo, pelo bem da humanidade de Helior, dar-lhes a chance de provar seu valor.</p>
+						<p>Seguem anexas coordenadas. Uma pequena vila isolada, abandonada devido à escassez de nossas tropas. Seu povo sofre com o desamparo. As monstruosidades da fronteira já farejam o medo deles, e elas estão vindo para reivindicar o que antes era delas.</p>
 						<p>-A Vigia.</p>
 					`
 				}
