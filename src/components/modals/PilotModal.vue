@@ -598,4 +598,82 @@ export default {
 
 .tech-scroll::-webkit-scrollbar { width: 6px; }
 .tech-scroll::-webkit-scrollbar-thumb { background: #af0e1e; }
+
+@media (max-width: 768px) {
+  .military-dossier {
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    border: none;
+  }
+  
+  .dossier-header {
+    padding: 12px 15px;
+  }
+  
+  .classification-stamp {
+    display: none;
+  }
+  
+  .callsign-display {
+    font-size: 2.2rem;
+  }
+  
+  .name-display {
+    font-size: 0.8rem;
+  }
+  
+  .military-stats-strip {
+    flex-wrap: wrap;
+    padding: 8px 15px;
+    gap: 10px;
+    margin-bottom: 5px;
+  }
+  
+  .m-stat-box {
+    min-width: 70px;
+    padding-left: 8px;
+    flex: 1 1 calc(33% - 10px);
+  }
+  
+  .m-stat-label {
+    font-size: 0.65rem;
+  }
+  
+  .m-stat-value {
+    font-size: 1.1rem;
+  }
+  
+  .level-box {
+    margin-left: 0;
+    text-align: left;
+    padding-right: 0;
+  }
+  
+  .dossier-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .portrait-frame {
+    max-width: 200px;
+    margin: 0 auto 10px auto;
+  }
+  
+  .portrait-metadata {
+    text-align: center;
+    font-size: 0.8rem;
+  }
+  
+  .talents-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .dossier-footer {
+    flex-direction: column;
+    gap: 5px;
+    text-align: center;
+    padding: 10px 15px;
+  }
+}
 </style>

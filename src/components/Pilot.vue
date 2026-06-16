@@ -193,8 +193,8 @@ export default {
 
 .avatar-frame {
   position: relative;
-  width: 56px;
-  height: 56px;
+  width: 115px;
+  height: 115px;
   background: rgba(175, 14, 30, 0.08);
   border: 1px solid var(--union-crimson, #af0e1e);
   display: flex;
