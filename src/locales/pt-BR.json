@@ -58,7 +58,8 @@
       "skills": "Gatilhos (Perícias)",
       "talents": "Talentos",
       "mechSkills": "Habilidades de Mecha",
-      "mechBuilder": "Montagem de Mecha"
+      "mechBuilder": "Montagem de Mecha",
+      "savePilot": "Salvar e Exportar"
     },
     "sandboxDesc": "Gerencie suas licenças de fabricantes (Modo Sandbox liberado).",
     "rank": "RANK",

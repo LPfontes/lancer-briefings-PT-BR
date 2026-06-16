@@ -83,6 +83,10 @@
 
 					<!-- Details Panel (Right) -->
 					<div class="details-panel tech-scroll" v-if="selectedLicense" :style="{ '--mf-color': getMfColor(selectedLicense.source) }">
+						<button class="mobile-back-btn" @click="selectedLicense = null">
+							<span class="material-symbols-outlined">arrow_back</span>
+							VOLTAR PARA A LISTA
+						</button>
 						<div class="details-header">
 							<div class="mf-tag" :style="{ color: getMfColor(selectedLicense.source) }">{{ selectedLicense.source }}</div>
 							<h3 class="selected-name">{{ selectedLicense.name }}</h3>

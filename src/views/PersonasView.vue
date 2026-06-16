@@ -475,9 +475,13 @@ export default {
 	.master-detail-layout {
 		grid-template-columns: 1fr;
 	}
+	.personas-container {
+		height: calc(100vh - 180px) !important;
+		max-height: none !important;
+	}
 	.detail-pane {
 		position: absolute;
-		top: 0; left: 0; width: 100%; height: 100%;
+		top: 0; left: 0; width: 100%; height: 100% !important;
 		z-index: 20;
 		display: none;
 	}
@@ -492,6 +496,19 @@ export default {
 	.persona-meta-top {
 		justify-content: center;
 		gap: 20px;
+	}
+	.persona-image-large {
+		width: 120px;
+		height: 120px;
+	}
+	.persona-title {
+		font-size: 28px;
+		letter-spacing: 2px;
+	}
+	.persona-body {
+		padding: 20px;
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
 	}
 }
 

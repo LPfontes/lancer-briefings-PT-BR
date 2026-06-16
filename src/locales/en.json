@@ -52,7 +52,8 @@
       "skills": "Triggers (Skills)",
       "talents": "Talents",
       "mechSkills": "Mech Skills",
-      "mechBuilder": "Mech Builder"
+      "mechBuilder": "Mech Builder",
+      "savePilot": "Save & Export"
     },
     "sandboxDesc": "Manage your manufacturer licenses (Sandbox Mode enabled).",
     "rank": "RANK",

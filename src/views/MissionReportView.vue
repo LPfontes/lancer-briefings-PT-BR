@@ -551,12 +551,16 @@ export default {
 	.master-detail-layout {
 		grid-template-columns: 1fr;
 	}
-	
+	.reports-container {
+		height: calc(100vh - 180px) !important;
+		max-height: none !important;
+	}
 	.detail-pane {
 		position: absolute;
 		top: 0;
 		left: 0;
 		width: 100%;
+		height: 100% !important;
 		z-index: 10;
 		display: none;
 	}
@@ -567,6 +571,11 @@ export default {
 	
 	.report-grid {
 		grid-template-columns: 1fr;
+	}
+	.report-body {
+		padding: 20px;
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
 	}
 }
 

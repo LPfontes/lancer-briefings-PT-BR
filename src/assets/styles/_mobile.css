@@ -141,37 +141,57 @@
     grid-template-columns: 1fr !important;
     padding: 1em !important;
     gap: 1em !important;
+    height: calc(100vh - 180px) !important;
+    overflow-y: auto !important;
   }
 
   /* ---- EventsView — coluna + tabs ---- */
   .events-container.master-detail-layout {
     grid-template-columns: 1fr !important;
     flex-direction: column !important;
-    height: auto !important;
-    overflow: visible !important;
+    height: calc(100vh - 180px) !important;
+    max-height: none !important;
+    overflow: hidden !important;
+    position: relative;
   }
 
-  .master-list-pane {
+  .events-container .master-list-pane {
     border-right: none !important;
     border-bottom: 1px solid rgba(175, 14, 30, 0.2);
+    height: 100% !important;
+    box-sizing: border-box;
   }
 
-  /* Quando detalhe está ativo em mobile, esconder lista */
-  .mobile-show-detail .master-list-pane {
+  .events-container .events-scroll-area {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .events-container .detail-pane {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100% !important;
+    background: rgba(10, 10, 15, 0.95);
+    z-index: 10;
+    display: none;
+    box-sizing: border-box;
+  }
+
+  .events-container.mobile-show-detail .detail-pane {
+    display: flex !important;
+    flex-direction: column;
+  }
+
+  .events-container.mobile-show-detail .master-list-pane {
     display: none !important;
   }
 
-  .mobile-show-detail .detail-pane {
-    display: block !important;
-  }
-
-  .events-scroll-area {
-    max-height: 45vh;
-  }
-
-  .detail-pane {
-    height: auto !important;
-    min-height: 60vh;
+  .events-container .reader-body {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .window-body {
@@ -180,39 +200,68 @@
 
   /* ---- GlossaryView — coluna ---- */
   .glossary-container {
-    height: auto !important;
-    overflow: visible !important;
-    padding: 8px !important;
-  }
-
-  .tab-content.master-detail-layout {
-    grid-template-columns: 1fr !important;
-    height: auto !important;
-    overflow: visible !important;
-  }
-
-  .master-list-pane {
-    height: auto !important;
-    overflow: visible !important;
+    height: calc(100vh - 180px) !important;
     max-height: none !important;
+    overflow: hidden !important;
+    padding: 8px !important;
+    display: flex;
+    flex-direction: column;
   }
 
-  .terms-scroll-area {
-    max-height: 40vh;
+  .glossary-container .tab-content {
+    flex-grow: 1 !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column;
+    gap: 15px !important;
   }
 
-  /* Glossary: esconder detail se nenhum selecionado */
-  .glossary-detail-hidden .detail-pane {
+  .glossary-container .tab-content.master-detail-layout {
+    grid-template-columns: 1fr !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    position: relative;
+    gap: 0 !important;
+  }
+
+  .glossary-container .master-list-pane {
+    height: 100% !important;
+    overflow: hidden !important;
+    max-height: none !important;
+    box-sizing: border-box;
+  }
+
+  .glossary-container .terms-scroll-area {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .glossary-container .detail-pane {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100% !important;
+    background: rgba(10, 10, 15, 0.95);
+    z-index: 10;
+    display: none;
+    box-sizing: border-box;
+  }
+
+  .glossary-container .mobile-show-detail .detail-pane {
+    display: flex !important;
+    flex-direction: column;
+  }
+
+  .glossary-container .mobile-show-detail .master-list-pane {
     display: none !important;
   }
 
-  /* Glossary: botão voltar quando detalhe aberto */
-  .mobile-show-detail .master-list-pane {
-    display: none !important;
-  }
-
-  .mobile-show-detail .detail-pane {
-    min-height: 60vh;
+  .glossary-container .reader-body {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   /* ---- HistoryView ---- */
@@ -371,5 +420,311 @@
   .mobile-bottom-nav a.router-link-exact-active img {
     opacity: 1;
     filter: brightness(0) invert(1) drop-shadow(0 0 4px rgba(255, 255, 255, 0.8));
+  }
+}
+
+/* ========================================================
+   Ajustes para o Criador de Pilotos (Mobile ≤ 768px)
+   ======================================================== */
+@media (max-width: 768px) {
+
+  /* ---- Criador de Pilotos (Layout Geral) ---- */
+  #creatorView {
+    padding: 10px !important;
+  }
+
+  #creatorView .creator-container {
+    flex-direction: column !important;
+    height: auto !important;
+    max-height: none !important;
+    background: rgba(10, 10, 10, 0.95) !important;
+  }
+
+  #creatorView .creator-sidebar {
+    flex: none !important;
+    width: 100% !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--primary-color) !important;
+    gap: 15px !important;
+    padding: 10px !important;
+    box-sizing: border-box !important;
+  }
+
+  #creatorView .steps-menu {
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    width: 100% !important;
+    gap: 8px !important;
+    padding-bottom: 5px !important;
+    scrollbar-width: thin !important;
+  }
+
+  #creatorView .step-btn {
+    flex: 0 0 auto !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding: 8px 12px !important;
+  }
+
+  #creatorView .step-name {
+    font-size: 14px !important;
+  }
+
+  #creatorView .creator-content {
+    padding: 10px !important;
+    overflow-y: visible !important;
+    height: auto !important;
+  }
+
+  /* ---- Passos do Criador (Creator Steps) ---- */
+  
+  /* Layout Base do Passo */
+  .creator-step {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    overflow-y: auto !important;
+    max-height: calc(100vh - 330px) !important;
+    padding-bottom: 20px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Passo 1: Identificação */
+  .identification-form,
+  .mech-section {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .info-container {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .mech-skills-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* Passo 2: Equipamento de Piloto */
+  .loadout-display .slot-grid,
+  .loadout-display .slot-grid.three-cols {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .loadout-display .empty-slot {
+    height: 60px !important;
+  }
+
+  /* Passo 4: Perícias (Skills) */
+  .skills-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* Passo 5: Talentos */
+  .talent-main-info {
+    grid-template-columns: 1fr auto !important;
+    gap: 10px !important;
+    padding: 12px 15px !important;
+  }
+  
+  .talent-name-group {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 4px !important;
+  }
+
+  .talent-rank-name {
+    grid-column: 1 / -1 !important;
+    margin-top: 4px !important;
+  }
+
+  .expand-icon {
+    grid-row: 1 / 2 !important;
+    grid-column: 2 / 3 !important;
+  }
+
+  /* Passo 6: Construtor de Mecha */
+  .compcon-stats-container {
+    flex-direction: column !important;
+    gap: 15px !important;
+    width: 100% !important;
+  }
+
+  .skills-sidebar {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    width: 100% !important;
+    background: rgba(0, 0, 0, 0.3) !important;
+    padding: 10px !important;
+    box-sizing: border-box !important;
+  }
+
+  .skills-sidebar .skill-group {
+    flex: 1 1 45% !important;
+  }
+
+  .skills-sidebar .sp-section {
+    width: 100% !important;
+    margin-top: 5px !important;
+  }
+
+  .stats-restructured-container {
+    width: 100% !important;
+    padding: 10px !important;
+    box-sizing: border-box !important;
+  }
+
+  .stats-config-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+
+  .stats-config-row .config-card {
+    width: 100% !important;
+    flex: none !important;
+  }
+
+  .stats-config-row .size-hex-wrapper {
+    margin: 10px auto 0 !important;
+  }
+
+  .row-main {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .sub-stats-container {
+    grid-template-columns: 1fr !important;
+    gap: 15px !important;
+  }
+
+  .mech-builder-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  /* ---- Modais do Criador ---- */
+  .gear-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .modal-overlay {
+    padding: 10px !important;
+  }
+
+  .modal-content {
+    max-width: 98% !important;
+    width: 98% !important;
+    height: 92vh !important;
+  }
+
+  .modal-header {
+    padding: 12px 15px !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+
+  .modal-header .header-right {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+
+  .modal-header .points-tracker,
+  .modal-header .points-badge {
+    align-items: flex-start !important;
+  }
+
+  .modal-controls {
+    padding: 10px 15px !important;
+  }
+
+  .modal-controls .controls-top {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+
+  .modal-controls .group-toggle {
+    justify-content: space-between !important;
+  }
+
+  .modal-body {
+    padding: 15px !important;
+  }
+
+  /* Modal de Licenças Específico */
+  .modal-main {
+    flex-direction: column !important;
+  }
+
+  .modal-main .mf-sidebar {
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    width: 100% !important;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    flex: 0 0 auto !important;
+    padding: 5px !important;
+    scrollbar-width: thin !important;
+  }
+
+  .modal-main .mf-btn {
+    padding: 8px 12px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .modal-main .mf-btn .mf-name {
+    font-size: 12px !important;
+  }
+
+  .modal-main .content-area {
+    padding: 12px !important;
+  }
+
+  .modal-main .license-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .modal-main .details-panel {
+    width: 100% !important;
+    border-left: none !important;
+    padding: 15px !important;
+    box-sizing: border-box !important;
+  }
+
+  .modal-main .detailed-stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Lógica de exibição Master-Detail no Modal de Licenças */
+  .modal-content:has(.details-panel:not(.empty)) .mf-sidebar,
+  .modal-content:has(.details-panel:not(.empty)) .content-area {
+    display: none !important;
+  }
+
+  .modal-content:has(.details-panel:not(.empty)) .details-panel {
+    display: flex !important;
+  }
+
+  .modal-content .details-panel.empty {
+    display: none !important;
+  }
+
+  /* Garantir visibilidade do botão de voltar para mobile */
+  .details-panel .mobile-back-btn {
+    display: flex !important;
+    margin-bottom: 15px !important;
   }
 }
