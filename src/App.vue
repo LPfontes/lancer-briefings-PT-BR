@@ -249,26 +249,25 @@ export default {
 						
 						const imageMap = {
 							"ROSA NEGRA": "/images/pilots/rosa_negra.png",
-							"NAS KANTA": "/images/pilots/Nas-kanta.png",
-							"KANTA": "/images/pilots/Nas-kanta.png",
-							"NAS-KANTA": "/images/pilots/Nas-kanta.png",
+							"NAS KANTA": "/images/pilots/nas_kanta.png",
+							"KANTA": "/images/pilots/nas_kanta.png",
+							"NAS-KANTA": "/images/pilots/nas_kanta.png",
 							"CARMESIN": "/images/pilots/carmesin.png",
-							"DIA DO JULGAMENTO": "/images/pilots/dia_do_Julgamento.png",
 							"OCELOT": "/images/pilots/ocelot.png",
 							"SCOP-OLEAD": "/images/pilots/scop-olead.png",
 							"SCOP OLEAD": "/images/pilots/scop-olead.png",
-							"SULLA VIA DELLA GLORIA": "/images/pilots/sulla_via_della_gloria.webp",
+							"SULLA VIA DELLA GLORIA": "/images/pilots/sulla_via_della_gloria.png",
 							"THE NERGAL": "/images/pilots/the_nergal.png",
-							"TRASH": "/images/pilots/trash.png",
-							"WOLF": "/images/pilots/wolf.png"
+							"CALIBAN": "/images/pilots/caliban.png",
+							"CRIMSON DESERT": "/images/pilots/Crimson_desert.png",
+							"POLY-O-GRAPH": "/images/pilots/poly_o_graph.png",
+							"POLY O GRAPH": "/images/pilots/poly_o_graph.png"
 						};
 						
 						if (imageMap[callsign]) {
 							pilotWithImage.image = imageMap[callsign];
 						} else if (callsign === "ROSA NEGRA") { // Fallback if the png is missing but jpg was there
 							pilotWithImage.image = "/images/pilots/rosa_negra.jpg";
-						} else if (callsign === "NAS KANTA" || callsign === "KANTA" || callsign === "NAS-KANTA") {
-							pilotWithImage.image = "/images/pilots/nas_kanta.webp";
 						}
 						
 						customPilots.push(pilotWithImage);

@@ -18,6 +18,18 @@
     "no_cascade": "NO_CASCADE_ATIVO",
     "no_records": "SEM REGISTROS DISPONÍVEIS"
   },
+  "auth": {
+    "loginTitle": "AUTENTICAÇÃO DO SISTEMA // ADMIN",
+    "passwordPlaceholder": "INSIRA A CHAVE DE ACESSO...",
+    "loginBtn": "ENTRAR",
+    "logoutBtn": "SAIR",
+    "invalidKey": "CHAVE INCORRETA. ACESSO NEGADO.",
+    "loginRequired": "AUTENTICAÇÃO NECESSÁRIA PARA SALVAR ALTERAÇÕES NA NUVEM.",
+    "success": "SESSÃO INICIADA COM SUCESSO",
+    "logoutSuccess": "SESSÃO ENCERRADA",
+    "saveSuccessCloud": "PILOTO SALVO COM SUCESSO E SINCRONIZADO NA NUVEM",
+    "saveSuccessLocal": "PILOTO SALVO APENAS LOCALMENTE.\nAutentique-se usando o cadeado no topo para sincronizar com a nuvem."
+  },
   "header": {
     "year": "Ano",
     "deploymentInfo": "Local de Operação",

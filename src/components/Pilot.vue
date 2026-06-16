@@ -1,5 +1,8 @@
 <template>
   <div class="pilot-card-compact shadow-2" @click="openDetailedModal">
+    <!-- Linha de escaneamento animada de fundo -->
+    <div class="scanline"></div>
+
     <div class="pilot-header">
       <div class="avatar-block">
          <div class="avatar-frame">
@@ -8,30 +11,17 @@
          </div>
       </div>
       <div class="callsign-block">
-        <div class="label">{{ $t('pilot.callsign') }}</div>
-        <div class="callsign">{{ pilot.callsign || $t('pilot.callsign').toUpperCase() }}</div>
-      </div>
-      <div class="level-block">
-        <div class="label">{{ $t('pilotCreator.rank') }}</div>
-        <div class="level">{{ pilot.level || 0 }}</div>
-      </div>
-    </div>
-    
-    <div class="pilot-footer">
-      <div class="mech-info clickable" @click.stop="openMechModal">
-        <i class="cci cci-reserve-mech"></i>
-        <span>{{ (activeMech.manufacturer || 'N/A') }} // {{ (activeMech.frame_name || 'N/A') }}</span>
-      </div>
-      <div class="quick-actions" @click.stop>
-        <i class="mdi mdi-robot" @click="openMechModal" :title="$t('pilotCreator.steps.mechBuilder')"></i>
-        <i v-if="pilot.isCustom" class="mdi mdi-pencil" @click="editPilot" :title="$t('general.edit')"></i>
-        <i v-if="pilot.isCustom" class="mdi mdi-delete" @click="deletePilot" :title="$t('general.delete')"></i>
+        <div class="callsign">{{ pilot.callsign || pilot.name || $t('pilot.callsign').toUpperCase() }}</div>
+        <div v-if="pilot.name && pilot.name !== pilot.callsign && pilot.name !== 'NOME NÃO REGISTRADO'" class="pilot-name">
+          {{ pilot.name }}
+        </div>
       </div>
     </div>
     
     <!-- Borda decorativa tática -->
     <div class="corner-top-right"></div>
     <div class="corner-bottom-left"></div>
+    <div class="edge-glowing-bar"></div>
   </div>
 </template>
 
@@ -43,6 +33,7 @@ import * as longrimData from "lancer-longrim-data";
 import PilotModal from "./modals/PilotModal.vue";
 import MechDisplayModal from "./modals/MechDisplayModal.vue";
 import { pilotStore } from "@/store/pilotCreator";
+import { authStore } from "@/store/auth";
 
 export default {
   props: {
@@ -55,6 +46,9 @@ export default {
     }
   },
   computed: {
+    isLoggedIn() {
+      return authStore.isLoggedIn.value;
+    },
     frames() {
       // Função auxiliar para extrair frames de pacotes ESM ou CommonJS
       const getFrames = (pkg) => {
@@ -150,29 +144,46 @@ export default {
 <style scoped>
 .pilot-card-compact {
   position: relative;
-  background: rgba(20, 20, 25, 0.8);
-  border-left: 4px solid var(--union-crimson);
-  padding: 15px;
+  background: linear-gradient(135deg, rgba(20, 20, 25, 0.85) 0%, rgba(10, 10, 15, 0.95) 100%);
+  border-left: 4px solid var(--union-crimson, #af0e1e);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  padding: 15px 20px;
   min-width: 300px;
   flex: 1;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
 .pilot-card-compact:hover {
-  background: rgba(40, 40, 50, 0.9);
-  transform: translateY(-2px);
-  border-left-width: 8px;
+  background: linear-gradient(135deg, rgba(35, 35, 45, 0.9) 0%, rgba(15, 15, 25, 0.98) 100%);
+  transform: translateY(-4px);
+  border-left-width: 6px;
+  box-shadow: 0 10px 30px rgba(175, 14, 30, 0.25), inset 0 0 15px rgba(255, 255, 255, 0.02);
+}
+
+.scanline {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(255, 255, 255, 0.02) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .pilot-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
   gap: 15px;
+  position: relative;
+  z-index: 2;
 }
 
 .avatar-block {
@@ -180,105 +191,106 @@ export default {
 }
 
 .avatar-frame {
-  width: 50px;
-  height: 50px;
-  background: rgba(175, 14, 30, 0.1);
-  border: 1px solid var(--union-crimson);
+  position: relative;
+  width: 56px;
+  height: 56px;
+  background: rgba(175, 14, 30, 0.08);
+  border: 1px solid var(--union-crimson, #af0e1e);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  transition: border-color 0.3s;
+}
+
+.pilot-card-compact:hover .avatar-frame {
+  border-color: #00f0ff;
 }
 
 .avatar-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: contrast(1.1) brightness(0.95) grayscale(0.1);
+  transition: all 0.3s;
+}
+
+.pilot-card-compact:hover .avatar-img {
+  filter: contrast(1.15) brightness(1.1) grayscale(0);
 }
 
 .placeholder-icon {
-  font-size: 1.5rem;
-  color: var(--union-crimson);
+  font-size: 1.8rem;
+  color: var(--union-crimson, #af0e1e);
   opacity: 0.7;
 }
 
 .callsign-block {
   flex-grow: 1;
+  min-width: 0;
 }
 
 .callsign {
+  font-family: "Big Shoulders Display", cursive;
   font-size: 1.8rem;
   font-weight: 800;
   color: white;
   letter-spacing: 2px;
   line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pilot-name {
+  font-family: "Inconsolata", monospace;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 2px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .label {
-  font-size: 0.7rem;
-  color: var(--union-crimson);
+  font-size: 0.65rem;
+  color: var(--union-crimson, #af0e1e);
   font-weight: bold;
-  opacity: 0.8;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
 }
-
-.level-block {
-  text-align: right;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 2px 8px;
-}
-
-.level { font-size: 1.2rem; font-weight: bold; }
-
-.pilot-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.mech-info.clickable {
-  cursor: pointer;
-  padding: 2px 6px;
-  border-radius: 4px;
-  transition: all 0.2s;
-}
-
-.mech-info.clickable:hover {
-  background: rgba(175, 14, 30, 0.2);
-  color: #fff;
-}
-
-.mech-info {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.quick-actions i {
-  margin-left: 12px;
-  cursor: pointer;
-  opacity: 0.5;
-  transition: 0.2s;
-}
-
-.quick-actions i:hover { opacity: 1; color: var(--union-crimson); }
 
 /* Decorative Elements */
 .corner-top-right {
   position: absolute;
   top: 0; right: 0;
-  width: 20px; height: 20px;
-  border-top: 2px solid rgba(255, 255, 255, 0.1);
-  border-right: 2px solid rgba(255, 255, 255, 0.1);
+  width: 15px; height: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .corner-bottom-left {
   position: absolute;
   bottom: 0; left: 0;
   width: 10px; height: 10px;
-  border-bottom: 2px solid var(--union-crimson);
-  border-left: 2px solid var(--union-crimson);
+  border-bottom: 2px solid var(--union-crimson, #af0e1e);
+  border-left: 2px solid var(--union-crimson, #af0e1e);
+}
+
+.edge-glowing-bar {
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 2px;
+  width: 0;
+  background: linear-gradient(90deg, var(--union-crimson, #af0e1e), #00f0ff);
+  transition: width 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.pilot-card-compact:hover .edge-glowing-bar {
+  width: 100%;
 }
 </style>

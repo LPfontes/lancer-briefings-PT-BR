@@ -57,6 +57,7 @@ export default {
 	padding: 2em;
 	gap: 1.5em;
   overflow-y: auto;
+  width: 80%;
 }
 
 .section-content-container {

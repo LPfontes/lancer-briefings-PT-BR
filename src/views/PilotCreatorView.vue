@@ -96,9 +96,13 @@ export default {
 			downloadFoundryExport(pilotStore.state);
 		},
 		async savePilot() {
-			const success = await pilotStore.savePilot();
-			if (success) {
-				alert("PILOTO SALVO COM SUCESSO E SINCRONIZADO");
+			const result = await pilotStore.savePilot();
+			if (result.success) {
+				if (result.cloudSynced) {
+					alert(this.$t('auth.saveSuccessCloud') || "PILOTO SALVO COM SUCESSO E SINCRONIZADO NA NUVEM");
+				} else {
+					alert(this.$t('auth.saveSuccessLocal') || "PILOTO SALVO APENAS LOCALMENTE.\nAutentique-se usando o cadeado no topo para sincronizar com a nuvem.");
+				}
 			}
 		},
 		resetPilot() {

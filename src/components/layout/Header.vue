@@ -51,11 +51,22 @@
 			<div class="notification-trigger" @click="$emit('open-notification')" title="Notificações do Sistema">
 				<span class="material-symbols-outlined icon">notifications</span>
 			</div>
+			<!-- Novo Botão de Sincronização -->
+			<div class="notification-trigger" :class="{ 'syncing': isSyncing }" @click="triggerSync" title="Sincronizar com a Nuvem">
+				<span class="material-symbols-outlined icon" :class="{ 'spinning': isSyncing }">sync</span>
+			</div>
+			<div class="notification-trigger" :class="{ 'logged-in': isLoggedIn }" @click="handleLoginClick" :title="isLoggedIn ? 'Encerrar Sessão Admin' : 'Acesso Administrador'">
+				<span class="material-symbols-outlined icon">{{ isLoggedIn ? 'lock_open' : 'lock' }}</span>
+			</div>
 		</div>
 	</header>
 </template>
 
 <script>
+import { authStore } from "@/store/auth";
+import { pilotStore } from "@/store/pilotCreator";
+import LoginModal from "../modals/LoginModal.vue";
+
 export default {
 	components: {},
 	props: {
@@ -75,8 +86,52 @@ export default {
 	},
 	data() {
 		return {
-			hasNewMessage: true
+			hasNewMessage: true,
+			isSyncing: false
 		};
+	},
+	computed: {
+		isLoggedIn() {
+			return authStore.isLoggedIn.value;
+		}
+	},
+	methods: {
+		async triggerSync() {
+			if (this.isSyncing) return;
+			this.isSyncing = true;
+			if (window.showNotification) {
+				window.showNotification("SISTEMA DE SINCRONIZAÇÃO", "Conectando ao Supabase para unificação de dados...", "info");
+			}
+			try {
+				await pilotStore.getSavedPilots();
+				if (window.showNotification) {
+					window.showNotification("SISTEMA DE SINCRONIZAÇÃO", "Pilotos sincronizados com a nuvem com sucesso.", "info");
+				}
+				setTimeout(() => {
+					window.location.reload();
+				}, 1200);
+			} catch (e) {
+				if (window.showNotification) {
+					window.showNotification("ERRO DE CONEXÃO", "Falha ao sincronizar: " + e.message, "info");
+				}
+				this.isSyncing = false;
+			}
+		},
+		handleLoginClick() {
+			if (this.isLoggedIn) {
+				if (confirm("DESEJA ENCERRAR A SESSÃO DE ADMINISTRADOR?")) {
+					authStore.logout();
+					window.location.reload();
+				}
+			} else {
+				this.$oruga.modal.open({
+					component: LoginModal,
+					custom: true,
+					width: 500,
+					trapFocus: true
+				});
+			}
+		}
 	}
 };
 </script>
@@ -128,6 +183,27 @@ export default {
 	.icon {
 		font-size: 24px;
 	}
+
+	&.logged-in {
+		color: #00f0ff;
+		border-color: #00f0ff;
+		box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+	}
+
+	&.syncing {
+		color: #00f0ff;
+		border-color: #00f0ff;
+		box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+	}
+}
+
+.spinning {
+	animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+	from { transform: rotate(0deg); }
+	to { transform: rotate(360deg); }
 }
 
 @keyframes ping-pulse {
