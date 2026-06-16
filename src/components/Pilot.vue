@@ -150,12 +150,13 @@ export default {
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   border-bottom: 1px solid rgba(0, 0, 0, 0.4);
   padding: 15px 20px;
-  min-width: 300px;
   flex: 1;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  max-height: fit-content;
+
 }
 
 .pilot-card-compact:hover {
