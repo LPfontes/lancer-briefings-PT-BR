@@ -121,6 +121,15 @@ export default {
 		if (this.missions.length > 0) {
 			this.selectMission(this.missions[0].slug);
 		}
+		setTimeout(() => {
+			if (window.showNotification) {
+				window.showNotification(
+					"ALERTA DO SISTEMA // CASCATA DE SINAL DETECTADA",
+					"Mensagem de emergência. Cascata de sinal em andamento.\n\n« EU SOU UM DEUS. EU SOU UM DEUS. EU SOU UM DEUS. EU SOU UM DEUS. TUDO É INSIGNIFICANTE »\n\nNaves inimigas detectadas. Comunicação externa inviabilizada.\n\n« EU NÃO QUERO MORRER! EU NÃO QUERO MORRER! EU NÃO QUERO MORRER! »\n\nIniciando manobras de evasão e combate.\n\nEscudos em 50%.\n\nFalha crítica: escudos colapsaram.\n\nMúltiplos danos estruturais detectados no casco.\n\nCápsula de emergência enviada.\n\n« EU VEJO O HORIZONTE. EU SOU O UNIVERSO. EU EXISTO \nFOGO DO CÉU. SANTOS. MORTE. \nASUMA, ARAKAN , LEROY, PRIYA e LAURA, \nVOCÊS ESTÃO AQUI, \nENCONTREM SEU PROPÓSITO, \nENCONTREM O CAMINHO... \nNÃO ME ESQUEÇAM\nEU TENHO MEDO \nEU TENHO MEDO \nEU TENHO MEDO \nEU TENHO ME\n\n[SINAL INTERROMPIDO // NÚCLEO DESINTEGRADO]",
+					"error"
+				);
+			}
+		}, 500);
 	},
 	methods: {
 		selectMission(slug) {

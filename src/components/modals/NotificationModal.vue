@@ -14,16 +14,16 @@
 
 				<div class="modal-body">
 					<div class="message-container">
-						<p class="notification-message">{{ message }}</p>
+						<div class="notification-message">{{ message }}</div>
 					</div>
 					<div class="footer-actions">
-						<button class="action-btn" @click="$emit('close')">ENTENDIDO</button>
+						<button class="action-btn" @click="$emit('close')">CLOSE</button>
 					</div>
 				</div>
 				
 				<div class="status-bar">
 					<div class="status-indicator"></div>
-					<div class="status-text">SISTEMA DE NOTIFICAÇÃO DA UNIÃO // STATUS: OK</div>
+					<div class="status-text">SISTEMA DE NOTIFICAÇÃO DA UNIÃO // STATUS: OFF</div>
 				</div>
 			</div>
 		</div>
@@ -81,7 +81,7 @@ export default {
 .notification-modal {
 	background: #0b1119;
 	width: 100%;
-	max-width: 450px;
+	max-width: 800px;
 	border: 1px solid rgba(255, 255, 255, 0.2);
 	box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
 	position: relative;
@@ -141,10 +141,13 @@ export default {
 
 .notification-message {
 	font-family: "Titillium Web", sans-serif;
-	font-size: 16px;
+	font-size: 15px;
 	color: rgba(255, 255, 255, 0.9);
 	margin: 0 0 20px 0;
 	line-height: 1.5;
+	white-space: pre-wrap;
+	max-height: 700px;
+	overflow-y: auto;
 }
 
 .footer-actions {
@@ -181,8 +184,8 @@ export default {
 	width: 6px;
 	height: 6px;
 	border-radius: 50%;
-	background: #3cb043;
-	box-shadow: 0 0 5px #3cb043;
+	background: #c50000;
+	box-shadow: 0 0 5px #c50000c2;
 }
 
 .status-text {
