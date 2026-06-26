@@ -162,7 +162,7 @@ export default {
 				{
 					password: "GEAR37",
 					origin: "????? // ?????",
-					hints: [""],
+					hints: ["Casa"],
 					content: `
 						<p>Arakan Casper, codinome Scop-Olead, tem desempenhado um papel fundamental na evolução da campanha de consolidação de paz em Hélio.</p>
 						<p>Os últimos relatórios demonstraram que esse projetinho da Gear 37 realmente deu resultado.</p>
