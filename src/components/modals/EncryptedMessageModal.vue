@@ -158,6 +158,18 @@ export default {
 						<p>Espero que tenha gostado do presente. A União recompensa o bom trabalho.</p>
 						<p>Mantenha seus amigos na linha e talvez a liberdade total não seja um sonho impossível.</p>
 					`
+				},
+				{
+					password: "GEAR37",
+					origin: "????? // ?????",
+					hints: [""],
+					content: `
+						<p>Arakan Casper, codinome Scop-Olead, tem desempenhado um papel fundamental na evolução da campanha de consolidação de paz em Hélio.</p>
+						<p>Os últimos relatórios demonstraram que esse projetinho da Gear 37 realmente deu resultado.</p>
+						<p>No entanto, infelizmente, senhor Casper, existem interesses díspares em jogo atualmente, e o sucesso desta missão pode não representar para o seu planeta o que você acredita.</p>
+						<p>Se você realmente quer se provar capaz... faça a missão fracassar.</p>
+						<p>Caso contrário, talvez a Gear 37 não esteja mais aberta a recebê-lo de volta.</p>
+					`
 				}
 			],
 			messageOrigin: "COMUNICAÇÃO MÍNGZHÌ",
