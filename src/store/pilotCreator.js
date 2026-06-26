@@ -228,27 +228,42 @@ export const usePilotCreator = () => {
     const index = saved.findIndex(p => p.id === state.id);
     if (index > -1) saved[index] = pilotData;
     else saved.push(pilotData);
-    localStorage.setItem('lancer_saved_pilots', JSON.stringify(saved));
+    try {
+      localStorage.setItem('lancer_saved_pilots', JSON.stringify(saved));
+    } catch (e) {
+      console.warn("Falha ao salvar piloto no LocalStorage (Limite Excedido):", e.message);
+    }
 
     // Remove from deleted list if it was there
     const deletedIds = JSON.parse(localStorage.getItem('lancer_deleted_pilots') || '[]');
     const filteredDeleted = deletedIds.filter(id => id !== state.id);
-    localStorage.setItem('lancer_deleted_pilots', JSON.stringify(filteredDeleted));
+    try {
+      localStorage.setItem('lancer_deleted_pilots', JSON.stringify(filteredDeleted));
+    } catch (e) {
+      console.warn("Falha ao atualizar lista de excluídos no LocalStorage (Limite Excedido):", e.message);
+    }
 
     // 2. Try Cloud Save
+    let cloudSynced = false;
     try {
+      const headers = { 'Content-Type': 'application/json' };
+      const token = localStorage.getItem('lancer_auth_token');
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
       const response = await fetch('/api/pilots', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: headers,
         body: JSON.stringify(pilotData)
       });
       if (!response.ok) throw new Error('Cloud save failed');
       console.log("Sincronizado com a nuvem");
+      cloudSynced = true;
     } catch (e) {
       console.warn("Salvando apenas localmente:", e.message);
     }
     
-    return true;
+    return { success: true, cloudSynced };
   };
 
   const getSavedPilots = async () => {
@@ -274,22 +289,33 @@ export const usePilotCreator = () => {
       return localPilots;
     }
 
-    // Process pending deletions on remote
+    // Process pending deletions on remote (only if logged in)
+    const token = localStorage.getItem('lancer_auth_token');
     const successfulDeletes = [];
-    for (const id of deletedIds) {
-      try {
-        const delResponse = await fetch(`/api/pilots?id=${id}`, { method: 'DELETE' });
-        if (delResponse.ok) {
-          successfulDeletes.push(id);
+    if (token) {
+      for (const id of deletedIds) {
+        try {
+          const headers = { 'Authorization': `Bearer ${token}` };
+          const delResponse = await fetch(`/api/pilots?id=${id}`, { 
+            method: 'DELETE',
+            headers: headers
+          });
+          if (delResponse.ok) {
+            successfulDeletes.push(id);
+          }
+        } catch (e) {
+          console.warn(`Falha ao sincronizar deleção do piloto ${id} na nuvem:`, e.message);
         }
-      } catch (e) {
-        console.warn(`Falha ao sincronizar deleção do piloto ${id} na nuvem:`, e.message);
       }
     }
     // Update local deleted list
     if (successfulDeletes.length > 0) {
       const updatedDeletedIds = deletedIds.filter(id => !successfulDeletes.includes(id));
-      localStorage.setItem('lancer_deleted_pilots', JSON.stringify(updatedDeletedIds));
+      try {
+        localStorage.setItem('lancer_deleted_pilots', JSON.stringify(updatedDeletedIds));
+      } catch (e) {
+        console.warn("Falha ao atualizar lista de excluídos no LocalStorage (Limite Excedido):", e.message);
+      }
     }
 
     // Create a map to merge local and remote pilots
@@ -313,32 +339,44 @@ export const usePilotCreator = () => {
         const remoteTime = new Date(remotePilot.lastSaved || 0).getTime();
 
         if (localTime > remoteTime) {
-          // Local is newer, upload to remote
+          // Local is newer, upload to remote (only if logged in)
           mergedList.push(localPilot);
-          try {
-            await fetch('/api/pilots', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(localPilot)
-            });
-          } catch (e) {
-            console.warn(`Falha ao sincronizar piloto ${localPilot.callsign || id} na nuvem:`, e.message);
+          if (token) {
+            try {
+              const headers = { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+              };
+              await fetch('/api/pilots', {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(localPilot)
+              });
+            } catch (e) {
+              console.warn(`Falha ao sincronizar piloto ${localPilot.callsign || id} na nuvem:`, e.message);
+            }
           }
         } else {
           // Remote is newer (or equal), use remote
           mergedList.push(remotePilot);
         }
       } else if (localPilot) {
-        // Only local exists, upload to remote
+        // Only local exists, upload to remote (only if logged in)
         mergedList.push(localPilot);
-        try {
-          await fetch('/api/pilots', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(localPilot)
-          });
-        } catch (e) {
-          console.warn(`Falha ao salvar piloto local ${localPilot.callsign || id} na nuvem:`, e.message);
+        if (token) {
+          try {
+            const headers = { 
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            };
+            await fetch('/api/pilots', {
+              method: 'POST',
+              headers: headers,
+              body: JSON.stringify(localPilot)
+            });
+          } catch (e) {
+            console.warn(`Falha ao salvar piloto local ${localPilot.callsign || id} na nuvem:`, e.message);
+          }
         }
       } else if (remotePilot) {
         // Only remote exists, download to local
@@ -347,7 +385,11 @@ export const usePilotCreator = () => {
     }
 
     // Save finalized synced list to local storage
-    localStorage.setItem('lancer_saved_pilots', JSON.stringify(mergedList));
+    try {
+      localStorage.setItem('lancer_saved_pilots', JSON.stringify(mergedList));
+    } catch (e) {
+      console.warn("Falha ao salvar lista final de pilotos no LocalStorage (Limite Excedido):", e.message);
+    }
     return mergedList;
   };
 
@@ -363,22 +405,42 @@ export const usePilotCreator = () => {
     // 1. Delete Local
     const saved = JSON.parse(localStorage.getItem('lancer_saved_pilots') || '[]');
     const filtered = saved.filter(p => p.id !== id);
-    localStorage.setItem('lancer_saved_pilots', JSON.stringify(filtered));
+    try {
+      localStorage.setItem('lancer_saved_pilots', JSON.stringify(filtered));
+    } catch (e) {
+      console.warn("Falha ao remover piloto do LocalStorage (Limite Excedido):", e.message);
+    }
 
     // Add to deleted list
     const deletedIds = JSON.parse(localStorage.getItem('lancer_deleted_pilots') || '[]');
     if (!deletedIds.includes(id)) {
       deletedIds.push(id);
-      localStorage.setItem('lancer_deleted_pilots', JSON.stringify(deletedIds));
+      try {
+        localStorage.setItem('lancer_deleted_pilots', JSON.stringify(deletedIds));
+      } catch (e) {
+        console.warn("Falha ao registrar exclusão no LocalStorage (Limite Excedido):", e.message);
+      }
     }
 
     // 2. Delete Cloud
     try {
-      const delResponse = await fetch(`/api/pilots?id=${id}`, { method: 'DELETE' });
+      const headers = {};
+      const token = localStorage.getItem('lancer_auth_token');
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+      const delResponse = await fetch(`/api/pilots?id=${id}`, { 
+        method: 'DELETE',
+        headers: headers
+      });
       if (delResponse.ok) {
         // Remove from deleted list since it succeeded
         const updatedDeleted = JSON.parse(localStorage.getItem('lancer_deleted_pilots') || '[]').filter(dId => dId !== id);
-        localStorage.setItem('lancer_deleted_pilots', JSON.stringify(updatedDeleted));
+        try {
+          localStorage.setItem('lancer_deleted_pilots', JSON.stringify(updatedDeleted));
+        } catch (e) {
+          console.warn("Falha ao limpar registro de exclusão no LocalStorage:", e.message);
+        }
       }
     } catch (e) {
       console.warn("Erro ao deletar da nuvem");

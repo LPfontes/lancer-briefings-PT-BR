@@ -302,6 +302,7 @@ export default {
 	display: flex;
 	flex-direction: column;
 	height: 100%;
+	background: #000000bf;
 }
 
 .reader-header {

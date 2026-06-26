@@ -61,6 +61,7 @@ export default {
 	gap: 1.5em;
   overflow-y: auto;
   height: calc(100vh - 250px);
+  width: 80%;
 }
 
 .section-content-container {

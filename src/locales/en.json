@@ -11,7 +11,19 @@
     "locked": "LOCKED",
     "installed": "INSTALLED",
     "search": "SEARCH",
-    "remove": "REMOVE"
+    "remove": "Remove"
+  },
+  "auth": {
+    "loginTitle": "SYSTEM AUTHENTICATION // ADMIN",
+    "passwordPlaceholder": "ENTER ACCESS KEY...",
+    "loginBtn": "LOGIN",
+    "logoutBtn": "LOGOUT",
+    "invalidKey": "INVALID KEY. ACCESS DENIED.",
+    "loginRequired": "AUTHENTICATION REQUIRED TO SAVE CHANGES TO CLOUD.",
+    "success": "SESSION STARTED SUCCESSFULLY",
+    "logoutSuccess": "SESSION CLOSED",
+    "saveSuccessCloud": "PILOT SAVED SUCCESSFULLY AND SYNCED TO CLOUD",
+    "saveSuccessLocal": "PILOT SAVED LOCALLY ONLY.\nAuthenticate using the lock at the top to sync with the cloud."
   },
   "header": {
     "year": "Year",
