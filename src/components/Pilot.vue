@@ -50,7 +50,7 @@ export default {
       return authStore.isLoggedIn.value;
     },
     frames() {
-      // Função auxiliar para extrair frames de pacotes ESM ou CommonJS
+      // Função <br>Auxiliar</b> para extrair frames de pacotes ESM ou CommonJS
       const getFrames = (pkg) => {
         if (!pkg) return [];
         return pkg.frames || (pkg.default && pkg.default.frames) || [];

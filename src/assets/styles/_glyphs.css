@@ -21,10 +21,10 @@
 }
 
 .chip i.cci {
-	font-size:18px;
-	position: relative;
-	top: 4px;
-	line-height: 0px;
+  font-size: 18px;
+  position: relative;
+  top: 4px;
+  line-height: 0px;
 }
 
 .cci-npc-template:before {
@@ -279,7 +279,7 @@
   content: '\e938';
 }
 
-.cci-cone:before {
+.cci-Cone:before {
   content: '\e939';
 }
 

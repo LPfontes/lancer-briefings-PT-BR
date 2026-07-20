@@ -5,7 +5,7 @@ Ativo
 
 # Priya Ripper (Carmesin)
 
-Nascida a bordo de um navio cargueiro de propriedade de sua família, Priya cresceu envolvida no negócio de transporte de cargas e mercadorias licenciadas pela GMS rumo às fronteiras do espaço conhecido.
+Nascida a bordo de um navio cargueiro de propriedade de sua família, Priya cresceu envolvida no negócio de transporte de <b>Cargas<b>. e mercadorias licenciadas pela GMS rumo às fronteiras do espaço conhecido.
 
 ### O Batismo de Fogo
 Sua vida mudou drasticamente quando um grupo de piratas espaciais atacou a embarcação enquanto transportavam um carregamento de unidades **Everest** para a borda do mundo. Sem outra alternativa para sobreviver, Priya correu até o compartimento de carga, trancou-se na cabine de pilotagem de um dos mechas Everest e lutou ferozmente para salvar sua vida e a de sua família.

@@ -199,7 +199,7 @@
                 <div class="pilot-gear-dossier-grid">
                   <!-- Armor Category -->
                   <div class="gear-category-block">
-                    <div class="cat-title"><i class="mdi mdi-shield-half-full"></i> ARMADURA / TRAJE</div>
+                    <div class="cat-title"><i class="mdi mdi-shield-half-full"></i> Armadura / TRAJE</div>
                     <div class="gear-items-list">
                       <div 
                         v-if="resolvedPilotLoadout.armor" 
@@ -209,7 +209,7 @@
                       >
                         <div class="gear-card-header">
                           <span class="gear-name">{{ resolvedPilotLoadout.armor.name }}</span>
-                          <span class="gear-type-badge">ARMADURA</span>
+                          <span class="gear-type-badge">Armadura</span>
                         </div>
                         <div class="gear-card-body" v-if="resolvedPilotLoadout.armor.description">
                           <span class="gear-desc-terse">{{ formatGearDescription(resolvedPilotLoadout.armor.description) }}</span>
@@ -225,7 +225,7 @@
                         </div>
                       </div>
                       <div v-else class="empty-gear-slot">
-                        <i class="mdi mdi-shield-off-outline"></i> NENHUMA ARMADURA EQUIPADA
+                        <i class="mdi mdi-shield-off-outline"></i> NENHUMA Armadura EQUIPADA
                       </div>
                     </div>
                   </div>
@@ -339,7 +339,7 @@
       <div v-show="activeTab === 'mech'" class="military-dossier mech-dossier">
         <!-- Mech Top Header -->
         <div class="dossier-header mech-header-bg">
-          <div class="classification-stamp cyan">CHASSIS SPECIFICATIONS // CLASSIFIED</div>
+          <div class="classification-stamp cyan">Chassis SPECIFICATIONS // CLASSIFIED</div>
           <div class="header-main">
             <div class="pilot-id-block">
               <div class="protocol-id cyan">
@@ -396,9 +396,9 @@
                   <div class="portrait-right-col">
                     <!-- HASE Telemetry Grid with Pilot Attributes as Column 1 -->
                     <div class="detailed-stats-grid">
-                       <!-- ROW 1: CASCO & HULL STATS -->
+                       <!-- ROW 1: <b>Casco</b> & HULL STATS -->
                        <div class="stat-mini pilot-stat">
-                          <span class="label">CASCO</span>
+                          <span class="label"><b>Casco</b></span>
                           <span class="val">+{{ mechSkills[0] }}</span>
                        </div>
                        <div class="stat-mini red">
@@ -414,9 +414,9 @@
                           <span class="val">{{ stats.ARM }}</span>
                        </div>
 
-                       <!-- ROW 2: AGILIDADE & AGILITY STATS -->
+                       <!-- ROW 2: Agilidade & AGILITY STATS -->
                        <div class="stat-mini pilot-stat">
-                          <span class="label">AGILIDADE</span>
+                          <span class="label">Agilidade</span>
                           <span class="val">+{{ mechSkills[1] }}</span>
                        </div>
                        <div class="stat-mini green">
@@ -432,9 +432,9 @@
                           <span class="val">{{ stats.CAP_R }}</span>
                        </div>
 
-                       <!-- ROW 3: SISTEMAS & TECH STATS -->
+                       <!-- ROW 3: Sistemas & TECH STATS -->
                        <div class="stat-mini pilot-stat">
-                          <span class="label">SISTEMAS</span>
+                          <span class="label">Sistemas</span>
                           <span class="val">+{{ mechSkills[2] }}</span>
                        </div>
                        <div class="stat-mini blue">
@@ -502,7 +502,7 @@
                     <div class="mount-slots-list">
                       <div v-for="slot in [0, 1]" :key="slot" class="slot-entry">
                         <template v-if="getMechWeapon(idx, slot)">
-                          <div class="weapon-info-card">
+                          <div class="weapon-info-card clickable" @click="openGearModal(getMechWeapon(idx, slot))" title="Clique para ver detalhes da arma">
                             <div class="w-header-row">
                               <span class="w-name">{{ getMechWeapon(idx, slot).name }}</span>
                               <span class="w-mount-type" v-if="getMechWeapon(idx, slot).mount || getMechWeapon(idx, slot).type">
@@ -518,6 +518,11 @@
                               <span v-for="(d, dIdx) in (getMechWeapon(idx, slot).damage || [])" :key="'d-'+dIdx" class="w-pill dmg">
                                 <i class="mdi mdi-flash"></i> {{ formatDamage(d) }}
                               </span>
+                            </div>
+
+                            <!-- Weapon Effect / Rules Description Body -->
+                            <div class="w-effect-body" v-if="getWeaponEffect(getMechWeapon(idx, slot))">
+                              <div class="w-effect-text" v-html="getWeaponEffect(getMechWeapon(idx, slot))"></div>
                             </div>
 
                             <!-- Tags with Hover Tooltips -->
@@ -664,7 +669,7 @@
                 <div class="rank-header">
                   <span class="rank-title">RANK {{ idx + 1 }}: {{ rank.name }}</span>
                   <span class="rank-status-tag" :class="{ active: selectedTalent.currentRank >= (idx + 1) }">
-                    {{ selectedTalent.currentRank >= (idx + 1) ? 'ATIVO' : 'BLOQUEADO' }}
+                    {{ selectedTalent.currentRank >= (idx + 1) ? 'ATIVO' : 'Bloqueado' }}
                   </span>
                 </div>
                 <div class="rank-body" v-html="rank.description || rank.effect"></div>
@@ -950,7 +955,7 @@ export default {
       return this.activeMech?.frame_id ? getFrameImage({ id: this.activeMech.frame_id }) : 'https://raw.githubusercontent.com/massif-press/lancer-data/master/lib/assets/icons/mech.png';
     },
     legalDisclaimer() {
-      return (this.$t('pilot.legalDisclaimer') || 'CONFORME REGULAMENTO DA UNIÃO DE SISTEMAS, ESTES DADOS SÃO CONFIDENCIAIS E RESTRITOS A PESSOAL AUTORIZADO DO COMANDO UNIFICADO DO CORPO DE LANCERS. REPRODUÇÃO OU ALTERAÇÃO NÃO AUTORIZADA ACARRETARÁ EM SANÇÕES DA OMNINET.').substring(0, 180) + '...';
+      return (this.$t('pilot.legalDisclaimer') || 'CONFORME REGULAMENTO DA UNIÃO DE Sistemas, ESTES DADOS SÃO CONFIDENCIAIS E RESTRITOS A PESSOAL AUTORIZADO DO COMANDO UNIFICADO DO CORPO DE LANCERS. REPRODUÇÃO OU ALTERAÇÃO NÃO AUTORIZADA ACARRETARÁ EM SANÇÕES DA OMNINET.').substring(0, 180) + '...';
     }
   },
   methods: {
@@ -994,6 +999,34 @@ export default {
       this.selectedGearItem = item;
       this.gearModalOpen = true;
     },
+    getWeaponEffect(w) {
+      if (!w) return '';
+      const parts = [];
+      if (w.effect) {
+        parts.push(`<div>${w.effect}</div>`);
+      }
+      if (w.on_attack) {
+        parts.push(`<div><strong>No Ataque:</strong> ${w.on_attack}</div>`);
+      }
+      if (w.on_hit) {
+        parts.push(`<div><strong>No Acerto:</strong> ${w.on_hit}</div>`);
+      }
+      if (w.on_crit) {
+        parts.push(`<div><strong>No Crítico:</strong> ${w.on_crit}</div>`);
+      }
+      if (w.profiles && w.profiles.length) {
+        w.profiles.forEach(p => {
+          let profStr = `<strong>${p.name || 'Perfil'}:</strong> `;
+          if (p.effect) profStr += p.effect;
+          if (p.on_hit) profStr += ` (No Acerto: ${p.on_hit})`;
+          parts.push(`<div>${profStr}</div>`);
+        });
+      }
+      if (parts.length === 0 && w.description) {
+        parts.push(`<div class="flavor">${w.description}</div>`);
+      }
+      return parts.join('');
+    },
     formatGearDescription(desc) {
       if (!desc) return '';
       const clean = desc.replace(/<[^>]*>?/gm, '').trim();
@@ -1007,7 +1040,7 @@ export default {
       if (typeof d === 'string') {
         return d
           .replace(/Kinetic/gi, 'Cinético')
-          .replace(/Energy/gi, 'Energia')
+          .replace(/Energy/gi, '<b>Energia</b>')
           .replace(/Explosive/gi, 'Explosivo')
           .replace(/Heat/gi, 'Calor')
           .replace(/Burn/gi, 'Queimadura');
@@ -1016,11 +1049,11 @@ export default {
       const typeStr = d.type || d.damage_type || '';
       let typeLabel = typeStr;
       const lower = typeStr.toLowerCase();
-      if (lower.includes('kinetic') || lower.includes('cinético') || lower.includes('cinetico')) typeLabel = 'Cinético';
-      else if (lower.includes('energy') || lower.includes('energia')) typeLabel = 'Energia';
+      if (lower.includes('kinetic') || lower.includes('Cinético') || lower.includes('cinetico')) typeLabel = 'Cinético';
+      else if (lower.includes('energy') || lower.includes('<b>Energia</b>')) typeLabel = '<b>Energia</b>';
       else if (lower.includes('explosive') || lower.includes('explosivo')) typeLabel = 'Explosivo';
-      else if (lower.includes('heat') || lower.includes('calor')) typeLabel = 'Calor';
-      else if (lower.includes('burn') || lower.includes('queimadura')) typeLabel = 'Queimadura';
+      else if (lower.includes('heat') || lower.includes('Calor')) typeLabel = 'Calor';
+      else if (lower.includes('burn') || lower.includes('Queimadura')) typeLabel = 'Queimadura';
       
       return `${val} ${typeLabel}`.trim();
     },
@@ -1039,11 +1072,11 @@ export default {
       const typeStr = r.type || '';
       let typeLabel = typeStr;
       const lower = typeStr.toLowerCase();
-      if (lower.includes('range') || lower.includes('alcance')) typeLabel = 'Alcance';
-      else if (lower.includes('threat') || lower.includes('ameaça') || lower.includes('ameaca')) typeLabel = 'Ameaça';
-      else if (lower.includes('line') || lower.includes('linha')) typeLabel = 'Linha';
-      else if (lower.includes('cone')) typeLabel = 'Cone';
-      else if (lower.includes('blast') || lower.includes('explosão') || lower.includes('explosao')) typeLabel = 'Explosão';
+      if (lower.includes('range') || lower.includes('Alcance')) typeLabel = 'Alcance';
+      else if (lower.includes('threat') || lower.includes('Ameaça') || lower.includes('ameaca')) typeLabel = 'Ameaça';
+      else if (lower.includes('line') || lower.includes('Linha')) typeLabel = 'Linha';
+      else if (lower.includes('Cone')) typeLabel = 'Cone';
+      else if (lower.includes('blast') || lower.includes('Explosão') || lower.includes('explosao')) typeLabel = 'Explosão';
       else if (lower.includes('burst') || lower.includes('surto')) typeLabel = 'Surto';
 
       return `${typeLabel} ${val}`.trim();
@@ -1085,29 +1118,8 @@ export default {
       const mountRaw = (weapon.mount || '').toLowerCase().trim();
       const typeRaw = (weapon.type || '').toLowerCase().trim();
 
-      const mountMap = {
-        'main': 'PRINCIPAL',
-        'heavy': 'PESADO',
-        'aux': 'AUXILIAR',
-        'auxiliary': 'AUXILIAR',
-        'superheavy': 'SUPERPESADO',
-        'integrated': 'INTEGRADO',
-        'flex': 'FLEXÍVEL'
-      };
-
-      const typeMap = {
-        'rifle': 'RIFLE',
-        'melee': 'CORPO A CORPO',
-        'cannon': 'CANHÃO',
-        'launcher': 'LANÇADOR',
-        'cqb': 'CQB',
-        'nexus': 'NEXO',
-        'weapon': 'ARMA',
-        'special': 'ESPECIAL'
-      };
-
-      const mountTranslated = mountMap[mountRaw] || weapon.mount || '';
-      const typeTranslated = typeMap[typeRaw] || weapon.type || '';
+      const mountTranslated = this.$t(`mech.mountTypes.${mountRaw}`) || weapon.mount || '';
+      const typeTranslated = this.$t(`mech.weaponTypes.${typeRaw}`) || weapon.type || '';
 
       if (typeTranslated && mountTranslated) {
         return `${typeTranslated} ${mountTranslated}`.toUpperCase();
@@ -1886,6 +1898,43 @@ export default {
   flex-direction: column;
   gap: 6px;
   padding: 6px 0;
+}
+
+.weapon-info-card.clickable {
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 8px;
+  transition: all 0.2s ease;
+}
+
+.weapon-info-card.clickable:hover {
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.2);
+}
+
+.w-effect-body {
+  margin-top: 4px;
+  padding: 8px 10px;
+  background: rgba(0, 0, 0, 0.4);
+  border-left: 3px solid #00f0ff;
+  border-radius: 2px;
+}
+
+.w-effect-text {
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.45;
+}
+
+.w-effect-text strong {
+  color: #00f0ff;
+  font-weight: 700;
+}
+
+.w-effect-text .flavor {
+  font-style: italic;
+  opacity: 0.75;
 }
 
 .w-header-row {

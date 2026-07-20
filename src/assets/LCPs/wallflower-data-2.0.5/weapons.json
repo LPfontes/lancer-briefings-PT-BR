@@ -34,7 +34,7 @@
   {
     "id": "mw_tokugawa_alt_enkidu_integrated",
     "name": "Plasma Talons",
-    "mount": "Auxiliary",
+    "mount": "<br>Auxiliar</b>y",
     "type": "Melee",
     "range": [
       {
@@ -83,7 +83,7 @@
       }
     ],
     "effect": "This weapon does not need to be reloaded on a miss.",
-    "description": "Popular among colonial militias, the plasma maul is a heavy but simple device. High-density magnetic plasma capacitors have a wide range of applications, from power storage through to construction and defense. In the case of the plasma maul, they are mounted in rows along a reinforced haft and set to discharge on contact, making this a devastating closequarters weapon limited only by its need to recharge between strikes. Early models featured ejectable capacitor banks, but contemporary versions are designed to draw power directly from a chassis’ reactor.",
+    "description": "Popular among colonial militias, the plasma maul is a heavy but simple device. High-density magnetic plasma capacitors have a wide range of applications, from power storage through to construction and defense. In the case of the plasma maul, they are mounted in rows along a reinforced haft and set to discharge on contact, making this a devastating closequarters weapon limited only by its need to recharge between strikes. Early models featured ejectable capacitor banks, but contemporary versions are designed to draw power directly from a Chassis’ reactor.",
     "tags": [
       {
         "id": "tg_loading"
@@ -117,7 +117,7 @@
     ],
     "on_attack": "If you consume LOCK ON, your attack ignores cover.",
     "on_hit": "Create a Line 5 path from (but not including) your target, continuing in the same direction as the attack. Characters in this path take 5 Kinetic Damage.",
-    "description": "An obsolete chassis-grade anti-materiel/ anti-armor rifle dating back to the Hercynian Crisis, this particular design has not been in distribution for hundreds of years but finds continued use among contemporary Hercynian forces. Bulkier and more cumbersome than the current GMS T-3 anti-materiel rifle, this particular model lacks many of the refinements incorporated into later models and is meant to be employed with a dedicated spotter to provide targeting data. All the same, its heavy, highvelocity rounds remain extremely effective at defeating both armor and static defenses at extreme range.",
+    "description": "An obsolete Chassis-grade anti-materiel/ anti-armor rifle dating back to the Hercynian Crisis, this particular design has not been in distribution for hundreds of years but finds continued use among contemporary Hercynian forces. Bulkier and more cumbersome than the current GMS T-3 anti-materiel rifle, this particular model lacks many of the refinements incorporated into later models and is meant to be employed with a dedicated spotter to provide targeting data. All the same, its heavy, highvelocity rounds remain extremely effective at defeating both armor and static defenses at extreme range.",
     "tags": [
       {
         "id": "tg_loading"
@@ -154,7 +154,7 @@
       }
     ],
     "effect": "This weapon deals +1d6 bonus damage against targets with at least 1 Armor.",
-    "description": "The “steelpunch”, as it’s affectionately known, is a twin-beam directed-energy weapon developed by HUC engineers for use against the heavily reinforced hulls of remnant chassis and other hardened targets. The earliest models were derived from Second Committee–era mineral surveying lasers. An initial beam flash-vaporizes the target’s outer layer and the plasma bloom is instantly analyzed for material density and structural composition, following which the needlebeam fires a focused, highintensity pulsed beam tuned to defeat heavy armor. Performance against softer targets is significantly reduced, however, as excessive material ablation disrupts the secondary beam before an optimal effect can be achieved.",
+    "description": "The “steelpunch”, as it’s affectionately known, is a twin-beam directed-energy weapon developed by HUC engineers for use against the heavily reinforced hulls of remnant Chassis and other hardened targets. The earliest models were derived from Second Committee–era mineral surveying lasers. An initial beam flash-vaporizes the target’s outer layer and the plasma bloom is instantly analyzed for material density and structural composition, following which the needlebeam fires a focused, highintensity pulsed beam tuned to defeat heavy armor. Performance against softer targets is significantly reduced, however, as excessive material ablation disrupts the secondary beam before an optimal effect can be achieved.",
     "tags": [
       {
         "id": "tg_ap"

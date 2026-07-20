@@ -1,7 +1,7 @@
-import { 
-  frames as framesData, 
-  weapons as weaponsData, 
-  systems as systemsData, 
+import {
+  frames as framesData,
+  weapons as weaponsData,
+  systems as systemsData,
   pilot_gear as pilotGearData,
   skills as skillsData,
   talents as talentsData
@@ -81,12 +81,12 @@ function normalizePilotBonus(b) {
     },
     weapon_sizes: b.weapon_sizes ?? {
       Auxiliary: true, Main: true, Heavy: true, Superheavy: true
-    },
-    weapon_types: b.weapon_types ?? {
-      Rifle: true, Cannon: true, Launcher: true,
-      CQB: true, Nexus: true, Melee: true
-    },
-    overwrite: b.overwrite ?? false,
+},
+weapon_types: b.weapon_types ?? {
+  Rifle: true, Cannon: true, Launcher: true,
+  CQB: true, Nexus: true, Melee: true
+},
+  overwrite: b.overwrite ?? false,
     replace: b.replace ?? false
   };
 }
@@ -95,7 +95,7 @@ export function generateFoundryPilot(state, mechActorId) {
 
   const items = [];
   const loadoutRefs = { armor: [], gear: [], weapons: [] };
-  
+
   // Skills
   state.skills.forEach(s => {
     const data = skillsData.find(sd => sd.id === s.id);
@@ -131,12 +131,12 @@ export function generateFoundryPilot(state, mechActorId) {
 
     // Build the system object using real data from the database when available
     const baseSystem = {
-      actions:    (data?.actions    ?? []).map(a => Object.assign({}, a)),
-      bonuses:    (data?.bonuses    ?? []).map(b => normalizePilotBonus(b)),
-      synergies:  (data?.synergies  ?? []).map(s => Object.assign({}, s)),
-      counters:   (data?.counters   ?? []).map(c => Object.assign({}, c)),
-      deployables:(data?.deployables?? []).map(d => Object.assign({}, d)),
-      tags:       (data?.tags       ?? []).map(t => ({ lid: t.id || t.lid || "", val: t.val ?? "" })),
+      actions: (data?.actions ?? []).map(a => Object.assign({}, a)),
+      bonuses: (data?.bonuses ?? []).map(b => normalizePilotBonus(b)),
+      synergies: (data?.synergies ?? []).map(s => Object.assign({}, s)),
+      counters: (data?.counters ?? []).map(c => Object.assign({}, c)),
+      deployables: (data?.deployables ?? []).map(d => Object.assign({}, d)),
+      tags: (data?.tags ?? []).map(t => ({ lid: t.id || t.lid || "", val: t.val ?? "" })),
       uses: 0,
       integrated: [],
       lid: id,
@@ -144,17 +144,17 @@ export function generateFoundryPilot(state, mechActorId) {
     };
 
     if (type === "pilot_weapon") {
-      baseSystem.range  = (data?.range  ?? [{ type: "Threat", val: 1 }]).map(r => Object.assign({}, r));
+      baseSystem.range = (data?.range ?? [{ type: "Threat", val: 1 }]).map(r => Object.assign({}, r));
       baseSystem.damage = (data?.damage ?? [{ type: "Kinetic", val: "1" }]).map(d => Object.assign({}, d));
       baseSystem.loaded = false;
       if (data?.effect) baseSystem.effect = data.effect;
     }
 
     if (type === "pilot_armor") {
-      if (data?.hp_bonus  !== undefined) baseSystem.hp_bonus  = data.hp_bonus;
-      if (data?.evasion   !== undefined) baseSystem.evasion   = data.evasion;
-      if (data?.edef      !== undefined) baseSystem.edef      = data.edef;
-      if (data?.speed     !== undefined) baseSystem.speed     = data.speed;
+      if (data?.hp_bonus !== undefined) baseSystem.hp_bonus = data.hp_bonus;
+      if (data?.evasion !== undefined) baseSystem.evasion = data.evasion;
+      if (data?.edef !== undefined) baseSystem.edef = data.edef;
+      if (data?.speed !== undefined) baseSystem.speed = data.speed;
       if (data?.effect) baseSystem.effect = data.effect;
     }
 
@@ -258,8 +258,8 @@ export function generateFoundryMech(state, pilotActorId) {
       name: frameData.name,
       type: "frame",
       _id: frameFvttId,
-      system: { 
-        lid: frameData.id, 
+      system: {
+        lid: frameData.id,
         description: frameData.description || "",
         core_system: frameData.core_system ? {
           name: frameData.core_system.name || "",
@@ -381,7 +381,7 @@ export function downloadFoundryExport(state) {
   };
 
   download(pilotActor, `fvtt-Actor-${state.callsign.toLowerCase() || 'pilot'}-${pilotFvttId}.json`);
-  
+
   setTimeout(() => {
     download(mechActor, `fvtt-Actor-${state.activeMech.name.toLowerCase().replace(/\s+/g, '-') || 'mech'}-${mechFvttId}.json`);
   }, 600);

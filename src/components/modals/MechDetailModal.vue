@@ -36,14 +36,17 @@
                <div class="box-header">{{ $t('pilotCreator.mech.mounts').toUpperCase() }}</div>
                <div class="box-content mounts-list">
                   <div v-for="(mount, idx) in frameMounts" :key="idx" class="mount-entry">
-                     <div class="mount-type">{{ mount }}</div>
+                     <div class="mount-type">{{ $t(`mech.mountTypes.${mount.toLowerCase()}`) || mount }}</div>
                      <div class="mount-weapons">
-                        <div v-for="slot in [0, 1]" :key="slot" class="weapon-slot">
-                           <span v-if="getWeaponName(idx, slot)" class="w-name">
-                              <i class="mdi mdi-sword-cross"></i> {{ getWeaponName(idx, slot) }}
-                           </span>
-                           <span v-else-if="slot === 0" class="w-empty">-- {{ $t('pilotCreator.mech.empty') }} --</span>
-                        </div>
+                         <div v-for="slot in [0, 1]" :key="slot" class="weapon-slot">
+                            <template v-if="getWeapon(idx, slot)">
+                               <div class="w-name">
+                                  <i class="mdi mdi-sword-cross"></i> {{ getWeapon(idx, slot).name }}
+                               </div>
+                               <div class="w-desc" v-if="getWeaponEffect(getWeapon(idx, slot))" v-html="getWeaponEffect(getWeapon(idx, slot))"></div>
+                            </template>
+                            <span v-else-if="slot === 0" class="w-empty">-- {{ $t('pilotCreator.mech.empty') }} --</span>
+                         </div>
                      </div>
                   </div>
                </div>
@@ -144,6 +147,22 @@ export default {
     }
   },
   methods: {
+    getWeapon(mountIdx, slotIdx) {
+      if (!this.mech.mounts) return null;
+      const weaponId = this.mech.mounts[`${mountIdx}_${slotIdx}`];
+      if (!weaponId) return null;
+      return weaponsData.find(w => w.id === weaponId) || { name: weaponId };
+    },
+    getWeaponEffect(w) {
+      if (!w) return '';
+      const parts = [];
+      if (w.effect) parts.push(`<div>${w.effect}</div>`);
+      if (w.on_attack) parts.push(`<div><strong>No Ataque:</strong> ${w.on_attack}</div>`);
+      if (w.on_hit) parts.push(`<div><strong>No Acerto:</strong> ${w.on_hit}</div>`);
+      if (w.on_crit) parts.push(`<div><strong>No Crítico:</strong> ${w.on_crit}</div>`);
+      if (parts.length === 0 && w.description) parts.push(`<div class="flavor">${w.description}</div>`);
+      return parts.join('');
+    },
     getWeaponName(mountIdx, slotIdx) {
       if (!this.mech.mounts) return null;
       const weaponId = this.mech.mounts[`${mountIdx}_${slotIdx}`];
@@ -252,7 +271,10 @@ export default {
 }
 .mount-type { font-size: 0.9rem; color: #666; text-transform: uppercase; margin-bottom: 4px; }
 .weapon-slot { margin-bottom: 2px; font-size: 1rem; }
-.w-name { color: #fff; }
+.w-name { color: #fff; font-weight: bold; }
+.w-desc { margin-top: 4px; font-size: 0.85rem; color: rgba(255, 255, 255, 0.75); line-height: 1.35; padding-left: 18px; }
+.w-desc strong { color: var(--primary-color); }
+.w-desc .flavor { font-style: italic; opacity: 0.75; }
 .w-empty { color: #444; font-style: italic; }
 
 /* Traits & Systems */

@@ -11,7 +11,7 @@
 					<div class="header-right">
 						<div class="loadout-summary">
 							<div class="summary-item">
-								<span class="label">ARMADURA:</span>
+								<span class="label">Armadura:</span>
 								<span class="value" :class="{ ok: hasArmor }">{{ hasArmor ? '1/1' : '0/1' }}</span>
 							</div>
 							<div class="summary-item">
@@ -106,7 +106,7 @@ export default {
 			searchQuery: "",
 			allGear: gearData,
 			tabs: [
-				{ id: "armor", label: "ARMADURA", icon: "shield" },
+				{ id: "armor", label: "Armadura", icon: "shield" },
 				{ id: "weapons", label: "ARMAMENTOS", icon: "swords" },
 				{ id: "gear", label: "UTILITÁRIOS", icon: "construction" }
 			]

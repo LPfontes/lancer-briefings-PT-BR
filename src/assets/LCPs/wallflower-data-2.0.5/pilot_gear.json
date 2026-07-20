@@ -46,7 +46,7 @@
     "id": "ms_exo_bahadurs_reserve",
     "name": "Bahadur's Reserve",
     "type": "Gear",
-    "effect": "Expend a charge for the following effect:<ul><li><b>Molotov Cocktail</b> (Grenade, Range 5, Blast 1): Affected characters must pass an Agility save or take 2 Burn.</li></ul>",
+    "effect": "Expend a charge for the following effect:<ul><li>Molotov Cocktail (Grenade, Range 5, Blast 1): Affected characters must pass an Agility save or take 2 Burn.</li></ul>",
     "description": "A remarkably potent spirit distilled by Mir Bahadur, this moonshine is served to discerning customers and traded for favors within Evergreen's informal barter networks. It goes down surprisingly smooth with notes of vanilla and spices and is responsible for a truly impressive number of hangovers and bad decisions. While piloting under the influence is highly inadvisable, a bottle of good alcohol can be a boon to morale as well as a valuable trade commodity. Bahadur’s homebrew can even serve as a disinfectant or crude (if effective) anesthetic, and it is high enough proof to run a biofuel generator or even be repurposed into a makeshift incendiary device in a pinch.",
     "actions": [
       {

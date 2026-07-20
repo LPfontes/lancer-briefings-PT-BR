@@ -132,8 +132,8 @@
       "main": "Main",
       "flex": "Flex",
       "heavy": "Heavy",
-      "aux": "Auxiliary",
-      "auxiliary": "Auxiliary",
+      "aux": "<br>Auxiliar</b>y",
+      "<br>Auxiliar</b>y": "<br>Auxiliar</b>y",
       "integrated": "Integrated",
       "superheavy": "Superheavy"
     },

@@ -23,6 +23,7 @@ const frameImageMap = {
 
 export function getFrameImage(frame) {
   if (!frame) return 'https://raw.githubusercontent.com/massif-press/lancer-data/master/lib/assets/icons/mech.png';
+  if (frame.image_url) return frame.image_url;
   if (frame.image) return frame.image;
 
   const id = (frame.id || '').toLowerCase();

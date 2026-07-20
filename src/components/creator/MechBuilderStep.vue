@@ -24,7 +24,7 @@
 			<!-- CENTER: STATS GRID -->
 			<!-- RIGHT: RESTRUCTURED STATS AREA -->
 			<div class="stats-restructured-container">
-				<!-- LINE 1: NAME, CHASSIS, SIZE -->
+				<!-- LINE 1: NAME, Chassis, SIZE -->
 				<div class="stats-config-row">
 					<div class="stat-card config-card name-field">
 						<div class="stat-card-header">
@@ -37,7 +37,7 @@
 
 					<div class="stat-card config-card frame-field">
 						<div class="stat-card-header">
-							<span class="header-text">{{ $t('mech.chassis') }}</span>
+							<span class="header-text">{{ $t('mech.Chassis') }}</span>
 						</div>
 						<div class="stat-card-input">
 							<select v-model="selectedFrameId" @change="updateFrame" class="stat-input-field">
@@ -278,7 +278,7 @@
 
 		<GearSelectionModal 
 			:isOpen="modalOpen"
-			:title="modalType === 'weapon' ? 'SELEÇÃO DE ARMAS' : 'SELEÇÃO DE SISTEMAS'"
+			:title="modalType === 'weapon' ? 'SELEÇÃO DE ARMAS' : 'SELEÇÃO DE Sistemas'"
 			:type="modalType"
 			:groups="modalType === 'weapon' ? weaponGroups : systemGroups"
 			:installedIds="activeMechSystems"
@@ -570,24 +570,24 @@ export default {
 			
 			if (mt === 'flex') {
 				if (slotIdx === 0) {
-					// Slot 0 do Encaixe Flexível pode levar 1 Arma Principal ou 1 Auxiliar
-					restrictions = ['Main', 'Auxiliary'];
+					// Slot 0 do Encaixe Flexível pode levar 1 Arma Principal ou 1 <br>Auxiliar</b>
+					restrictions = ['Main', '<br>Auxiliar</b>y'];
 				} else {
-					// Slot 1 do Encaixe Flexível aceita apenas armas Auxiliares
-					restrictions = ['Auxiliary'];
+					// Slot 1 do Encaixe Flexível aceita apenas armas <br>Auxiliar</b>es
+					restrictions = ['<br>Auxiliar</b>y'];
 				}
 			} else if (mt === 'aux/aux') {
-				restrictions = ['Auxiliary'];
+				restrictions = ['<br>Auxiliar</b>y'];
 			} else if (mt === 'main/aux' || mt === 'aux/main') {
 				if (slotIdx === 0) {
-					restrictions = ['Main', 'Auxiliary'];
+					restrictions = ['Main', '<br>Auxiliar</b>y'];
 				} else {
-					restrictions = ['Auxiliary'];
+					restrictions = ['<br>Auxiliar</b>y'];
 				}
 			} else if (mt === 'main') {
-				restrictions = ['Main', 'Auxiliary'];
+				restrictions = ['Main', '<br>Auxiliar</b>y'];
 			} else if (mt === 'heavy') {
-				restrictions = ['Superheavy', 'Heavy', 'Main', 'Auxiliary'];
+				restrictions = ['Superheavy', 'Heavy', 'Main', '<br>Auxiliar</b>y'];
 			}
 
 			this.modalContext = { 

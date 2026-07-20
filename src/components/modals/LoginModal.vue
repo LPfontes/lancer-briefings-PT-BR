@@ -166,7 +166,7 @@ export default {
               this.successMessage = true;
               setTimeout(() => {
                 this.$emit("close");
-                window.location.reload(); // Recarregar a página para sincronizar dados e atualizar interface
+                window.location.reload(); // <b>Recarregar</b> a página para sincronizar dados e atualizar interface
               }, 1500);
             } else {
               this.error = true;

@@ -26,7 +26,7 @@ export const extraWeapons = [
         val: "1d6+2"
       }
     ],
-    description: "Esta arma é um protótipo experimental, personalizado de acordo com as suas necessidades específicas. Ao instalar ou durante um Reparo Completo, você pode escolher um novo tipo de arma, tipo de dano e Ameaça 1 (armas do tipo corpo a corpo) ou Alcance 10 (todos os outros tipos). Além disso, sempre que executar um Reparo Completo, role novamente 1d6+2 para determinar os usos de Limitado desta arma. Esta arma conta como um encaixe integrado e não requer um encaixe.",
+    description: "Esta arma é um protótipo experimental, personalizado de acordo com as suas necessidades específicas. Ao instalar ou durante um Reparo Completo, você pode escolher um novo tipo de arma, tipo de Dano e  <b>Ameaça<b>  1 (armas do tipo corpo a corpo) ou <b>Alcance 10</b> (todos os outros tipos). Além disso, sempre que executar um Reparo Completo, role novamente 1d6+2 para determinar os usos de Limitado desta arma. Esta arma conta como um encaixe integrado e não requer um encaixe.",
     source: "Talento",
     license: "Engenheiro",
     license_level: 1,
@@ -59,7 +59,7 @@ export const extraWeapons = [
         val: "1d6+2"
       }
     ],
-    description: "Você pode ajustar os componentes essenciais do seu protótipo de arma para aumentar sua eficácia. Ao realizar um Reparo Completo, escolha dois: Ótica Ajustada (+1 de Precisão), Computador Ajustado (Inteligente), ou Proteção do Reator Removida (Ataque em Área).",
+    description: "Você pode ajustar os componentes essenciais do seu protótipo de arma para aumentar sua eficácia. Ao realizar um Reparo Completo, escolha dois: Ótica Ajustada (<b>+1 de Precisão</b>), Computador Ajustado (Inteligente), ou Proteção do Reator Removida (Ataque em Área).",
     source: "Talento",
     license: "Engenheiro",
     license_level: 2,
@@ -92,7 +92,7 @@ export const extraWeapons = [
         val: "2d6"
       }
     ],
-    description: "Seu protótipo de arma agora é Limitado [2d6] e causa 1d6+4 de dano.",
+    description: "Seu protótipo de arma agora é Limitado [2d6] e causa 1d6+4 de Dano.",
     source: "Talento",
     license: "Engenheiro",
     license_level: 3,

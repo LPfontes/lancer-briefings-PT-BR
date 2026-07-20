@@ -4,7 +4,7 @@
     <aside class="compcon-sidebar tech-scroll">
       <div class="sidebar-header">
         <div class="srd-badge"><i class="mdi mdi-database"></i> COMPENDIUM // SRD</div>
-        <h2 class="sidebar-title">COMPÊNDIO DE CHASSIS</h2>
+        <h2 class="sidebar-title">COMPÊNDIO DE Chassis</h2>
       </div>
 
       <!-- Search Input -->
@@ -61,7 +61,7 @@
               @click="openFrameDetail(f)"
             >
               <span class="frame-dot"></span>
-              <span class="frame-item-name">{{ f.name }}</span>
+              <span class="frame-item-name">{{ formatFrameName(f.name) }}</span>
               <span class="frame-item-role">{{ getShortRole(f) }}</span>
             </div>
           </div>
@@ -75,7 +75,7 @@
       <div class="compcon-top-bar">
         <div class="bar-left">
           <span class="status-indicator"></span>
-          <span class="bar-text">EXIBINDO <strong>{{ filteredFrames.length }}</strong> CHASSIS DE COMBATE REGISTRADOS</span>
+          <span class="bar-text">EXIBINDO <strong>{{ filteredFrames.length }}</strong> Chassis DE COMBATE REGISTRADOS</span>
         </div>
         <div class="bar-right" v-if="selectedManufacturer !== 'ALL'">
           <span class="active-filter-tag">FILTRO ATIVO: {{ selectedManufacturer }}</span>
@@ -127,7 +127,7 @@
                 <div class="compcon-card-info">
                   <div class="compcon-card-titles">
                     <span class="compcon-m-fullname">{{ getManufacturerShort(frame) }}</span>
-                    <h3 class="compcon-frame-title">{{ (frame.name || 'UNKNOWN').toUpperCase() }}</h3>
+                    <h3 class="compcon-frame-title">{{ formatFrameName(frame.name) || 'UNKNOWN' }}</h3>
                     <span class="compcon-frame-role">{{ getFrameRole(frame) }}</span>
                   </div>
                 </div>
@@ -148,12 +148,17 @@
     <!-- COMP/CON SRD Right-Side Detail Inspection Drawer -->
     <transition name="drawer-slide">
       <div v-if="drawerOpen && selectedFrame" class="compcon-detail-drawer tech-scroll" :class="getManufacturerClass(selectedFrame)">
+        <!-- Lateral Tab Close Button '>' on Side Edge -->
+        <button class="drawer-side-tab-btn" @click="drawerOpen = false" title="Fechar Dossiê">
+          <span class="material-symbols-outlined">chevron_right</span>
+        </button>
+
         <!-- Drawer Top Navigation Header -->
         <div class="drawer-header">
           <div class="d-titles">
             <span class="d-m-code">{{ getManufacturer(selectedFrame) }} // SRD COMPÊNDIO</span>
-            <h1 class="d-frame-name">{{ (selectedFrame.name || '').toUpperCase() }}</h1>
-            <span class="d-frame-role">{{ getFrameRole(selectedFrame) }} // TAMANHO {{ selectedFrame.stats?.size || 1 }}</span>
+            <h1 class="d-frame-name">{{ formatFrameName(selectedFrame.name) || '' }}</h1>
+            <span class="d-frame-role">{{ getFrameRole(selectedFrame) }} // Tamanho {{ selectedFrame.stats?.size || 1 }}</span>
           </div>
           <button class="drawer-close-btn" @click="drawerOpen = false" title="Fechar Dossiê">
             <span class="material-symbols-outlined">close</span>
@@ -162,6 +167,12 @@
 
         <!-- Drawer Body Scrollable Content -->
         <div class="drawer-body">
+          <div class="drawer-body-actions">
+            <button class="drawer-body-close-btn" @click="drawerOpen = false" title="Fechar Dossiê">
+              <span class="material-symbols-outlined">close</span>
+              <span>FECHAR DOSSIÊ</span>
+            </button>
+          </div>
           <!-- Frame Artwork Header -->
            <div class="grid-header">
             <div class="drawer-artwork-box">
@@ -172,23 +183,23 @@
           <div class="compcon-section-box">
             <div class="c-sec-header"><i class="mdi mdi-chart-timeline-variant"></i> PERFIL DE COMBATE (ESTATÍSTICAS BASE)</div>
             <div class="compcon-stats-grid">
-              <div class="stat-box red"><span class="lbl">ESTRUTURA</span><span class="val">4</span></div>
+              <div class="stat-box red"><span class="lbl">Estrutura</span><span class="val">4</span></div>
               <div class="stat-box red"><span class="lbl">PV</span><span class="val">{{ selectedFrame.stats?.hp }}</span></div>
-              <div class="stat-box red"><span class="lbl">ARMADURA</span><span class="val">{{ selectedFrame.stats?.armor }}</span></div>
-              <div class="stat-box red"><span class="lbl">ESTRESSE</span><span class="val">4</span></div>
+              <div class="stat-box red"><span class="lbl">Armadura</span><span class="val">{{ selectedFrame.stats?.armor }}</span></div>
+              <div class="stat-box red"><span class="lbl">Estresse</span><span class="val">4</span></div>
 
-              <div class="stat-box red"><span class="lbl">CAP. REPARO</span><span class="val">{{ selectedFrame.stats?.repcap }}</span></div>
-              <div class="stat-box green"><span class="lbl">VELOCIDADE</span><span class="val">{{ selectedFrame.stats?.speed }}</span></div>
-              <div class="stat-box green"><span class="lbl">EVASÃO</span><span class="val">{{ selectedFrame.stats?.evasion }}</span></div>
-              <div class="stat-box green"><span class="lbl">SENSORES</span><span class="val">{{ selectedFrame.stats?.sensor_range }}</span></div>
+              <div class="stat-box red"><span class="lbl">CAP. Reparo</span><span class="val">{{ selectedFrame.stats?.repcap }}</span></div>
+              <div class="stat-box green"><span class="lbl">Velocidade</span><span class="val">{{ selectedFrame.stats?.speed }}</span></div>
+              <div class="stat-box green"><span class="lbl">Evasão</span><span class="val">{{ selectedFrame.stats?.evasion }}</span></div>
+              <div class="stat-box green"><span class="lbl">Sensores</span><span class="val">{{ selectedFrame.stats?.sensor_range }}</span></div>
 
               <div class="stat-box blue"><span class="lbl">ATAQUE TEC.</span><span class="val">{{ (selectedFrame.stats?.tech_attack >= 0 ? '+' : '') + selectedFrame.stats?.tech_attack }}</span></div>
-              <div class="stat-box blue"><span class="lbl">DEFESA-E</span><span class="val">{{ selectedFrame.stats?.edef }}</span></div>
+              <div class="stat-box blue"><span class="lbl">Defesa-E</span><span class="val">{{ selectedFrame.stats?.edef }}</span></div>
               <div class="stat-box blue"><span class="lbl">SALVAMENTO</span><span class="val">{{ selectedFrame.stats?.save }}</span></div>
-              <div class="stat-box yellow"><span class="lbl">CAP. DE CALOR</span><span class="val">{{ selectedFrame.stats?.heatcap }}</span></div>
+              <div class="stat-box yellow"><span class="lbl">CAP. DE <b>Calor</b>  </span><span class="val">{{ selectedFrame.stats?.heatcap }}</span></div>
 
               <div class="stat-box yellow"><span class="lbl">PONTOS SISTEMA (SP)</span><span class="val">{{ selectedFrame.stats?.sp }}</span></div>
-              <div class="stat-box neutral"><span class="lbl">TAMANHO</span><span class="val">{{ selectedFrame.stats?.size }}</span></div>
+              <div class="stat-box neutral"><span class="lbl">Tamanho</span><span class="val">{{ selectedFrame.stats?.size }}</span></div>
             </div>
           </div>
 
@@ -204,7 +215,7 @@
           <!-- Onboard Core System -->
           <div v-if="selectedFrame.core_system" class="compcon-section-box core-highlight">
             <div class="c-sec-header core-title">
-              <i class="mdi mdi-atom"></i> SISTEMA DE NÚCLEO: {{ selectedFrame.core_system.name }}
+              <i class="mdi mdi-atom"></i> SISTEMA DE Núcleo: {{ selectedFrame.core_system.name }}
             </div>
             <div class="c-sec-content core-desc-body">
               <!-- Lore/Overview -->
@@ -225,10 +236,10 @@
               <!-- Active Core Power Effect -->
               <div class="core-effect-card active" v-if="selectedFrame.core_system.active_name || selectedFrame.core_system.active_effect || selectedFrame.core_system.effect">
                 <div class="core-card-header">
-                  <span class="core-tag-badge active"><i class="mdi mdi-lightning-bolt"></i> POTÊNCIA CORE (ATIVATION)</span>
+                  <span class="core-tag-badge active"><i class="mdi mdi-lightning-bolt"></i> POTÊNCIA CORE (ATIVAÇÃO)</span>
                   <span class="core-title-text">{{ selectedFrame.core_system.active_name || selectedFrame.core_system.name }}</span>
                   <span class="core-act-type" v-if="selectedFrame.core_system.activation || selectedFrame.core_system.use || selectedFrame.core_system.frequency">
-                    <i class="mdi mdi-clock-fast"></i> {{ (selectedFrame.core_system.activation || 'PROTOCOLO').toUpperCase() }} // {{ (selectedFrame.core_system.use || selectedFrame.core_system.frequency || '1/CENA').toUpperCase() }}
+                    <i class="mdi mdi-clock-fast"></i> {{ formatActivation(selectedFrame.core_system.activation) }} // {{ formatFrequency(selectedFrame.core_system.use || selectedFrame.core_system.frequency) }}
                   </span>
                 </div>
                 <div class="core-card-body" v-html="selectedFrame.core_system.active_effect || selectedFrame.core_system.effect"></div>
@@ -262,8 +273,7 @@
             <div class="c-sec-header"><i class="mdi mdi-shield-outline"></i> ENCAIXES DE ARMAS</div>
             <div class="mounts-compcon-list">
               <div v-for="(mount, idx) in (selectedFrame.mounts || [])" :key="idx" class="mount-compcon-item">
-                <span class="m-idx">SLOT {{ idx + 1 }}</span>
-                <span class="m-name">{{ $t(`mech.mountTypes.${mount.toLowerCase()}`) || mount }}</span>
+                <span class="m-idx">{{ $t(`mech.mountTypes.${mount.toLowerCase()}`) || mount }}</span>
               </div>
             </div>
           </div>
@@ -284,11 +294,11 @@
                       <span class="lic-item-type">{{ item.type }}</span>
                     </div>
 
-                    <!-- Description / Lore -->
-                    <div class="lic-item-desc" v-if="item.description && item.effect && item.description !== item.effect" v-html="item.description"></div>
-
                     <!-- Rules Effect -->
-                    <div class="lic-item-effect" v-if="item.effect || (!item.description && !item.effect)" v-html="item.effect || item.description"></div>
+                    <div class="lic-item-effect" v-if="item.effect" v-html="item.effect"></div>
+
+                    <!-- Description / Lore -->
+                    <div class="lic-item-desc" v-if="item.description" v-html="item.description"></div>
 
                     <!-- Telemetry pills for damage / range -->
                     <div class="w-telemetry-row" v-if="(item.range && item.range.length) || (item.damage && item.damage.length)">
@@ -345,7 +355,7 @@ export default {
         OUTRAS: true
       },
       manufacturers: [
-        { id: "ALL", code: "ALL", label: "TODOS CHASSIS" },
+        { id: "ALL", code: "ALL", label: "TODOS Chassis" },
         { id: "GMS", code: "GMS", label: "GMS" },
         { id: "IPS-N", code: "IPS-N", label: "IPS-NORTHSTAR" },
         { id: "SMITH-SHIMANO", code: "SSC", label: "SMITH-SHIMANO" },
@@ -418,6 +428,45 @@ export default {
     }
   },
   methods: {
+    formatActivation(act) {
+      if (!act) return 'PROTOCOLO';
+      let translated = act;
+      const map = {
+        'quick tech': 'Tech Rápida',
+        'full tech': 'Tech Completa',
+        'quick': 'Rápida',
+        'full': 'Completa',
+        'protocol': 'Protocolo',
+        'reaction': '<b>reação</b>',
+        'free': '<b>Ação Livre</b>',
+        'passive': 'Passiva',
+        'invade': 'Invasão',
+        'other': 'Outra'
+      };
+      Object.keys(map).forEach(key => {
+        const regex = new RegExp(`\\b${key}\\b`, 'gi');
+        translated = translated.replace(regex, map[key]);
+      });
+      return translated.toUpperCase();
+    },
+    formatFrequency(freq) {
+      if (!freq) return '1/CENA';
+      let translated = freq;
+      const map = {
+        'encounter': '1/Cena',
+        '1/scene': '1/Cena',
+        '1/round': '1/Rodada',
+        '1/turn': '1/Turno',
+        '1/mission': '1/Missão',
+        'mission': '1/Missão',
+        'scene': 'Cena'
+      };
+      Object.keys(map).forEach(key => {
+        const regex = new RegExp(`\\b${key}\\b`, 'gi');
+        translated = translated.replace(regex, map[key]);
+      });
+      return translated.toUpperCase();
+    },
     getManufacturerId(frame) {
       const m = frame.source || frame.manufacturer || frame.source_publisher || 'GMS';
       const upper = m.toUpperCase();
@@ -462,17 +511,86 @@ export default {
     },
     getFrameRole(frame) {
       if (frame.role) return frame.role.toUpperCase();
-      const name = (frame.name || '').toUpperCase();
-      if (['EVEREST', 'SAGARMATHA', 'BLACKBEARD', 'NELSON', 'TOKUGAWA'].includes(name)) return 'ATACANTE // CORPO A CORPO';
-      if (['DRAKE', 'TORTUGA', 'BARBAROSSA', 'NAPOLEON'].includes(name)) return 'DEFENSOR // TANQUE';
-      if (['MONARCH', 'RALEIGH', 'PEGASUS', 'SHERMAN'].includes(name)) return 'ARTILHARIA // SUPRESSÃO';
-      if (['SWALLOWTAIL', 'MOURNING CLOAK', 'DUSKWING', 'GOBLIN'].includes(name)) return 'RECONHECIMENTO // SUPORTE';
-      if (['GORGON', 'HYDRA', 'MINOTAUR', 'KIDD'].includes(name)) return 'CONTROLE TÁTICO';
+      const map = { 'Striker': 'ATACANTE', 'Defender': 'DEFENSOR', 'Support': 'SUPORTE', 'Artillery': 'ARTILHARIA', 'Controller': 'CONTROLE' };
+      if (frame.mechtype && frame.mechtype.length) {
+        return frame.mechtype.map(t => map[t] || t.toUpperCase()).join(' // ');
+      }
       return 'CHASSI DE COMBATE';
     },
     getShortRole(frame) {
       const role = this.getFrameRole(frame);
       return role.split('//')[0].trim();
+    },
+    formatFrameName(name) {
+      if (!name) return '';
+      const map = {
+        'EVERESTE': 'Evereste',
+        'EVEREST': 'Evereste',
+        'SAGARMATHA': 'Sagarmátha',
+        'BLACKBEARD': 'Barba Negra',
+        'BARBA NEGRA': 'Barba Negra',
+        'DRAKE': 'Drake',
+        'NELSON': 'Nelson',
+        'RALEIGH': 'Raleigh',
+        'KIDD': 'Kidd',
+        'TORTUGA': 'Tortuga',
+        'VLAD': 'Vlad',
+        'CALIBAN': 'Caliban',
+        'CALIBÃ': 'Calibã',
+        'ZHENG': 'Zheng',
+        'BLACK WITCH': 'Bruxa Negra',
+        'BRUXA NEGRA': 'Bruxa Negra',
+        'DEATHS HEAD': 'Cabeça da Morte',
+        "DEATH'S HEAD": 'Cabeça da Morte',
+        'CABEÇA DA MORTE': 'Cabeça da Morte',
+        'DUSK WING': 'Asa Crepuscular',
+        'ASA CREPUSCULAR': 'Asa Crepuscular',
+        'METALMARK': 'Marco Metálico',
+        'MARCO METÁLICO': 'Marco Metálico',
+        'MOURNING CLOAK': 'Manto do Luto',
+        'MANTO DO LUTO': 'Manto do Luto',
+        'SWALLOWTAIL': 'Papilionídeo',
+        'PAPILIONÍDEO': 'Papilionídeo',
+        'SWALLOWTAIL (RANGER VARIANT)': 'Papilionídeo (Variante)',
+        'GORGON': 'Górgona',
+        'GÓRGONA': 'Górgona',
+        'HYDRA': 'Hidra',
+        'HIDRA': 'Hidra',
+        'MANTICORE': 'Mantícora',
+        'MANTÍCORA': 'Mantícora',
+        'MINOTAUR': 'Minotauro',
+        'MINOTAURO': 'Minotauro',
+        'MONARCH': 'Monarca',
+        'MONARCA': 'Monarca',
+        'PEGASUS': 'Pégaso',
+        'PÉGASO': 'Pégaso',
+        'NAPOLEON': 'Napoleão',
+        'NAPOLEAO': 'Napoleão',
+        'GENGHIS': 'Gengis',
+        'GENGIS': 'Gengis',
+        'ATLAS': 'Atlas',
+        'WHITE WITCH': 'Bruxa Branca',
+        'BRUXA BRANCA': 'Bruxa Branca',
+        'EMPEROR': 'Imperador',
+        'ORCHIS': 'Orchis',
+        'LANCASTER': 'Lancaster',
+        'BALOR': 'Balor',
+        'GOBLIN': 'Goblin',
+        'BARBAROSSA': 'Barbarossa',
+        'ISKANDER': 'Iskander',
+        'SALADINO': 'Saladino',
+        'SHERMAN': 'Sherman',
+        'TOKUGAWA': 'Tokugawa',
+        'KOBOLD': 'Kobold',
+        'LICH': 'Lich',
+        'SUNZI': 'Sunzi',
+        'NAPOLEON': 'Napoleão',
+        'NAPOLEÃO': 'Napoleão',
+        'CALENDULA': 'Calêndula',
+        'ENKIDU': 'Enkidu',
+        '“WORLDKILLER” GENGHIS MK I': 'Gengis MK I “Matador de Mundos”',
+      };
+      return map[name.toUpperCase()] || name.toUpperCase();
     },
     getFrameImage(frame) {
       return resolveFrameImage(frame);
@@ -502,10 +620,49 @@ export default {
         ...getMods(lancerData), ...getMods(ktbData), ...getMods(nrfawData), ...getMods(longrimData)
       ];
 
+      const licenseAliases = {
+        'everest': ['everest', 'sagarmatha'],
+        'evereste': ['everest', 'sagarmatha'],
+        'sagarmatha': ['everest', 'sagarmatha'],
+        'barba negra': ['blackbeard'],
+        'blackbeard': ['barba negra'],
+        'bruxa negra': ['black witch'],
+        'black witch': ['bruxa negra'],
+        'cabeça da morte': ["death's head", 'deaths head'],
+        "death's head": ['cabeça da morte', 'deaths head'],
+        'asa crepuscular': ['dusk wing'],
+        'dusk wing': ['asa crepuscular'],
+        'marco metálico': ['metalmark'],
+        'metalmark': ['marco metálico'],
+        'manto do luto': ['mourning cloak'],
+        'mourning cloak': ['manto do luto'],
+        'papilionídeo': ['swallowtail'],
+        'swallowtail': ['papilionídeo'],
+        'górgona': ['gorgon'],
+        'gorgon': ['górgona'],
+        'mantícora': ['manticore'],
+        'manticore': ['mantícora'],
+        'minotauro': ['minotaur'],
+        'minotaur': ['minotauro'],
+        'monarca': ['monarch'],
+        'monarch': ['monarca'],
+        'pégaso': ['pegasus'],
+        'pegasus': ['pégaso'],
+        'napoleão': ['napoleon'],
+        'napoleao': ['napoleon'],
+        'napoleon': ['napoleão', 'napoleao'],
+        'gengis': ['genghis'],
+        'genghis': ['gengis'],
+        'caliba': ['caliban'],
+        'caliban': ['caliba', 'calibã'],
+        'calibã': ['caliban', 'caliba']
+      };
       const matching = allGear.filter(g => {
         if (!g.license) return false;
         const lic = g.license.toLowerCase();
-        return lic === fName || lic === fId || fName.includes(lic) || fId.includes(lic);
+        if (lic === fName || lic === fId || fName.includes(lic) || fId.includes(lic)) return true;
+        const aliases = licenseAliases[fName] || [];
+        return aliases.some(a => lic.includes(a) || a.includes(lic));
       });
 
       const levels = [
@@ -526,13 +683,38 @@ export default {
         const lvl = item.license_level || 1;
         const target = levels.find(l => l.level === lvl);
         if (target) {
+          let effectText = item.effect || '';
+          if (!effectText) {
+            const parts = [];
+            if (item.on_attack) parts.push(`No Ataque: ${item.on_attack}`);
+            if (item.on_hit) parts.push(`No Acerto: ${item.on_hit}`);
+            if (item.on_crit) parts.push(`No Crítico: ${item.on_crit}`);
+            if (item.actions && item.actions.length) {
+              item.actions.forEach(act => {
+                const actName = act.name || 'Ação';
+                const actVal = act.activation ? ` [${this.formatActivation(act.activation)}]` : '';
+                const actDetail = act.detail || act.description || '';
+                parts.push(`${actName}${actVal}: ${actDetail}`);
+              });
+            }
+            if (item.deployables && item.deployables.length) {
+              item.deployables.forEach(dep => {
+                const depName = dep.name || 'Posicionável';
+                const depType = dep.type ? ` (${this.$t(`mech.systemTypes.${dep.type.toLowerCase()}`) || dep.type})` : '';
+                const depDetail = dep.detail || '';
+                parts.push(`${depName}${depType}: ${depDetail}`);
+              });
+            }
+            effectText = parts.join('<br>');
+          }
+
           target.items.push({
             id: item.id,
             name: item.name,
-            type: item.mount ? `Arma (${item.mount.toUpperCase()})` : (item.sp !== undefined ? `Sistema (${item.sp} SP)` : 'Equipamento'),
+            type: item.mount ? `Arma (${(this.$t(`mech.mountTypes.${item.mount.toLowerCase()}`) || item.mount).toUpperCase()})` : (item.sp !== undefined ? `Sistema (${item.sp} SP)` : 'Equipamento'),
             sp: item.sp,
             description: item.description || '',
-            effect: item.effect || '',
+            effect: effectText,
             tags: item.tags || [],
             range: item.range || [],
             damage: item.damage || []
@@ -575,7 +757,7 @@ export default {
       if (typeof d === 'string') {
         return d
           .replace(/Kinetic/gi, 'Cinético')
-          .replace(/Energy/gi, 'Energia')
+          .replace(/Energy/gi, '<b>Energia</b>')
           .replace(/Explosive/gi, 'Explosivo')
           .replace(/Heat/gi, 'Calor')
           .replace(/Burn/gi, 'Queimadura');
@@ -584,11 +766,11 @@ export default {
       const typeStr = d.type || d.damage_type || '';
       let typeLabel = typeStr;
       const lower = typeStr.toLowerCase();
-      if (lower.includes('kinetic') || lower.includes('cinético') || lower.includes('cinetico')) typeLabel = 'Cinético';
-      else if (lower.includes('energy') || lower.includes('energia')) typeLabel = 'Energia';
+      if (lower.includes('kinetic') || lower.includes('Cinético') || lower.includes('cinetico')) typeLabel = 'Cinético';
+      else if (lower.includes('energy') || lower.includes('<b>Energia</b>')) typeLabel = '<b>Energia</b>';
       else if (lower.includes('explosive') || lower.includes('explosivo')) typeLabel = 'Explosivo';
-      else if (lower.includes('heat') || lower.includes('calor')) typeLabel = 'Calor';
-      else if (lower.includes('burn') || lower.includes('queimadura')) typeLabel = 'Queimadura';
+      else if (lower.includes('heat') || lower.includes('Calor')) typeLabel = 'Calor';
+      else if (lower.includes('burn') || lower.includes('Queimadura')) typeLabel = 'Queimadura';
       
       return `${val} ${typeLabel}`.trim();
     },
@@ -607,12 +789,12 @@ export default {
       const typeStr = r.type || '';
       let typeLabel = typeStr;
       const lower = typeStr.toLowerCase();
-      if (lower.includes('range') || lower.includes('alcance')) typeLabel = 'Alcance';
-      else if (lower.includes('threat') || lower.includes('ameaça') || lower.includes('ameaca')) typeLabel = 'Ameaça';
-      else if (lower.includes('line') || lower.includes('linha')) typeLabel = 'Linha';
-      else if (lower.includes('cone')) typeLabel = 'Cone';
-      else if (lower.includes('blast') || lower.includes('explosão') || lower.includes('explosao')) typeLabel = 'Explosão';
-      else if (lower.includes('burst') || lower.includes('emanação') || lower.includes('emanacao')) typeLabel = 'Emanação';
+      if (lower.includes('range') || lower.includes('Alcance')) typeLabel = 'Alcance';
+      else if (lower.includes('threat') || lower.includes('Ameaça') || lower.includes('ameaca')) typeLabel = 'Ameaça';
+      else if (lower.includes('line') || lower.includes('Linha')) typeLabel = 'Linha';
+      else if (lower.includes('Cone')) typeLabel = 'Cone';
+      else if (lower.includes('blast') || lower.includes('Explosão') || lower.includes('explosao')) typeLabel = 'Explosão';
+      else if (lower.includes('burst') || lower.includes('Emanação') || lower.includes('emanacao')) typeLabel = 'Emanação';
 
       return `${typeLabel} ${val}`.trim();
     },
@@ -813,7 +995,7 @@ export default {
   align-items: center;
   justify-content: space-between;
   padding: 5px 8px;
-  font-size: 0.82rem;
+  font-size: 1.2rem;
   color: rgba(255, 255, 255, 0.75);
   cursor: pointer;
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
@@ -1141,16 +1323,50 @@ export default {
 
 /* COMP/CON SRD Right-Side Detail Inspection Drawer */
 .compcon-detail-drawer {
-  position: absolute;
-  top: 0; right: 0; width: 1200px; height: 100%;
+  position: fixed;
+  top: 0; right: 0; width: 90%; max-width: 90vw; height: 100vh;
   background: #090d14;
   border-left: 2px solid #00f0ff;
   box-shadow: -10px 0 40px rgba(0, 0, 0, 0.95);
   z-index: 4000;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
   box-sizing: border-box;
+}
+
+/* Lateral Floating Tab Close Button '>' on Side Edge of Drawer */
+.drawer-side-tab-btn {
+  position: fixed;
+  left: 8%;
+  top: 50vh;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 100px;
+  background: #090d14;
+  border: 2px solid #00f0ff;
+  border-right: none;
+  border-radius: 10px 0 0 10px;
+  color: #00f0ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 4010;
+  box-shadow: -6px 0 25px rgba(0, 240, 255, 0.3);
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.drawer-side-tab-btn:hover {
+  background: var(--union-crimson, #af0e1e);
+  border-color: var(--union-crimson, #af0e1e);
+  color: #ffffff;
+  box-shadow: -6px 0 30px rgba(175, 14, 30, 0.7);
+  transform: translateY(-50%) translateX(-4px);
+}
+
+.drawer-side-tab-btn .material-symbols-outlined {
+  font-size: 34px;
+  font-weight: bold;
 }
 
 .drawer-header {
@@ -1216,6 +1432,37 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  position: relative;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.drawer-body-actions {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: -10px;
+}
+
+.drawer-body-close-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(175, 14, 30, 0.2);
+  border: 1px solid var(--union-crimson, #af0e1e);
+  color: #ffffff;
+  padding: 8px 16px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.drawer-body-close-btn:hover {
+  background: var(--union-crimson, #af0e1e);
+  box-shadow: 0 0 15px rgba(175, 14, 30, 0.5);
+  transform: translateX(-2px);
 }
 
 .drawer-artwork-box {
@@ -1358,11 +1605,10 @@ export default {
   padding: 8px 12px;
   border-left: 3px solid #00f0ff;
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   font-weight: bold;
 }
 
-.m-idx { color: rgba(255, 255, 255, 0.5); }
 .m-name { color: #fff; }
 
 /* License Progression Cards */
@@ -1426,13 +1672,13 @@ export default {
 
 .lic-item-name {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.95rem;
+  font-size: 1.2rem;
   font-weight: bold;
   color: #fff;
 }
 
 .lic-item-type {
-  font-size: 0.72rem;
+  font-size: 1.2rem;
   color: #00f0ff;
   font-weight: 700;
   background: rgba(0, 240, 255, 0.1);
@@ -1442,7 +1688,7 @@ export default {
 
 .lic-item-desc {
   font-family: 'Titillium Web', sans-serif;
-  font-size: 0.88rem;
+  font-size: 1.1rem;
   line-height: 1.45;
   color: rgba(255, 255, 255, 0.65);
   font-style: italic;
@@ -1451,7 +1697,7 @@ export default {
 
 .lic-item-effect {
   font-family: 'Titillium Web', sans-serif;
-  font-size: 0.98rem;
+  font-size: 1.1rem;
   line-height: 1.5;
   color: #e2e8f0;
   margin-top: 6px;
@@ -1470,7 +1716,7 @@ export default {
   padding: 10px 14px;
   border-radius: 4px;
   margin-bottom: 12px;
-  font-size: 0.92rem;
+  font-size: 1rem;
   color: rgba(255, 255, 255, 0.85);
   line-height: 1.45;
   font-style: italic;
@@ -1512,7 +1758,7 @@ export default {
 
 .core-tag-badge {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.72rem;
+  font-size: 1rem;
   font-weight: 800;
   padding: 2px 8px;
   border-radius: 2px;
@@ -1540,7 +1786,7 @@ export default {
 }
 
 .core-act-type {
-  font-size: 0.72rem;
+  font-size: 1rem;
   color: #00f0ff;
   font-weight: bold;
   margin-left: auto;
@@ -1570,14 +1816,14 @@ export default {
 
 .core-action-subcard .act-name {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.92rem;
+  font-size: 1rem;
   font-weight: bold;
   color: #00f0ff;
   margin-bottom: 4px;
 }
 
 .core-action-subcard .act-detail {
-  font-size: 0.88rem;
+  font-size: 1rem;
   line-height: 1.4;
   color: #cbd5e1;
 }
@@ -1591,7 +1837,7 @@ export default {
 }
 
 .w-pill {
-  font-size: 0.75rem;
+  font-size: 1rem;
   font-weight: bold;
   padding: 2px 8px;
   border-radius: 3px;
@@ -1625,7 +1871,7 @@ export default {
 }
 
 .tag-badge {
-  font-size: 0.68rem;
+  font-size: 1rem;
   font-weight: 800;
   padding: 2px 6px;
   background: rgba(255, 255, 255, 0.08);

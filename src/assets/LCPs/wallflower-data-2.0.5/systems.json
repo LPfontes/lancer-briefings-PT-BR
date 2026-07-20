@@ -18,7 +18,7 @@
         "detail": "<p>: An allied mech character within line of sight and SENSORS quickly flash reboots at the system level. This ends all effects caused by tech actions, stops NHP cascades, and gives the target Immunity to all tech actions – hostile and allied – other than this one until the end of their next turn. This cannot be used on Jammed characters.</p> <p>Additionally, roll 1d6 to determine a side effect from the table below. These effects take place immediately and don&rsquo;t count as an action or reaction. Any movement they cause is involuntary.</p> <ol> <li>Your target becomes JAMMED until the end of their next turn.</li> <li>Your target moves up to its SPEED in a direction of the GM&rsquo;s choice.</li> <li>Your target immediately moves up to 3 spaces toward the nearest character (allied or hostile) and performs an IMPROVISED ATTACK against them. If no characters are in range, it only moves.</li> <li>Your target falls PRONE and takes 2 Kinetic Damage.</li> <li>Your target vents 1d6 Heat and deals the amount cooled as energy damage to all adjacent characters.</li> <li>Your target immediately takes the STABILIZE action and can choose what to do.</li> </ol>"
       }
     ],
-    "description": "When the problem exists between chair and chassis, aggressive solutions are needed. This rather quick solution is an old system-level reboot program that is often used by asteroid miners dealing with aging hardware.",
+    "description": "When the problem exists between chair and Chassis, aggressive solutions are needed. This rather quick solution is an old system-level reboot program that is often used by asteroid miners dealing with aging hardware.",
     "data_type": "system",
     "aptitude": {},
     "license_id": "mf_kidd"
@@ -50,7 +50,7 @@
         "size": 1,
         "hp": 10,
         "evasion": 5,
-        "detail": "The plate cannot be moved, is flat, and does not block movement. It is large enough to hold a single SIZE 1 or smaller DRONE or DEPLOYABLE at a time. DRONES and DEPLOYABLES placed on the plate gain RESISTANCE to all damage and gain +1 to the size of any BURST or BLAST effects they generate. Additionally, any of their effects that require adjacency can now be activated from within Range 2."
+        "detail": "The plate cannot be moved, is flat, and does not block movement. It is large enough to hold a single SIZE 1 or smaller DRONE or DEPLOYABLE at a time. <b>Drones</b> and DEPLOYABLES placed on the plate gain RESISTANCE to all damage and gain +1 to the size of any BURST or BLAST effects they generate. Additionally, any of their effects that require adjacency can now be activated from within Range 2."
       }
     ],
     "description": "Northstar Branch Robotics returned to their roots with the Omnibus Plate, creating a simple, deployable catalytic for frontline nexus users. Designed with adaptation in mind, Omnibus Plates can attach securely to any drone or deployable system, increasing that system’s efficacy in all aspects of employ.",
@@ -178,7 +178,7 @@
         "detail": "Expend a charge to deploy a pylon that absorbs heat in a Burst 2 area around itself. It absorbs any heat dealt to characters at least partially within the affected area from any source (before reductions, including RESISTANCE). Once the pylon has absorbed 6 Heat, it explodes. Characters within the affected area must succeed on an AGILITY save or take 1d6+3 AP Energy Damage. On a success, they take half damage. Objects and DEPLOYABLES are hit automatically. Any excess heat absorbed by the pylon as part of the same action or effect that caused it to explode disperses with no effect."
       }
     ],
-    "description": "The IPS-N Kidd’s SMOKESTACK Heat Sink represents the latest in IPS-N’s heat dispersion systems for chassis and other CORE-powered vehicles and vessels. Utilizing proprietary axiomatics, the SMOKESTACK system establishes (via deployable pylon) a localized, minor, and stable pinhole into an omega state, allowing users to – for a certain value of thermodynamic exchange – cool excess heat debt by depositing it into that same state. Once the SMOKESTACK reaches capacity – a hard-coded feature – it detonates, making the system just as effective a weapon as it is a heat sink.",
+    "description": "The IPS-N Kidd’s SMOKESTACK Heat Sink represents the latest in IPS-N’s heat dispersion systems for Chassis and other CORE-powered vehicles and vessels. Utilizing proprietary axiomatics, the SMOKESTACK system establishes (via deployable pylon) a localized, minor, and stable pinhole into an omega state, allowing users to – for a certain value of thermodynamic exchange – cool excess heat debt by depositing it into that same state. Once the SMOKESTACK reaches capacity – a hard-coded feature – it detonates, making the system just as effective a weapon as it is a heat sink.",
     "data_type": "system",
     "aptitude": {},
     "license_id": "mf_kidd"
@@ -200,7 +200,7 @@
       }
     ],
     "source": "EXOTIC",
-    "effect": "<p>1/mission, the \"Snapdragon\" anti-chassis guided missile launcher can be used to make a ranged attack with the following profile:</p><p>Heavy Launcher, Reliable 4, Seeking <br> Range 15, 2d6 + 2 Explosive Damage</p>",
+    "effect": "<p>1/mission, the \"Snapdragon\" anti-Chassis guided missile launcher can be used to make a ranged attack with the following profile:</p><p>Heavy Launcher, Reliable 4, Seeking <br> Range 15, 2d6 + 2 Explosive Damage</p>",
     "description": "<ol> <li>Check all safety locks.</li> <li>Extend launch tube. Missile door should open automatically (if door fails to open, launcher will not fire).</li> <li>Activate rangefinder, acquire target. Wait for positive tone and visual confirmation that target has been acquired (TGT OK).</li> <li>Check backblast area. Minimum safe distance 100 meters. WARNING: backblast poses serious injury risk to unprotected personnel.</li> <li>Fire.</li> </ol>",
     "data_type": "system",
     "aptitude": {},
@@ -327,7 +327,7 @@
     ],
     "source": "EXOTIC",
     "effect": "Expend a charge to immediately clear all Burn from your mech. Additionally, whenever you BRACE you may also expend a charge to reduce all Burn dealt by the attack to 0.",
-    "description": "While sufficient for personal armor, Egregorian chitin on its own is not robust enough to withstand attacks from heavier weapons, nor can it easily be gathered in sufficient quantities to fully outfit a chassis. Regardless, many rangers still utilize carapace-based secondary defensive enhancements anchored over critical systems as an additional layer of ablative protection, most notably against incendiary or caustic/corrosive munitions that might otherwise resist conventional suppression.",
+    "description": "While sufficient for personal armor, Egregorian chitin on its own is not robust enough to withstand attacks from heavier weapons, nor can it easily be gathered in sufficient quantities to fully outfit a Chassis. Regardless, many rangers still utilize carapace-based secondary defensive enhancements anchored over critical systems as an additional layer of ablative protection, most notably against incendiary or caustic/corrosive munitions that might otherwise resist conventional suppression.",
     "license_id": ""
   },
   {

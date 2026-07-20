@@ -29,7 +29,7 @@
       },
       {
         "date": "53au",
-        "description": "As Pequenas Guerras começam — uma luta polarizada entre as principais potências do Berço alimentada pela descoberta dos Cofres. A acumulação de conflitos regionais que se seguiram lançou o Berço em uma guerra global."
+        "description": "As Pequenas Guerras começam — uma luta polarizada entre as Principais potências do Berço alimentada pela descoberta dos Cofres. A acumulação de conflitos regionais que se seguiram lançou o Berço em uma guerra global."
       }
     ]
   },
@@ -43,7 +43,7 @@
       },
       {
         "date": "1400u",
-        "description": "Sistemas de comunicação de longo alcance são reativados, permitindo a recuperação de inúmeras transmissões de SOS arquivadas da era da Queda. O Programa Espacial da União (PEU) é anunciado logo depois."
+        "description": "Sistemas de comunicação de longo <b>Alcance</b> são reativados, permitindo a recuperação de inúmeras transmissões de SOS arquivadas da era da Queda. O Programa Espacial da União (PEU) é anunciado logo depois."
       },
       {
         "date": "1430u",
@@ -63,7 +63,7 @@
       },
       {
         "date": "2000u",
-        "description": "A instalação Coro Oracular é descoberta sob a Vastitas Borealis de Marte. A instalação é reativada, e as Cinco Vozes — mentes máquinas avançadas capazes de prever o futuro com precisão quase perfeita — são identificadas. Isso cria as bases para o que mais tarde se tornaria a Previsão/Simulação Galáctica."
+        "description": "A instalação Coro Oracular é descoberta sob a Vastitas Borealis de Marte. A instalação é reativada, e as Cinco Vozes — mentes máquinas avançadas capazes de prever o futuro com Precisão quase perfeita — são identificadas. Isso cria as bases para o que mais tarde se tornaria a Previsão/Simulação Galáctica."
       }
     ]
   },
@@ -81,7 +81,7 @@
       },
       {
         "date": "2880u",
-        "description": "Atrito diplomático entre os povos Áunicos e colônias da União em Jardim da Fronteira leva à Primeira Guerra Distal. Elementos antrochauvinistas radicais na União lançam o PISTÃO-1 — um ataque cinético em massa no estilo \"espingarda\" — em direção ao espaço Áunico. O Primeiro Comitê é dissolvido, substituído pelo Segundo Comitê (SegCom)."
+        "description": "Atrito diplomático entre os povos Áunicos e colônias da União em Jardim da Fronteira leva à Primeira Guerra Distal. Elementos antrochauvinistas radicais na União lançam o PISTÃO-1 — um ataque Cinético em massa no estilo \"espingarda\" — em direção ao espaço Áunico. O Primeiro Comitê é dissolvido, substituído pelo Segundo Comitê (SegCom)."
       },
       {
         "note": "TAMBÉM DURANTE O PRIMEIRO PERÍODO DE EXPANSÃO",
@@ -125,7 +125,7 @@
       },
       {
         "date": "4500–4560u",
-        "description": "A Crise Hercyniana. Durante o curso do conflito, a eficácia dos trajes reforçados e chassis mecanizados (\"mechas\") é demonstrada. A fabricante estatal da União, Sistemas Massivos Gerais, iniciou a produção em larga escala de chassis mecanizados."
+        "description": "A Crise Hercyniana. Durante o curso do conflito, a eficácia dos trajes reforçados e Chassis mecanizados (\"mechas\") é demonstrada. A fabricante estatal da União, Sistemas Massivos Gerais, iniciou a produção em larga escala de Chassis mecanizados."
       },
       {
         "date": "4560–4591u",

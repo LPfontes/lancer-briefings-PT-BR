@@ -18,23 +18,23 @@
 					class="config-btn" 
 					:class="{ active: mount.type === 'Flex' }"
 					@click="$emit('change-type', mount.index, null)"
-					title="Flex"
+					:title="$t('mech.mountTypes.flex')"
 				>F</button>
 				<button 
 					class="config-btn" 
 					:class="{ active: mount.type === 'Aux/Aux' }"
 					@click="$emit('change-type', mount.index, 'Aux/Aux')"
-					title="Aux/Aux"
+					:title="$t('mech.mountTypes.aux') + '/' + $t('mech.mountTypes.aux')"
 				>A/A</button>
 				<button 
 					class="config-btn" 
 					:class="{ active: mount.type === 'Main/Aux' }"
 					@click="$emit('change-type', mount.index, 'Main/Aux')"
-					title="Main/Aux"
+					:title="$t('mech.mountTypes.main') + '/' + $t('mech.mountTypes.aux')"
 				>M/A</button>
 			</div>
 
-			<span v-if="mount.type === 'Flex'" class="flex-rule-tag" title="Um Encaixe Flexível pode levar 1 Arma Principal ou até 2 Armas Auxiliares">1 MAIN OU 2 AUX</span>
+			<span v-if="mount.type === 'Flex'" class="flex-rule-tag" title="Um Encaixe Flexível pode levar 1 Arma Principal ou até 2 Armas <br>Auxiliar</b>es">1 Principal ou 2 Auxiliar</span>
 			<span v-if="mount.isBlocked" class="blocked-tag">{{ $t('pilotCreator.blockedBySuperheavy') }}</span>
 		</div>
 		

@@ -42,7 +42,7 @@ const routes = [
 		name: "Hangar",
 		component: () => import("@/views/HangarView.vue"),
 		props: true,
-		meta: { title: `${DEFAULT_TITLE} CHASSIS HANGAR` },
+		meta: { title: `${DEFAULT_TITLE} Chassis HANGAR` },
 	},
 	{
 		path: "/events",
