@@ -1,0 +1,3 @@
+[submodule "lancer-data-pt-br"]
+	path = lancer-data-pt-br
+	url = https://github.com/LPfontes/lancer-data-pt-br.git
