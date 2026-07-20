@@ -34,6 +34,7 @@
 				>M/A</button>
 			</div>
 
+			<span v-if="mount.type === 'Flex'" class="flex-rule-tag" title="Um Encaixe Flexível pode levar 1 Arma Principal ou até 2 Armas Auxiliares">1 MAIN OU 2 AUX</span>
 			<span v-if="mount.isBlocked" class="blocked-tag">{{ $t('pilotCreator.blockedBySuperheavy') }}</span>
 		</div>
 		
@@ -361,6 +362,18 @@ export default {
 	border: 2px dashed var(--primary-color) !important;
 	background: rgba(175, 14, 30, 0.05) !important;
 	animation: pulse-border 1.5s infinite;
+}
+
+.flex-rule-tag {
+	font-family: "Inconsolata", monospace;
+	font-size: 10px;
+	color: #00f0ff;
+	background: rgba(0, 240, 255, 0.12);
+	border: 1px solid rgba(0, 240, 255, 0.3);
+	padding: 2px 6px;
+	border-radius: 2px;
+	margin-left: auto;
+	letter-spacing: 0.5px;
 }
 
 @keyframes pulse-border {

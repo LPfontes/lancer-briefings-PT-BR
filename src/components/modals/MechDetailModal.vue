@@ -250,15 +250,15 @@ export default {
   border-left: 2px solid #333;
   padding-left: 10px;
 }
-.mount-type { font-size: 0.7rem; color: #666; text-transform: uppercase; margin-bottom: 4px; }
-.weapon-slot { margin-bottom: 2px; font-size: 0.95rem; }
+.mount-type { font-size: 0.9rem; color: #666; text-transform: uppercase; margin-bottom: 4px; }
+.weapon-slot { margin-bottom: 2px; font-size: 1rem; }
 .w-name { color: #fff; }
 .w-empty { color: #444; font-style: italic; }
 
 /* Traits & Systems */
 .trait-item { margin-bottom: 15px; }
 .trait-name { color: #fff; font-weight: bold; font-size: 1rem; margin-bottom: 4px; border-bottom: 1px solid #222; }
-.trait-desc { font-size: 0.85rem; color: #bbb; line-height: 1.4; }
+.trait-desc { font-size: 1rem; color: #bbb; line-height: 1.4; }
 
 .system-entry {
   display: flex;

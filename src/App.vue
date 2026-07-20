@@ -281,11 +281,7 @@ export default {
 			}
 		},
 		showSampleNotification() {
-			window.showNotification(
-				"SISTEMA DE DIAGNÓSTICO",
-				"Integridade do reator em 98.4%. Todos os sistemas de armas modulares carregados com sucesso. Protocolo de comunicação Alia ativo.",
-				"info"
-			);
+			// Notificação manual desativada
 		},
 	},
 };

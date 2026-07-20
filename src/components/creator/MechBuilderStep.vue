@@ -568,14 +568,20 @@ export default {
 			let restrictions = [];
 			const mt = mountType.toLowerCase();
 			
-			if (mt === 'aux/aux') {
-				restrictions = ['Auxiliary'];
-			} else if (mt === 'main/aux' || mt === 'aux/main' || mt === 'flex') {
+			if (mt === 'flex') {
 				if (slotIdx === 0) {
-					// Slot 0 of Flex/Main-Aux can be Main or Aux
+					// Slot 0 do Encaixe Flexível pode levar 1 Arma Principal ou 1 Auxiliar
 					restrictions = ['Main', 'Auxiliary'];
 				} else {
-					// Slot 1 of Flex/Main-Aux is always Aux
+					// Slot 1 do Encaixe Flexível aceita apenas armas Auxiliares
+					restrictions = ['Auxiliary'];
+				}
+			} else if (mt === 'aux/aux') {
+				restrictions = ['Auxiliary'];
+			} else if (mt === 'main/aux' || mt === 'aux/main') {
+				if (slotIdx === 0) {
+					restrictions = ['Main', 'Auxiliary'];
+				} else {
 					restrictions = ['Auxiliary'];
 				}
 			} else if (mt === 'main') {
@@ -602,11 +608,20 @@ export default {
 			if (this.modalType === 'weapon' && this.modalContext) {
 				const weapon = this.weapons.find(w => w.id === itemId);
 				const isSH = weapon && weapon.mount === 'Superheavy';
+				const { mountIdx, slotIdx, mountType } = this.modalContext;
+
+				this.setWeapon(mountIdx, slotIdx, itemId);
 				
-				this.setWeapon(this.modalContext.mountIdx, this.modalContext.slotIdx, itemId);
-				
+				// Regra do Encaixe Flexível: Se equipar uma arma Principal no Slot 0, desequipa o Slot 1 automaticamente
+				if (mountType.toLowerCase() === 'flex' && slotIdx === 0 && weapon) {
+					const wMount = weapon.mount || weapon.size || '';
+					if (wMount === 'Main' || wMount === 'Heavy' || wMount === 'Superheavy') {
+						this.setWeapon(mountIdx, 1, null);
+					}
+				}
+
 				if (isSH) {
-					this.selectingPartnerFor = this.modalContext.mountIdx;
+					this.selectingPartnerFor = mountIdx;
 				}
 				
 				this.modalOpen = false;
@@ -683,11 +698,17 @@ export default {
 		isSlotVisible(mount, slotIdx) {
 			if (slotIdx === 0) return true;
 			if (slotIdx === 1) {
-				const weapon0Id = this.getWeapon(mount.index, 0);
-				if (!weapon0Id) return true;
-				const weapon0 = this.weapons.find(w => w.id === weapon0Id);
-				if (weapon0 && weapon0.mount === 'Main' && mount.type.toLowerCase() === 'flex') {
-					return false;
+				const mountType = (mount.type || '').toLowerCase();
+				if (mountType === 'flex') {
+					const weapon0Id = this.getWeapon(mount.index, 0);
+					if (!weapon0Id) return true;
+					const weapon0 = this.weapons.find(w => w.id === weapon0Id);
+					if (weapon0) {
+						const wMount = weapon0.mount || weapon0.size || '';
+						if (wMount === 'Main' || wMount === 'Heavy' || wMount === 'Superheavy') {
+							return false; // Flex ocupado por arma Principal/Heavy
+						}
+					}
 				}
 			}
 			return true;

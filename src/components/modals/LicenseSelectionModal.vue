@@ -224,6 +224,7 @@
 import { pilotStore } from "@/store/pilotCreator";
 import { manufacturers as mfData, frames as frameData } from "lancer-data-pt-br";
 import RankGearModal from "./RankGearModal.vue";
+import { getFrameImage } from "@/utils/frameImages";
 
 export default {
 	name: "LicenseSelectionModal",
@@ -274,7 +275,7 @@ export default {
 			return `/faction-logos/${mfId.toLowerCase()}.svg`;
 		},
 		getFrameImage(license) {
-			return `/frames/${license.id}.png`;
+			return getFrameImage(license);
 		},
 		getMfColor(mfId) {
 			const mf = this.manufacturers.find(m => m.id === mfId);

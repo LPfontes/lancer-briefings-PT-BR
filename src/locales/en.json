@@ -35,6 +35,7 @@
   "sidebar": {
     "status": "Status",
     "pilots": "Pilots",
+    "hangar": "Hangar",
     "logs": "Logs",
     "glossary": "Glossary",
     "history": "History",

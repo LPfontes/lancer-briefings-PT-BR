@@ -71,17 +71,8 @@ export default {
   },
   methods: {
     openDetailedModal() {
-      this.$oruga.modal.open({
-        component: PilotModal,
-        props: {
-          pilot: this.pilot,
-          getSkill: this.getSkill,
-          getTalent: this.getTalent
-        },
-        custom: true,
-        width: 1200,
-        trapFocus: true
-      });
+      const pilotIdentifier = this.pilot.id || this.pilot.callsign;
+      this.$router.push(`/pilots/${pilotIdentifier}`);
     },
     openMechModal() {
       if (!this.activeMech) return;
@@ -247,7 +238,7 @@ export default {
 
 .pilot-name {
   font-family: "Inconsolata", monospace;
-  font-size: 0.75rem;
+  font-size: 1rem;
   color: rgba(255, 255, 255, 0.5);
   margin-top: 2px;
   text-transform: uppercase;
@@ -258,7 +249,7 @@ export default {
 }
 
 .label {
-  font-size: 0.65rem;
+  font-size: 0.8rem;
   color: var(--union-crimson, #af0e1e);
   font-weight: bold;
   letter-spacing: 1.5px;

@@ -10,8 +10,12 @@
     left: 0 !important;
     top: 56px !important;
     width: 100% !important;
+    max-width: 100vw !important;
+    height: calc(100vh - 56px) !important;
+    max-height: calc(100vh - 56px) !important;
     padding-bottom: 68px;
     box-sizing: border-box;
+    overflow: hidden !important;
   }
 
   /* ---- Header Comprimido ---- */

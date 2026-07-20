@@ -31,6 +31,20 @@ const routes = [
 		meta: { title: `${DEFAULT_TITLE} PILOT ROSTER` },
 	},
 	{
+		path: "/pilots/:id",
+		name: "PilotDetail",
+		component: () => import("@/views/PilotDetailView.vue"),
+		props: true,
+		meta: { title: `${DEFAULT_TITLE} PILOT DOSSIER` },
+	},
+	{
+		path: "/hangar",
+		name: "Hangar",
+		component: () => import("@/views/HangarView.vue"),
+		props: true,
+		meta: { title: `${DEFAULT_TITLE} CHASSIS HANGAR` },
+	},
+	{
 		path: "/events",
 		name: "Events",
 		component: Events,
