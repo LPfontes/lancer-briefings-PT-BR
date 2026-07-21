@@ -4,26 +4,26 @@
     "custom": "Custom",
     "select": "Select",
     "selected": "Selected",
-    "view": "VIEW",
-    "ready": "READY",
-    "save": "SAVE",
-    "active": "ACTIVE",
-    "locked": "LOCKED",
-    "installed": "INSTALLED",
-    "search": "SEARCH",
+    "view": "View",
+    "ready": "Ready",
+    "save": "Save",
+    "active": "Active",
+    "locked": "Locked",
+    "installed": "Installed",
+    "search": "Search",
     "remove": "Remove"
   },
   "auth": {
-    "loginTitle": "SYSTEM AUTHENTICATION // ADMIN",
-    "passwordPlaceholder": "ENTER ACCESS KEY...",
-    "loginBtn": "LOGIN",
-    "logoutBtn": "LOGOUT",
-    "invalidKey": "INVALID KEY. ACCESS DENIED.",
-    "loginRequired": "AUTHENTICATION REQUIRED TO SAVE CHANGES TO CLOUD.",
-    "success": "SESSION STARTED SUCCESSFULLY",
-    "logoutSuccess": "SESSION CLOSED",
-    "saveSuccessCloud": "PILOT SAVED SUCCESSFULLY AND SYNCED TO CLOUD",
-    "saveSuccessLocal": "PILOT SAVED LOCALLY ONLY.\nAuthenticate using the lock at the top to sync with the cloud."
+    "loginTitle": "System Authentication // Admin",
+    "passwordPlaceholder": "Enter access key...",
+    "loginBtn": "Login",
+    "logoutBtn": "Logout",
+    "invalidKey": "Invalid key. Access denied.",
+    "loginRequired": "Authentication required to save changes to cloud.",
+    "success": "Session started successfully.",
+    "logoutSuccess": "Session closed.",
+    "saveSuccessCloud": "Pilot saved successfully and synced to cloud.",
+    "saveSuccessLocal": "Pilot saved locally only.\nAuthenticate using the lock at the top to sync with the cloud."
   },
   "header": {
     "year": "Year",
@@ -44,8 +44,8 @@
     "personas": "Personas"
   },
   "pilotCreator": {
-    "title": "PILOT CREATOR",
-    "export": "EXPORT TO FOUNDRY",
+    "title": "Pilot Creator",
+    "export": "Export to Foundry",
     "steps": {
       "identification": "Identification",
       "pilotGear": "Pilot Gear",
@@ -57,14 +57,14 @@
       "savePilot": "Save & Export"
     },
     "sandboxDesc": "Manage your manufacturer licenses (Sandbox Mode enabled).",
-    "rank": "RANK",
-    "infoOpen": "INFO_OPEN",
-    "infoClosed": "INFO_CLOSED",
+    "rank": "Rank",
+    "infoOpen": "Info Open",
+    "infoClosed": "Info Closed",
     "infoDesc": "View frame description",
     "skillsDesc": "Distribute points to your pilot's skill triggers.",
     "talentsDesc": "Select talents and their respective Ranks (1 to 3).",
-    "logOpen": "LOG_OPEN",
-    "logLocked": "LOG_LOCKED",
+    "logOpen": "Log Open",
+    "logLocked": "Log Locked",
     "mechSkillsDesc": "Distribute points to your pilot's Mech Skills.",
     "mechPointsDist": "Points Distributed",
     "mech": {
@@ -99,14 +99,14 @@
     },
     "bonuses": {
       "hull": "+2 HP/point; +1 Repair Cap/2 points",
-      "agility": "+1 EVASION/point; +1 SPEED/2 points",
+      "agility": "+1 Evasion/point; +1 Speed/2 points",
       "systems": "+1 Tech Atk & E-Def/point; +1 SP/2 points",
       "engineering": "+1 Heat Cap/point; +1 Limited Uses/2 points"
     }
   },
   "mech": {
-    "coreSystem": "CORE SYSTEM",
-    "mainStats": "PRIMARY STATISTICS",
+    "coreSystem": "Core System",
+    "mainStats": "Primary Statistics",
     "stats": {
       "size": "Size",
       "save": "Save Target",
@@ -121,19 +121,19 @@
       "speed": "Speed",
       "heatcap": "Heat Cap"
     },
-    "hull": "HULL",
-    "systems": "SYSTEMS",
-    "agility": "AGILITY",
-    "engineering": "ENGINEERING",
-    "traits": "TRAITS",
-    "mounts": "MOUNTS",
-    "mount": "MOUNT",
+    "hull": "Hull",
+    "systems": "Systems",
+    "agility": "Agility",
+    "engineering": "Engineering",
+    "traits": "Traits",
+    "mounts": "Mounts",
+    "mount": "Mount",
     "mountTypes": {
       "main": "Main",
       "flex": "Flex",
       "heavy": "Heavy",
-      "aux": "<br>Auxiliar</b>y",
-      "<br>Auxiliar</b>y": "<br>Auxiliar</b>y",
+      "aux": "Auxiliary",
+      "auxiliary": "Auxiliary",
       "integrated": "Integrated",
       "superheavy": "Superheavy"
     },
@@ -160,16 +160,16 @@
     "activate": "Activate"
   },
   "glossary": {
-    "title": "GLOSSARY",
-    "compendium": "G-UN COMPENDIUM // UNION DATABASE",
-    "search": "SEARCH TERM IN DATABASE...",
+    "title": "Glossary",
+    "compendium": "G-UN Compendium // Union Database",
+    "search": "Search term in database...",
     "categories": {
-      "all": "ALL",
-      "stats": "STATS",
-      "combat": "COMBAT",
-      "aoe": "AREAS",
-      "movement": "MOVEMENT",
-      "rules": "RULES"
+      "all": "All",
+      "stats": "Stats",
+      "combat": "Combat",
+      "aoe": "Areas",
+      "movement": "Movement",
+      "rules": "Rules"
     }
   },
   "status": {
@@ -179,8 +179,8 @@
     "clocks": "Clocks"
   },
   "events": {
-    "title": "BEATS",
-    "log": "EVENT LOG",
+    "title": "Beats",
+    "log": "Event Log",
     "readMore": "Read More"
   },
   "mission": {
@@ -196,31 +196,31 @@
     "callsign": "Callsign",
     "name": "Name (or legal alias)",
     "background": "Background",
-    "identityVerified": "IDENTITY VERIFIED",
-    "dataRegistered": "PH/HR DATA REGISTERED",
-    "frameOptions": "FRAME CONFIGURATION OPTIONS",
-    "skillAudit": "PILOT SKILL TRIGGER AUDIT",
-    "talentAudit": "PILOT TALENT AUDIT",
-    "licenseAudit": "PROCUREMENT LICENSE AUDIT",
-    "level": "LEVEL",
-    "biometricValid": "BIOMETRIC RECORD VALID",
-    "blueprintValid": "MECHANICAL BLUEPRINT VALID",
+    "identityVerified": "Identity Verified",
+    "dataRegistered": "PH/HR Data Registered",
+    "frameOptions": "Frame Configuration Options",
+    "skillAudit": "Pilot Skill Trigger Audit",
+    "talentAudit": "Pilot Talent Audit",
+    "licenseAudit": "Procurement License Audit",
+    "level": "Level",
+    "biometricValid": "Biometric Record Valid",
+    "blueprintValid": "Mechanical Blueprint Valid",
     "identProtocol": "Union Administrative RM-4 Pilot Identification Protocol (IDENT) Record",
-    "callsignAvailable": "CALLSIGN AVAILABLE",
-    "omninetVault": "OMNINET VAULT REMIT",
+    "callsignAvailable": "Callsign Available",
+    "omninetVault": "Omninet Vault Remit",
     "stats": {
-      "hull": "HULL",
-      "agi": "AGI",
-      "sys": "SYS",
-      "eng": "ENG"
+      "hull": "Hull",
+      "agi": "Agi",
+      "sys": "Sys",
+      "eng": "Eng"
     },
     "history": {
       "redacted": "[ERR: REDACTED]",
-      "appearance": "APPEARANCE",
-      "history": "HISTORY"
+      "appearance": "Appearance",
+      "history": "History"
     },
     "identRecord": "Union Administrative RM-4 Pilot Identification Protocol (IDENT) Record",
-    "legalDisclaimer": "Improper use of this IDENT record and/or its constituent data by the record holder or any other persons is punishable under the DoJ/HR A-645-c. This record is the property of the Union Administrative Office and the information herein must be transmitted on request under NDL-C-DISCORDANT-BREATH encryption protocols. This RM-4 record must be updated every five (5) Cradle Standard Years of objective time to retain GMS licensing rights. Far-field operatives that anticipate deployments lasting longer than five Cradle Standard Years that have not been issued a man-portable Omninet Hook should apply for the RM-11-B IDENT Supplemental (b) Extension. Contact your local Union Adminstrative Officer for any other matters regarding this record."
+    "legalDisclaimer": "Improper use of this IDENT record and/or its constituent data by the record holder or any other persons is punishable under the DoJ/HR A-645-c. This record is the property of the Union Administrative Office and the information herein must be transmitted on request under NDL-C-DISCORDANT-BREATH encryption protocols. This RM-4 record must be updated every five (5) Cradle Standard Years of objective time to retain GMS licensing rights. Far-field operatives that anticipate deployments lasting longer than five Cradle Standard Years that have not been issued a man-portable Omninet Hook should apply for the RM-11-B IDENT Supplemental (b) Extension. Contact your local Union Administrative Officer for any other matters regarding this record."
   },
   "clock": {
     "story": "Story",
@@ -233,40 +233,40 @@
     "owner": "Reserve Owner"
   },
   "history": {
-    "title": "HISTORY",
-    "chronology": "ACCEPTED UNION CHRONOLOGY",
+    "title": "History",
+    "chronology": "Accepted Union Chronology",
     "note": "\"au\" means \"ante-Union\", while \"u\" means \"Union Era\".",
     "tabs": {
-      "chronology": "CHRONOLOGY",
-      "universe": "UNIVERSE",
-      "history": "HISTORY",
-      "politics": "POLITICS",
-      "pillars": "PILLARS"
+      "chronology": "Chronology",
+      "universe": "Universe",
+      "history": "History",
+      "politics": "Politics",
+      "pillars": "Pillars"
     }
   },
   "missionReport": {
-    "title": "MISSION REPORT",
-    "aar": "AFTER ACTION REPORT (AAR)",
-    "summary": "OPERATION SUMMARY",
-    "objectives": "OBJECTIVES",
-    "outcomes": "OUTCOMES",
-    "pilotPerformance": "PILOT PERFORMANCE",
-    "casualties": "CASUALTIES / DAMAGE",
-    "notes": "COMMAND NOTES",
-    "noMission": "SELECT A MISSION TO VIEW REPORT",
-    "missionId": "MISSION ID",
-    "status": "FINAL STATUS",
-    "debriefing": "DEBRIEFING PROTOCOL",
-    "decrypting": "DECRYPTING MISSION DATA..."
+    "title": "Mission Report",
+    "aar": "After Action Report (AAR)",
+    "summary": "Operation Summary",
+    "objectives": "Objectives",
+    "outcomes": "Outcomes",
+    "pilotPerformance": "Pilot Performance",
+    "casualties": "Casualties / Damage",
+    "notes": "Command Notes",
+    "noMission": "Select a mission to view report",
+    "missionId": "Mission ID",
+    "status": "Final Status",
+    "debriefing": "Debriefing Protocol",
+    "decrypting": "Decrypting mission data..."
   },
   "personas": {
-    "title": "PERSONAS",
-    "database": "IDENTITY DATABASE",
-    "search": "SEARCH PERSONA IN ARCHIVE...",
-    "noPersona": "SELECT AN IDENTITY TO VIEW DOSSIER",
-    "biography": "BIOGRAPHY",
-    "traits": "TRAITS AND MOTIVATIONS",
-    "faction": "AFFILIATION",
-    "status": "OPERATIONAL STATUS"
+    "title": "Personas",
+    "database": "Identity Database",
+    "search": "Search persona in archive...",
+    "noPersona": "Select an identity to view dossier",
+    "biography": "Biography",
+    "traits": "Traits and Motivations",
+    "faction": "Affiliation",
+    "status": "Operational Status"
   }
 }
