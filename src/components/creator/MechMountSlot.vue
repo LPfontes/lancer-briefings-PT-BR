@@ -46,7 +46,7 @@
 			</div>
 
 			<!-- Selection Mode Overlay -->
-			<div v-else-if="selectingPartnerFor !== null" class="selection-overlay">
+			<div v-else-if="selectingPartnerFor !== null && selectingPartnerFor !== mount.index" class="selection-overlay">
 				<button v-if="isSelectionTarget" class="select-partner-btn" @click="$emit('select-partner', mount.index)">
 					<span class="material-symbols-outlined">link</span>
 					{{ $t('pilotCreator.linkAsSecondMount') }}

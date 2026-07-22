@@ -15,6 +15,7 @@
     "installed": "Instalado",
     "search": "Buscar",
     "remove": "Remover",
+    "cancel": "Cancelar",
     "no_cascade": "Sem Cascata",
     "no_records": "Sem Registros Disponíveis"
   },
@@ -132,7 +133,8 @@
     "selectWeapon": "Selecionar Arma",
     "requiresSecondMount": "Requer 2ª Montagem",
     "integratedMount": "Integrada",
-    "integratedSystem": "Sistema Integrado"
+    "integratedSystem": "Sistema Integrado",
+    "selectSecondMountNotice": "Selecione um segundo encaixe para vincular a Arma Superpesada na Montagem {mount}"
   },
   "mech": {
     "coreSystem": "Sistema de Núcleo",

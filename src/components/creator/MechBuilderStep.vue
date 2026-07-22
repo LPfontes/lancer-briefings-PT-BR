@@ -201,6 +201,16 @@
 					<span class="header-line"></span>
 					<h3>{{ $t('pilotCreator.mech.mounts') }}</h3>
 				</div>
+				<div v-if="selectingPartnerFor !== null" class="sh-partner-banner">
+					<span class="banner-text">
+						<span class="material-symbols-outlined">info</span>
+						{{ $t('pilotCreator.selectSecondMountNotice', { mount: selectingPartnerFor + 1 }) }}
+					</span>
+					<button class="cancel-partner-btn" @click="selectingPartnerFor = null">
+						<span class="material-symbols-outlined">close</span>
+						{{ $t('general.cancel') }}
+					</button>
+				</div>
 				<div v-if="selectedFrame" class="mounts-list">
 					<MechMountSlot
 						v-for="(mount, mIdx) in allMounts" 
@@ -550,7 +560,17 @@ export default {
 			return pilotStore.state.activeMech.mounts[`${mountIdx}_${slotIdx}`] || null;
 		},
 		setWeapon(mountIdx, slotIdx, weaponId) {
-			pilotStore.setMechMountWeapon(`${mountIdx}_${slotIdx}`, weaponId === "null" ? null : weaponId);
+			const actualWeaponId = weaponId === "null" ? null : weaponId;
+			if (slotIdx === 0) {
+				const isSH = this.isSuperheavy(actualWeaponId);
+				if (!isSH) {
+					pilotStore.setSuperheavyPartner(mountIdx, null);
+					if (this.selectingPartnerFor === mountIdx) {
+						this.selectingPartnerFor = null;
+					}
+				}
+			}
+			pilotStore.setMechMountWeapon(`${mountIdx}_${slotIdx}`, actualWeaponId);
 		},
 		toggleSystem(id) {
 			const isInstalled = pilotStore.state.activeMech.systems.includes(id);
@@ -607,7 +627,7 @@ export default {
 		handleGearSelect(itemId) {
 			if (this.modalType === 'weapon' && this.modalContext) {
 				const weapon = this.weapons.find(w => w.id === itemId);
-				const isSH = weapon && weapon.mount === 'Superheavy';
+				const isSH = this.isSuperheavy(itemId);
 				const { mountIdx, slotIdx, mountType } = this.modalContext;
 
 				this.setWeapon(mountIdx, slotIdx, itemId);
@@ -622,6 +642,10 @@ export default {
 
 				if (isSH) {
 					this.selectingPartnerFor = mountIdx;
+				} else {
+					if (this.selectingPartnerFor === mountIdx) {
+						this.selectingPartnerFor = null;
+					}
 				}
 				
 				this.modalOpen = false;
@@ -666,7 +690,7 @@ export default {
 		},
 		getSystemDesc(systemId) {
 			const s = this.systems.find(s => s.id === systemId);
-			return s ? (s.description || s.effect) : '';
+			return s ? (s.effect || (s.actions && s.actions[0] ? s.actions[0].detail : null) || s.description) : '';
 		},
 		getMountIcon(type) {
 			const t = (type || '').toLowerCase();
@@ -1334,6 +1358,46 @@ select.stat-input-field option {
 .system-desc :deep(br) {
 	content: "";
 	display: block;
-	margin-bottom: 8px;
+	margin-top: 6px;
+}
+
+.sh-partner-banner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background: rgba(241, 169, 42, 0.15);
+	border: 1px solid #f1a92a;
+	color: #f1a92a;
+	padding: 10px 15px;
+	margin-bottom: 15px;
+	border-radius: 4px;
+	font-family: "Titillium Web", sans-serif;
+	font-size: 14px;
+}
+
+.sh-partner-banner .banner-text {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-weight: 600;
+}
+
+.cancel-partner-btn {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	background: transparent;
+	border: 1px solid #f1a92a;
+	color: #f1a92a;
+	padding: 4px 10px;
+	font-family: "Rajdhani", sans-serif;
+	font-weight: bold;
+	cursor: pointer;
+	transition: all 0.2s;
+}
+
+.cancel-partner-btn:hover {
+	background: #f1a92a;
+	color: #0b1119;
 }
 </style>

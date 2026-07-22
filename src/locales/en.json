@@ -11,7 +11,8 @@
     "locked": "Locked",
     "installed": "Installed",
     "search": "Search",
-    "remove": "Remove"
+    "remove": "Remove",
+    "cancel": "Cancel"
   },
   "auth": {
     "loginTitle": "System Authentication // Admin",
@@ -102,7 +103,16 @@
       "agility": "+1 Evasion/point; +1 Speed/2 points",
       "systems": "+1 Tech Atk & E-Def/point; +1 SP/2 points",
       "engineering": "+1 Heat Cap/point; +1 Limited Uses/2 points"
-    }
+    },
+    "blockedBySuperheavy": "Blocked by Superheavy Weapon",
+    "linkedToSuperheavy": "Linked to Superheavy Weapon in Mount {mount}",
+    "linkAsSecondMount": "Link as 2nd Mount",
+    "cannotLink": "Cannot be linked",
+    "selectWeapon": "Select Weapon",
+    "requiresSecondMount": "Requires 2nd Mount",
+    "integratedMount": "Integrated",
+    "integratedSystem": "Integrated System",
+    "selectSecondMountNotice": "Select a second mount to link the Superheavy weapon in Mount {mount}"
   },
   "mech": {
     "coreSystem": "Core System",
