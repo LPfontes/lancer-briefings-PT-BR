@@ -24,7 +24,7 @@
 			<!-- CENTER: STATS GRID -->
 			<!-- RIGHT: RESTRUCTURED STATS AREA -->
 			<div class="stats-restructured-container">
-				<!-- LINE 1: NAME, CHASSIS, SIZE -->
+				<!-- LINE 1: NAME, Chassis, SIZE -->
 				<div class="stats-config-row">
 					<div class="stat-card config-card name-field">
 						<div class="stat-card-header">
@@ -37,7 +37,7 @@
 
 					<div class="stat-card config-card frame-field">
 						<div class="stat-card-header">
-							<span class="header-text">{{ $t('mech.chassis') }}</span>
+							<span class="header-text">{{ $t('mech.Chassis') }}</span>
 						</div>
 						<div class="stat-card-input">
 							<select v-model="selectedFrameId" @change="updateFrame" class="stat-input-field">
@@ -201,6 +201,16 @@
 					<span class="header-line"></span>
 					<h3>{{ $t('pilotCreator.mech.mounts') }}</h3>
 				</div>
+				<div v-if="selectingPartnerFor !== null" class="sh-partner-banner">
+					<span class="banner-text">
+						<span class="material-symbols-outlined">info</span>
+						{{ $t('pilotCreator.selectSecondMountNotice', { mount: selectingPartnerFor + 1 }) }}
+					</span>
+					<button class="cancel-partner-btn" @click="selectingPartnerFor = null">
+						<span class="material-symbols-outlined">close</span>
+						{{ $t('general.cancel') }}
+					</button>
+				</div>
 				<div v-if="selectedFrame" class="mounts-list">
 					<MechMountSlot
 						v-for="(mount, mIdx) in allMounts" 
@@ -278,7 +288,7 @@
 
 		<GearSelectionModal 
 			:isOpen="modalOpen"
-			:title="modalType === 'weapon' ? 'SELEÇÃO DE ARMAS' : 'SELEÇÃO DE SISTEMAS'"
+			:title="modalType === 'weapon' ? 'SELEÇÃO DE ARMAS' : 'SELEÇÃO DE Sistemas'"
 			:type="modalType"
 			:groups="modalType === 'weapon' ? weaponGroups : systemGroups"
 			:installedIds="activeMechSystems"
@@ -550,7 +560,17 @@ export default {
 			return pilotStore.state.activeMech.mounts[`${mountIdx}_${slotIdx}`] || null;
 		},
 		setWeapon(mountIdx, slotIdx, weaponId) {
-			pilotStore.setMechMountWeapon(`${mountIdx}_${slotIdx}`, weaponId === "null" ? null : weaponId);
+			const actualWeaponId = weaponId === "null" ? null : weaponId;
+			if (slotIdx === 0) {
+				const isSH = this.isSuperheavy(actualWeaponId);
+				if (!isSH) {
+					pilotStore.setSuperheavyPartner(mountIdx, null);
+					if (this.selectingPartnerFor === mountIdx) {
+						this.selectingPartnerFor = null;
+					}
+				}
+			}
+			pilotStore.setMechMountWeapon(`${mountIdx}_${slotIdx}`, actualWeaponId);
 		},
 		toggleSystem(id) {
 			const isInstalled = pilotStore.state.activeMech.systems.includes(id);
@@ -568,20 +588,26 @@ export default {
 			let restrictions = [];
 			const mt = mountType.toLowerCase();
 			
-			if (mt === 'aux/aux') {
-				restrictions = ['Auxiliary'];
-			} else if (mt === 'main/aux' || mt === 'aux/main' || mt === 'flex') {
+			if (mt === 'flex') {
 				if (slotIdx === 0) {
-					// Slot 0 of Flex/Main-Aux can be Main or Aux
-					restrictions = ['Main', 'Auxiliary'];
+					// Slot 0 do Encaixe Flexível pode levar 1 Arma Principal ou 1 <br>Auxiliar</b>
+					restrictions = ['Main', '<br>Auxiliar</b>y'];
 				} else {
-					// Slot 1 of Flex/Main-Aux is always Aux
-					restrictions = ['Auxiliary'];
+					// Slot 1 do Encaixe Flexível aceita apenas armas <br>Auxiliar</b>es
+					restrictions = ['<br>Auxiliar</b>y'];
+				}
+			} else if (mt === 'aux/aux') {
+				restrictions = ['<br>Auxiliar</b>y'];
+			} else if (mt === 'main/aux' || mt === 'aux/main') {
+				if (slotIdx === 0) {
+					restrictions = ['Main', '<br>Auxiliar</b>y'];
+				} else {
+					restrictions = ['<br>Auxiliar</b>y'];
 				}
 			} else if (mt === 'main') {
-				restrictions = ['Main', 'Auxiliary'];
+				restrictions = ['Main', '<br>Auxiliar</b>y'];
 			} else if (mt === 'heavy') {
-				restrictions = ['Superheavy', 'Heavy', 'Main', 'Auxiliary'];
+				restrictions = ['Superheavy', 'Heavy', 'Main', '<br>Auxiliar</b>y'];
 			}
 
 			this.modalContext = { 
@@ -601,12 +627,25 @@ export default {
 		handleGearSelect(itemId) {
 			if (this.modalType === 'weapon' && this.modalContext) {
 				const weapon = this.weapons.find(w => w.id === itemId);
-				const isSH = weapon && weapon.mount === 'Superheavy';
+				const isSH = this.isSuperheavy(itemId);
+				const { mountIdx, slotIdx, mountType } = this.modalContext;
+
+				this.setWeapon(mountIdx, slotIdx, itemId);
 				
-				this.setWeapon(this.modalContext.mountIdx, this.modalContext.slotIdx, itemId);
-				
+				// Regra do Encaixe Flexível: Se equipar uma arma Principal no Slot 0, desequipa o Slot 1 automaticamente
+				if (mountType.toLowerCase() === 'flex' && slotIdx === 0 && weapon) {
+					const wMount = weapon.mount || weapon.size || '';
+					if (wMount === 'Main' || wMount === 'Heavy' || wMount === 'Superheavy') {
+						this.setWeapon(mountIdx, 1, null);
+					}
+				}
+
 				if (isSH) {
-					this.selectingPartnerFor = this.modalContext.mountIdx;
+					this.selectingPartnerFor = mountIdx;
+				} else {
+					if (this.selectingPartnerFor === mountIdx) {
+						this.selectingPartnerFor = null;
+					}
 				}
 				
 				this.modalOpen = false;
@@ -651,7 +690,7 @@ export default {
 		},
 		getSystemDesc(systemId) {
 			const s = this.systems.find(s => s.id === systemId);
-			return s ? (s.description || s.effect) : '';
+			return s ? (s.effect || (s.actions && s.actions[0] ? s.actions[0].detail : null) || s.description) : '';
 		},
 		getMountIcon(type) {
 			const t = (type || '').toLowerCase();
@@ -683,11 +722,17 @@ export default {
 		isSlotVisible(mount, slotIdx) {
 			if (slotIdx === 0) return true;
 			if (slotIdx === 1) {
-				const weapon0Id = this.getWeapon(mount.index, 0);
-				if (!weapon0Id) return true;
-				const weapon0 = this.weapons.find(w => w.id === weapon0Id);
-				if (weapon0 && weapon0.mount === 'Main' && mount.type.toLowerCase() === 'flex') {
-					return false;
+				const mountType = (mount.type || '').toLowerCase();
+				if (mountType === 'flex') {
+					const weapon0Id = this.getWeapon(mount.index, 0);
+					if (!weapon0Id) return true;
+					const weapon0 = this.weapons.find(w => w.id === weapon0Id);
+					if (weapon0) {
+						const wMount = weapon0.mount || weapon0.size || '';
+						if (wMount === 'Main' || wMount === 'Heavy' || wMount === 'Superheavy') {
+							return false; // Flex ocupado por arma Principal/Heavy
+						}
+					}
 				}
 			}
 			return true;
@@ -1313,6 +1358,46 @@ select.stat-input-field option {
 .system-desc :deep(br) {
 	content: "";
 	display: block;
-	margin-bottom: 8px;
+	margin-top: 6px;
+}
+
+.sh-partner-banner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background: rgba(241, 169, 42, 0.15);
+	border: 1px solid #f1a92a;
+	color: #f1a92a;
+	padding: 10px 15px;
+	margin-bottom: 15px;
+	border-radius: 4px;
+	font-family: "Titillium Web", sans-serif;
+	font-size: 14px;
+}
+
+.sh-partner-banner .banner-text {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-weight: 600;
+}
+
+.cancel-partner-btn {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	background: transparent;
+	border: 1px solid #f1a92a;
+	color: #f1a92a;
+	padding: 4px 10px;
+	font-family: "Rajdhani", sans-serif;
+	font-weight: bold;
+	cursor: pointer;
+	transition: all 0.2s;
+}
+
+.cancel-partner-btn:hover {
+	background: #f1a92a;
+	color: #0b1119;
 }
 </style>

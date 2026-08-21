@@ -17,12 +17,12 @@ Uma plataforma tática para mestres e jogadores de LANCER, focada em imersão e 
 ### 2. Lancer Pilot Creator (NOVO)
 - **Criação de Piloto**: Gestão completa de talentos, licenças e atributos.
 - **Modais de Alta Fidelidade**: Interface moderna para seleção de talentos e equipamentos (Armaduras, Armas e Utilitários).
-- **Regras Integradas**: Verificação automática de níveis, pontos de sistema (SP) e limites de carga.
+- **Regras Integradas**: Verificação automática de níveis, Pontos de Sistema (SP) e limites de carga.
 - **Exportação/Visualização**: Resumo detalhado do piloto pronto para combate.
 
 ### 3. Localização PT-BR Completa
-- Banco de dados de talentos, equipamentos e sistemas traduzido para o português brasileiro.
-- Tags táticas inteligentes para facilitar a leitura de mecânicas de jogo.
+- Banco de dados de talentos, equipamentos e Sistemas traduzido para o português brasileiro.
+- Tags táticas  <b>Inteligente<b> s para facilitar a leitura de mecânicas de jogo.
 
 ---
 

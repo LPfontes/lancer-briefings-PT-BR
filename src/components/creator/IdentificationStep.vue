@@ -304,8 +304,8 @@ export default {
 					];
 				case 1: // Agility
 					return [
-						`+${points} ${isPt ? 'EVASÃO' : 'EVASION'}`,
-						`+${halfPoints} ${isPt ? 'VELOCIDADE' : 'SPEED'}`
+						`+${points} ${isPt ? 'Evasão' : 'EVASION'}`,
+						`+${halfPoints} ${isPt ? 'Velocidade' : 'SPEED'}`
 					];
 				case 2: // Systems
 					return [
@@ -314,7 +314,7 @@ export default {
 					];
 				case 3: // Engineering
 					return [
-						`+${points} ${isPt ? 'Cap. Calor' : 'Heat Cap'}`,
+						`+${points} ${isPt ? 'Cap. <b>Calor</b>  ' : 'Heat Cap'}`,
 						`+${halfPoints} ${isPt ? 'Uso Limitado' : 'Limited Uses'}`
 					];
 				default:

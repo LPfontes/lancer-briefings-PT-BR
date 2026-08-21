@@ -8,6 +8,10 @@
       <img src="/icons/pilot.svg" alt="Pilotos" />
       <span>{{ $t('sidebar.pilots') }}</span>
     </router-link>
+    <router-link to="/hangar" id="mobile-nav-hangar">
+      <img src="/icons/deployable.svg" alt="Hangar" />
+      <span>{{ $t('sidebar.hangar') }}</span>
+    </router-link>
     <router-link to="/events" id="mobile-nav-events">
       <img src="/icons/events.svg" alt="Logs" />
       <span>{{ $t('sidebar.logs') }}</span>

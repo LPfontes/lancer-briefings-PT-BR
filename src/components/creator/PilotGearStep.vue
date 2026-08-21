@@ -30,7 +30,7 @@
 					</div>
 					<div v-else class="empty-slot" @click="openTo('armor')">
 						<span class="material-symbols-outlined">add</span>
-						SELECIONAR ARMADURA
+						SELECIONAR Armadura
 					</div>
 				</div>
 			</div>

@@ -197,9 +197,9 @@ export function generateCompconPilot(state) {
             integratedMounts: [],
             extraMounts: [],
             extraIntegratedMounts: [],
-            improved_armament: { mount_type: "Flex", lock: false, slots: [{ size: "Flex", weapon: null }], extra: [{ size: "Auxiliary", weapon: null }], bonus_effects: [], modifiable: true },
+            improved_armament: { mount_type: "Flex", lock: false, slots: [{ size: "Flex", weapon: null }], extra: [{ size: "<br>Auxiliar</b>y", weapon: null }], bonus_effects: [], modifiable: true },
             superheavy_mounting: { mount_type: "Superheavy", lock: false, slots: [{ size: "Superheavy", weapon: null }], extra: [], bonus_effects: [], modifiable: true },
-            integratedWeapon: { mount_type: "Aux", lock: false, slots: [{ size: "Auxiliary", weapon: null }], extra: [], bonus_effects: [], modifiable: true }
+            integratedWeapon: { mount_type: "Aux", lock: false, slots: [{ size: "<br>Auxiliar</b>y", weapon: null }], extra: [], bonus_effects: [], modifiable: true }
           }
         ],
         active_loadout_index: 0

@@ -81,7 +81,7 @@ export const usePilotCreator = () => {
     if (weaponId === null) {
       delete state.activeMech.mounts[mountKey];
       
-      // If this was a Superheavy mount (slot 0 of a mountIdx), also clear partner
+      // If this was slot 0 of a mountIdx, clear any superheavy partner link
       const [mIdx, sIdx] = mountKey.split('_').map(Number);
       if (sIdx === 0 && state.activeMech.sh_partners[mIdx] !== undefined) {
         delete state.activeMech.sh_partners[mIdx];
@@ -92,10 +92,13 @@ export const usePilotCreator = () => {
   };
 
   const setSuperheavyPartner = (mountIdx, partnerIdx) => {
-    if (partnerIdx === null) {
+    if (partnerIdx === null || partnerIdx === undefined) {
       delete state.activeMech.sh_partners[mountIdx];
     } else {
       state.activeMech.sh_partners[mountIdx] = partnerIdx;
+      // Clear any weapons stored in the newly blocked partner mount so it remains clean
+      delete state.activeMech.mounts[`${partnerIdx}_0`];
+      delete state.activeMech.mounts[`${partnerIdx}_1`];
     }
   };
 

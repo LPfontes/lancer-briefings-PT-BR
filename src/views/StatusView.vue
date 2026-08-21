@@ -116,7 +116,7 @@ export default {
 		// initial set
 		this.selectMission(this.missionSlug);
 	},
-	mounted() {
+	/*mounted() {
 		// need to set on re-mount
 		if (this.missions.length > 0) {
 			this.selectMission(this.missions[0].slug);
@@ -130,7 +130,7 @@ export default {
 				);
 			}
 		}, 500);
-	},
+	},*/
 	methods: {
 		selectMission(slug) {
 			this.missionSlug = slug;

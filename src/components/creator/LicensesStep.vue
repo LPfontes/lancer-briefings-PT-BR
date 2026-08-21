@@ -58,6 +58,7 @@
 import { pilotStore } from "@/store/pilotCreator";
 import { manufacturers as mfData, frames as frameData } from "lancer-data-pt-br";
 import LicenseSelectionModal from "@/components/modals/LicenseSelectionModal.vue";
+import { getFrameImage } from "@/utils/frameImages";
 
 export default {
 	name: "LicensesStep",
@@ -89,7 +90,7 @@ export default {
 			return l ? l.rank : 0;
 		},
 		getFrameImage(license) {
-			return `/frames/${license.id}.png`;
+			return getFrameImage(license);
 		},
 		getMfColor(mfId) {
 			const mf = this.manufacturers.find(m => m.id === mfId);

@@ -54,7 +54,7 @@
 								<div v-for="ring in worldData.galaxy_shape.rings" :key="ring.id" class="ring-card">
 									<div class="ring-header">
 										<span class="ring-id">{{ ring.id }}</span>
-										<span class="ring-line">// LINHA {{ ring.line }}</span>
+										<span class="ring-line">// Linha {{ ring.line }}</span>
 									</div>
 									<div class="stations-list">
 										<span v-for="station in ring.stations" :key="station" class="station-tag">Estação {{ station }}</span>

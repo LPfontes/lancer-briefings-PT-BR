@@ -171,7 +171,7 @@
 											<span v-if="getRank(selectedLicense.id) < r" class="material-symbols-outlined lock-icon">lock</span>
 										</div>
 										<div class="rank-content">
-											<p class="unlock-desc" v-if="r === 2">{{ $t('mech.chassis') }}: {{ selectedLicense.name }}</p>
+											<p class="unlock-desc" v-if="r === 2">{{ $t('mech.Chassis') }}: {{ selectedLicense.name }}</p>
 											<p class="unlock-desc">{{ $t('pilotCreator.mech.systems') }} e {{ $t('pilotCreator.mech.mounts') }} {{ $t('pilotCreator.rank') }} {{ r }}</p>
 										</div>
 									</div>
@@ -180,7 +180,7 @@
 
 							<!-- Traits -->
 							<div class="traits-section" v-if="selectedLicense.traits?.length">
-								<h4 class="sub-section-title">{{ $t('pilotCreator.chassisTraits') }}</h4>
+								<h4 class="sub-section-title">{{ $t('pilotCreator.ChassisTraits') }}</h4>
 								<div class="traits-list">
 									<div v-for="trait in selectedLicense.traits" :key="trait.name" class="trait-entry">
 										<span class="trait-name">{{ trait.name }}</span>
@@ -224,6 +224,7 @@
 import { pilotStore } from "@/store/pilotCreator";
 import { manufacturers as mfData, frames as frameData } from "lancer-data-pt-br";
 import RankGearModal from "./RankGearModal.vue";
+import { getFrameImage } from "@/utils/frameImages";
 
 export default {
 	name: "LicenseSelectionModal",
@@ -274,7 +275,7 @@ export default {
 			return `/faction-logos/${mfId.toLowerCase()}.svg`;
 		},
 		getFrameImage(license) {
-			return `/frames/${license.id}.png`;
+			return getFrameImage(license);
 		},
 		getMfColor(mfId) {
 			const mf = this.manufacturers.find(m => m.id === mfId);

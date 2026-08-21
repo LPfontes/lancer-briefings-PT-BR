@@ -64,6 +64,10 @@
 				</div>
 			</div>
 
+			<div class="gear-card-body" v-if="getGearEffect(item)">
+				<div class="gear-desc" v-html="getGearEffect(item)"></div>
+			</div>
+
 		</div>
 	</div>
 </template>
@@ -96,7 +100,7 @@ export default {
 		getDamageTypeTrans(type) {
 			const dict = {
 				'Kinetic': 'Cinético',
-				'Energy': 'Energia',
+				'Energy': '<b>Energia</b>',
 				'Explosive': 'Explosivo',
 				'Burn': 'Calor'
 			};
@@ -147,10 +151,10 @@ export default {
 		getBonusTrans(id) {
 			const dict = {
 				'pilot_hp': 'PV',
-				'pilot_armor': 'ARMADURA',
-				'pilot_evasion': 'EVASÃO',
-				'pilot_edef': 'DEFESA-E',
-				'pilot_speed': 'VELOCIDADE'
+				'pilot_armor': 'Armadura',
+				'pilot_evasion': 'Evasão',
+				'pilot_edef': 'Defesa-E',
+				'pilot_speed': 'Velocidade'
 			};
 			return dict[id] || id.replace('pilot_', '').toUpperCase();
 		},
@@ -163,6 +167,26 @@ export default {
 				'pilot_speed': 'double_arrow'
 			};
 			return dict[id] || 'add_circle';
+		},
+		getGearEffect(item) {
+			if (!item) return '';
+			const parts = [];
+			if (item.effect) {
+				parts.push(`<div class="effect-block">${item.effect}</div>`);
+			}
+			if (item.on_attack) {
+				parts.push(`<div class="effect-block"><strong>No Ataque:</strong> ${item.on_attack}</div>`);
+			}
+			if (item.on_hit) {
+				parts.push(`<div class="effect-block"><strong>No Acerto:</strong> ${item.on_hit}</div>`);
+			}
+			if (item.on_crit) {
+				parts.push(`<div class="effect-block"><strong>No Crítico:</strong> ${item.on_crit}</div>`);
+			}
+			if (parts.length === 0 && item.description) {
+				parts.push(`<div class="effect-block flavor">${item.description}</div>`);
+			}
+			return parts.join('');
 		}
 	}
 };
@@ -262,6 +286,17 @@ export default {
 .gear-desc ::v-deep(strong), .gear-desc ::v-deep(b) {
 	color: var(--primary-color);
 	font-weight: 700;
+}
+
+.effect-block {
+	margin-bottom: 6px;
+}
+.effect-block:last-child {
+	margin-bottom: 0;
+}
+.effect-block.flavor {
+	font-style: italic;
+	opacity: 0.8;
 }
 
 .selection-indicator {
@@ -441,8 +476,8 @@ export default {
 /* Hazard (Red) - Burn, Heat, Loading */
 .stat-pill.tag[data-tag*="RECARGA"],
 .stat-pill.tag[data-tag*="LOADING"],
-.stat-pill.tag[data-tag*="CALOR"],
-.stat-pill.tag[data-tag*="QUEIMADURA"],
+.stat-pill.tag[data-tag*="Calor"],
+.stat-pill.tag[data-tag*="Queimadura"],
 .stat-pill.tag[data-tag*="BURN"],
 .stat-pill.tag[data-tag*="EXAGERO"],
 .stat-pill.tag[data-tag*="OVERKILL"] {

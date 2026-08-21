@@ -15,5 +15,5 @@ Apesar de sua condição, testes revelaram que Rosa Negra possui um potencial ex
 
 ---
 
-### [DADOS COMPLEMENTARES BLOQUEADOS]
+### [DADOS COMPLEMENTARES Bloqueados]
 * **DIRETRIZ DE SEGURANÇA 753**: Todo o histórico biográfico de origem, relatórios médicos detalhados e registros de diretrizes de comando anteriores estão classificados como **CONFIDENCIAIS**. O acesso a estes dados é estritamente proibido sem credenciais diplomáticas de nível 5 da União.

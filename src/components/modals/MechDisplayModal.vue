@@ -3,7 +3,7 @@
     <div class="modal-content-wrapper shadow-2">
       <!-- Top Tactical Header -->
       <div class="dossier-header">
-        <div class="classification-stamp">MECHANIZED CHASSIS // CLASSIFIED</div>
+        <div class="classification-stamp">MECHANIZED Chassis // CLASSIFIED</div>
         <div class="header-main">
           <div class="unit-id-block">
             <div class="protocol-id">NDL-M // REF-ID: {{ (mech.id || 'DATA-DEF').substring(0, 8).toUpperCase() }} // {{ mech.manufacturer || 'GMS' }} OPS</div>
@@ -169,12 +169,24 @@
                     <div v-for="slot in [0, 1]" :key="slot" class="slot-entry">
                       <template v-if="getWeapon(idx, slot)">
                         <div class="weapon-info">
-                          <span class="w-name">{{ getWeapon(idx, slot).name }}</span>
-                          <div class="w-tags">
+                          <div class="w-header">
+                            <span class="w-name">{{ getWeapon(idx, slot).name }}</span>
+                            <span class="w-type" v-if="getWeapon(idx, slot).type">[{{ $t(`mech.weaponTypes.${getWeapon(idx, slot).type.toLowerCase()}`) || getWeapon(idx, slot).type }}]</span>
+                          </div>
+                          <div class="w-stats" v-if="getWeapon(idx, slot).damage?.length || getWeapon(idx, slot).range?.length">
+                            <span class="w-stat dmg" v-for="(dmg, d) in getWeapon(idx, slot).damage" :key="'d'+d">
+                              {{ dmg.val }} {{ getDamageTypeTrans(dmg.type) }}
+                            </span>
+                            <span class="w-stat rng" v-for="(rng, r) in getWeapon(idx, slot).range" :key="'r'+r">
+                              {{ getRangeTypeTrans(rng.type) }} {{ rng.val }}
+                            </span>
+                          </div>
+                          <div class="w-tags" v-if="getWeapon(idx, slot).tags?.length">
                             <span v-for="tag in getWeapon(idx, slot).tags" :key="tag.id" class="tag">
                               {{ $t('mech.tags.' + tag.id).startsWith('mech.tags') ? tag.id.replace('tg_', '').toUpperCase() : $t('mech.tags.' + tag.id) }}
                             </span>
                           </div>
+                          <div class="w-desc" v-if="getWeaponEffect(getWeapon(idx, slot))" v-html="getWeaponEffect(getWeapon(idx, slot))"></div>
                         </div>
                       </template>
                       <span v-else-if="slot === 0" class="empty-slot">-- {{ $t('pilotCreator.mech.empty') }} --</span>
@@ -274,6 +286,24 @@ export default {
       const weaponId = this.mech.mounts[`${mountIdx}_${slotIdx}`];
       if (!weaponId) return null;
       return weapons.find(w => w.id === weaponId) || { name: weaponId, tags: [] };
+    },
+    getDamageTypeTrans(type) {
+      const dict = { 'Kinetic': 'Cinético', 'Energy': '<b>Energia</b>', 'Explosive': 'Explosivo', 'Burn': 'Calor' };
+      return dict[type] || type;
+    },
+    getRangeTypeTrans(type) {
+      const dict = { 'Range': 'Alcance', 'Threat': 'Ameaça', 'Line': 'Linha', 'Cone': 'Cone', 'Blast': 'Explosão', 'Burst': 'Rajada' };
+      return dict[type] || type;
+    },
+    getWeaponEffect(w) {
+      if (!w) return '';
+      const parts = [];
+      if (w.effect) parts.push(`<div>${w.effect}</div>`);
+      if (w.on_attack) parts.push(`<div><strong>No Ataque:</strong> ${w.on_attack}</div>`);
+      if (w.on_hit) parts.push(`<div><strong>No Acerto:</strong> ${w.on_hit}</div>`);
+      if (w.on_crit) parts.push(`<div><strong>No Crítico:</strong> ${w.on_crit}</div>`);
+      if (parts.length === 0 && w.description) parts.push(`<div class="flavor">${w.description}</div>`);
+      return parts.join('');
     },
     getSystem(sysId) {
       return systems.find(s => s.id === sysId) || { name: sysId, sp: 0 };
@@ -622,6 +652,15 @@ export default {
 }
 
 .w-name { color: #fff; font-weight: bold; font-size: 1.1rem; }
+.w-type { color: #af0e1e; font-size: 0.8rem; font-family: 'Inconsolata', monospace; font-weight: bold; margin-left: 8px; }
+.w-header { display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px; }
+.w-stats { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0; }
+.w-stat { font-family: 'Inconsolata', monospace; font-size: 0.8rem; padding: 1px 6px; border-radius: 2px; }
+.w-stat.dmg { color: #f1a92a; background: rgba(241, 169, 42, 0.1); border: 1px solid rgba(241, 169, 42, 0.3); }
+.w-stat.rng { color: #fff; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); }
+.w-desc { margin-top: 8px; font-family: 'Titillium Web', sans-serif; font-size: 0.85rem; color: rgba(255, 255, 255, 0.8); line-height: 1.4; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 6px; }
+.w-desc strong { color: #af0e1e; }
+.w-desc .flavor { font-style: italic; opacity: 0.75; }
 .tag { font-size: 0.7rem; background: rgba(0, 0, 0, 0.4); padding: 2px 6px; color: #aaa; margin-right: 6px; border: 1px solid rgba(255, 255, 255, 0.1); }
 
 .system-card {

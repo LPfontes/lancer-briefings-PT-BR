@@ -83,7 +83,7 @@
 								<div class="report-section full-row">
 									<div class="section-tag">{{ $t('missionReport.notes') }}</div>
 									<div class="report-content-box notes-box">
-										<p class="typewriter-effect">Os resultados indicam uma eficácia tática satisfatória, embora a integridade dos chassis tenha sido comprometida em 35% acima das projeções. Recomenda-se reavaliação dos sistemas de refrigeração para implantações em ambientes de alta densidade e dos sistemas de mira.</p>
+										<p class="typewriter-effect">Os resultados indicam uma eficácia tática satisfatória, embora a integridade dos Chassis tenha sido comprometida em 35% acima das projeções. Recomenda-se reavaliação dos Sistemas de refrigeração para implantações em ambientes de alta densidade e dos Sistemas de mira.</p>
 										<div class="stamped-signature">
 											<span class="sign-label">APROVADO POR:</span>
 											<span class="sign-name">IA ALIA // COMANDO TÁTICO</span>

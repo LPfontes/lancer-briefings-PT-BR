@@ -58,7 +58,7 @@
 						<div class="action-block" v-for="(action, i) in item.actions" :key="'act'+i">
 							<div class="action-header">
 								<span class="action-name">{{ action.name }}</span>
-								<span class="action-activation">[{{ $t(`mech.activations.${action.activation?.toLowerCase()}`) || action.activation }}]</span>
+								<span class="action-activation">[{{ formatActivation(action.activation) }}]</span>
 							</div>
 							<div class="action-stats" v-if="action.range?.length || action.damage?.length">
 								<div class="stat-pill damage mini" v-for="(dmg, d) in action.damage" :key="'ad'+d">
@@ -75,7 +75,7 @@
 
 					<!-- Deployables Section -->
 					<div class="gear-deployables-section" v-if="item.deployables?.length">
-						<div class="desc-header">SISTEMAS POSICIONÁVEIS //</div>
+						<div class="desc-header">Sistemas <b>Posicionáveis</b> //</div>
 						<div class="deployable-block" v-for="(dep, i) in item.deployables" :key="'dep'+i">
 							<div class="deployable-header">
 								<span class="deployable-name">{{ dep.name }}</span>
@@ -91,13 +91,44 @@
 						</div>
 					</div>
 
-					<!-- Description -->
+					<!-- Description & Effects -->
 					<div class="gear-full-desc">
 						<div v-if="item.effect">
 							<div class="desc-header">EFETOR //</div>
 							<div class="desc-content effect-text" v-html="item.effect"></div>
 						</div>
-						<div v-if="item.description" :class="{ 'flavor-section': item.effect || item.actions?.length }">
+						<div v-if="item.on_attack">
+							<div class="desc-header">NO ATAQUE //</div>
+							<div class="desc-content effect-text" v-html="item.on_attack"></div>
+						</div>
+						<div v-if="item.on_hit">
+							<div class="desc-header">NO ACERTO //</div>
+							<div class="desc-content effect-text" v-html="item.on_hit"></div>
+						</div>
+						<div v-if="item.on_crit">
+							<div class="desc-header">NO CRÍTICO //</div>
+							<div class="desc-content effect-text" v-html="item.on_crit"></div>
+						</div>
+						<div v-if="item.profiles && item.profiles.length" class="profiles-section">
+							<div class="desc-header">PERFIS DE DISPARO //</div>
+							<div v-for="(profile, pIdx) in item.profiles" :key="'prof-'+pIdx" class="profile-block">
+								<div class="profile-name">{{ profile.name }}</div>
+								<div class="profile-stats" v-if="profile.damage?.length || profile.range?.length">
+									<div class="stat-pill damage mini" v-for="(dmg, d) in profile.damage" :key="'pd'+d">
+										{{ dmg.val }} {{ getDamageTypeTrans(dmg.type) }}
+									</div>
+									<div class="stat-pill range mini" v-for="(rng, r) in profile.range" :key="'pr'+r">
+										<span class="material-symbols-outlined">{{ getRangeIcon(rng.type) }}</span>
+										{{ getRangeTypeTrans(rng.type) }} {{ rng.val }}
+									</div>
+								</div>
+								<div v-if="profile.effect" class="profile-effect" v-html="profile.effect"></div>
+								<div v-if="profile.on_attack" class="profile-effect"><strong>No Ataque:</strong> <span v-html="profile.on_attack"></span></div>
+								<div v-if="profile.on_hit" class="profile-effect"><strong>No Acerto:</strong> <span v-html="profile.on_hit"></span></div>
+								<div v-if="profile.on_crit" class="profile-effect"><strong>No Crítico:</strong> <span v-html="profile.on_crit"></span></div>
+							</div>
+						</div>
+						<div v-if="item.description" :class="{ 'flavor-section': item.effect || item.on_attack || item.on_hit || item.on_crit || item.actions?.length }">
 							<div class="desc-header">ANÁLISE FUNCIONAL //</div>
 							<div class="desc-content flavor-text" v-html="item.description"></div>
 						</div>
@@ -141,7 +172,7 @@ export default {
 		getDamageTypeTrans(type) {
 			const dict = {
 				'Kinetic': 'Cinético',
-				'Energy': 'Energia',
+				'Energy': '<b>Energia</b>',
 				'Explosive': 'Explosivo',
 				'Burn': 'Calor'
 			};
@@ -168,6 +199,30 @@ export default {
 				'Burst': 'blur_on'
 			};
 			return dict[type] || 'my_location';
+		},
+		formatActivation(act) {
+			if (!act) return '';
+			let translated = act;
+			const map = {
+				'quick': 'Rápida',
+				'full': 'Completa',
+				'protocol': 'Protocolo',
+				'reaction': '<b>reação</b>',
+				'free': '<b>Ação Livre</b>',
+				'passive': 'Passiva',
+				'invade': 'Invasão',
+				'other': 'Outra',
+				'1/scene': '1/Cena',
+				'1/round': '1/Rodada',
+				'1/turn': '1/Turno',
+				'1/mission': '1/Missão',
+				'scene': 'Cena'
+			};
+			Object.keys(map).forEach(key => {
+				const regex = new RegExp(`\\b${key}\\b`, 'gi');
+				translated = translated.replace(regex, map[key]);
+			});
+			return translated.toUpperCase();
 		},
 		getTagName(tagId) {
 			const tag = tagsData.find(t => t.id === tagId);
@@ -372,12 +427,40 @@ export default {
 	margin-top: 30px;
 }
 
-.action-block, .deployable-block {
+.action-block, .deployable-block, .profile-block {
 	background: rgba(255, 255, 255, 0.02);
 	border: 1px solid rgba(255, 255, 255, 0.05);
 	border-left: 3px solid #666;
 	padding: 15px;
 	margin-bottom: 15px;
+}
+
+.profile-block {
+	border-left-color: #f1a92a;
+}
+
+.profile-name {
+	font-family: "Rajdhani", sans-serif;
+	font-size: 16px;
+	color: #f1a92a;
+	letter-spacing: 1px;
+	font-weight: bold;
+	margin-bottom: 8px;
+}
+
+.profile-stats {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-bottom: 10px;
+}
+
+.profile-effect {
+	font-family: "Titillium Web", sans-serif;
+	font-size: 15px;
+	line-height: 1.5;
+	color: rgba(255, 255, 255, 0.85);
+	margin-top: 5px;
 }
 
 .action-header, .deployable-header {

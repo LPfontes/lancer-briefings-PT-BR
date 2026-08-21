@@ -282,21 +282,52 @@ div.location-info {
 	display: flex;
 	flex-direction: column;
 	flex: 1;
+	height: calc(100vh - 95px);
+	max-height: calc(100vh - 95px);
+	overflow: hidden;
 }
 
 .sidebar-layout {
 	display: flex;
 	flex-direction: row;
-	min-height: 100%;
+	height: 100%;
+	max-height: 100%;
+	overflow: hidden;
 }
 
-.o-side__content {
+.o-side__content,
+.sidebar-layout .o-side__content,
+#sidebar .o-side__content {
 	background-color: var(--primary-color);
 	height: 100%;
+	max-height: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
 	width: 90px;
 	padding-right: 0.5em;
 	padding-top: 1em;
+	padding-bottom: 2em;
 	text-align: center;
+	box-sizing: border-box;
+}
+
+.o-side__content::-webkit-scrollbar,
+.sidebar-layout .o-side__content::-webkit-scrollbar,
+#sidebar .o-side__content::-webkit-scrollbar {
+	width: 5px;
+}
+
+.o-side__content::-webkit-scrollbar-track,
+.sidebar-layout .o-side__content::-webkit-scrollbar-track,
+#sidebar .o-side__content::-webkit-scrollbar-track {
+	background: rgba(0, 0, 0, 0.4);
+}
+
+.o-side__content::-webkit-scrollbar-thumb,
+.sidebar-layout .o-side__content::-webkit-scrollbar-thumb,
+#sidebar .o-side__content::-webkit-scrollbar-thumb {
+	background: var(--union-crimson, #af0e1e);
+	border-radius: 3px;
 }
 
 .sidebar-layout img {
@@ -341,10 +372,15 @@ div.location-info {
 }
 
 div#router-view-container {
-	width: 100%;
+	width: calc(100% - 90px);
+	max-width: calc(100vw - 90px);
+	height: calc(100vh - 95px);
+	max-height: calc(100vh - 95px);
 	position: absolute;
 	top: 95px;
 	left: 90px;
+	overflow: hidden;
+	box-sizing: border-box;
 }
 
 div .content-container {
@@ -1876,7 +1912,7 @@ div.markdown ol li {
 }
 
 /* HORUS Glitch Effect */
-.horus {
+code.horus {
 	position: relative;
 	color: #00ff00;
 	/* Digital green */
@@ -1893,9 +1929,9 @@ div.markdown ol li {
 	animation: glitch-skew 8s infinite linear alternate-reverse;
 }
 
-.horus::before,
-.horus::after {
-	content: "[PARABÃ‰NS, PILOTO.\A VOCÃŠ FOI ESCOLHIDO.\A O ACESSO Ã‰ SEU,\A ENQUANTO PUDER MANTÃŠ-LO.]";
+code.horus::before,
+code.horus::after {
+	content: "[PARABÉNS, PILOTO.\A VOCÊ FOI ESCOLHIDO.\A O ACESSO É SEU,\A ENQUANTO PUDER MANTÊ-LO.]";
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -1906,14 +1942,14 @@ div.markdown ol li {
 	box-sizing: border-box;
 }
 
-.horus::before {
+code.horus::before {
 	left: 2px;
 	text-shadow: -2px 0 #ff00c1;
 	clip: rect(44px, 450px, 56px, 0);
 	animation: glitch-anim 8s infinite linear alternate-reverse;
 }
 
-.horus::after {
+code.horus::after {
 	left: -2px;
 	text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
 }

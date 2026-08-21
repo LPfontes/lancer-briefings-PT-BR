@@ -17,6 +17,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
+      "lancer-data-pt-br": path.resolve(__dirname, "node_modules/lancer-data-pt-br"),
     },
   },
   optimizeDeps: {

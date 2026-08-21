@@ -2,7 +2,7 @@
 	<div class="creator-step save-step">
 		<div class="step-header">
 			<h2>{{ $t('pilotCreator.steps.savePilot') || 'SALVAR & EXPORTAR' }}</h2>
-			<p class="desc">Revise as informações do seu piloto e salve localmente ou exporte os arquivos de dados para outros sistemas.</p>
+			<p class="desc">Revise as informações do seu piloto e salve localmente ou exporte os arquivos de dados para outros Sistemas.</p>
 		</div>
 
 		<div class="save-content-grid">

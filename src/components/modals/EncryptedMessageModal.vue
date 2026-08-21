@@ -156,7 +156,7 @@ export default {
 					hints: ["Espero que tenha gostado...", "De: C. Para: Ocelot.", "A União recompensa o bom trabalho."],
 					content: `
 						<p>Espero que tenha gostado do presente. A União recompensa o bom trabalho.</p>
-						<p>Mantenha seus amigos na linha e talvez a liberdade total não seja um sonho impossível.</p>
+						<p>Mantenha seus amigos na Linha e talvez a liberdade total não seja um sonho impossível.</p>
 					`
 				},
 				{

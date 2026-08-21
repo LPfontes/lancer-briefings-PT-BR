@@ -46,12 +46,9 @@
 		<div class="header-actions">
 			<div class="notification-trigger" :class="{ 'has-new': hasNewMessage }" @click="$emit('open-encrypted')" title="Mensagens Encriptadas">
 				<span class="material-symbols-outlined icon">mail</span>
-				<div class="ping"></div>
+				<div class="ping" v-if="hasNewMessage"></div>
 			</div>
-			<div class="notification-trigger" @click="$emit('open-notification')" title="Notificações do Sistema">
-				<span class="material-symbols-outlined icon">notifications</span>
-			</div>
-			<!-- Novo Botão de Sincronização -->
+			<!-- Botão de Sincronização -->
 			<div class="notification-trigger" :class="{ 'syncing': isSyncing }" @click="triggerSync" title="Sincronizar com a Nuvem">
 				<span class="material-symbols-outlined icon" :class="{ 'spinning': isSyncing }">sync</span>
 			</div>

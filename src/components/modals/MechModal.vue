@@ -12,19 +12,19 @@
         <div class="mech-column">
           <div v-if="mainMounts.length > 0" class="gear-row mech-mount">
             <div v-for="mainMount in mainMounts" class="main-mount">
-              <h1>Main Mount</h1>
+               <h1>{{ $t('mech.mountTypes.main') }}</h1>
               <h2>{{ mainMount.flavorName }}</h2>
             </div>
           </div>
           <div v-if="flexMounts.length > 0 && flexMounts.some(element => element.id !== null)" class="gear-row mech-mount">
             <div v-for="flexMount in flexMounts" class="flex-mount">
-              <h1>Flex Mount</h1>
+               <h1>{{ $t('mech.mountTypes.flex') }}</h1>
               <h2>{{ flexMount.flavorName }}</h2>
             </div>
           </div>
           <div v-if="heavyMounts.length > 0" class="gear-row mech-mount">
             <div v-for="heavyMount in heavyMounts" class="heavy-mount">
-              <h1>Heavy Mount</h1>
+               <h1>{{ $t('mech.mountTypes.heavy') }}</h1>
               <h2>{{ heavyMount.flavorName }}</h2>
             </div>
           </div>
@@ -32,12 +32,12 @@
         <div class="mech-column">
           <div v-if="mechSystems.length > 0" class="gear-row mech-system">
             <div v-for="system in mechSystems" class="system">
-              <h1>System</h1>
+               <h1>Sistema</h1>
               <h2>{{ system.flavorName }}</h2>
             </div>
           </div>
           <div v-else class="no-systems">
-            <h1>SYSTEMS</h1>
+             <h1>{{ $t('mech.systems') }}</h1>
             <h2>ERR: NO SYSTEMS FOUND</h2>
           </div>
         </div>
@@ -51,7 +51,7 @@
     <div class="mech-header-container">
       <div class="section-header clipped-medium-backward-mech">
         <img src="/icons/mech.svg">
-        <h1>Mech Artwork</h1>
+         <h1>Arte do Mecha</h1>
       </div>
       <div class="rhombus-back">
         &nbsp;
@@ -142,7 +142,7 @@ export default {
             if (item.id == "") break;
             this.flexMounts = [...this.flexMounts, item];
             break;
-          // case "Auxiliary":
+          // case "<br>Auxiliar</b>y":
           //   this.mainMounts = [...this.mainMounts, item];
           //   break;
           case 'Heavy':
