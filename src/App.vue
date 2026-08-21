@@ -282,9 +282,9 @@ export default {
 		},
 		showSampleNotification() {
 			window.showNotification(
-				"SISTEMA DE DIAGNÓSTICO",
-				"Integridade do reator em 98.4%. Todos os sistemas de armas modulares carregados com sucesso. Protocolo de comunicação Alia ativo.",
-				"info"
+				"Mensagem recebida codinome: A Vigia",
+				"Vocês se provaram de alguma confiança, gostaria que fosse em uma situação melhor. O Sábio finalmente se pronunciou, ele disse que estava esperando por um cenário adequado, mas que as alternativas se esgotaram. Ele deseja conhecê-los. Disse que talvez vocês sejam a única forma de salvar o restante da população de Helior, junto com os presos da resistência. Nos encontrem nas montanhas.",
+				"warning"
 			);
 		},
 	},
