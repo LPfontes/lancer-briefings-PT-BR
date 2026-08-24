@@ -101,6 +101,8 @@ export default {
 			this.notification.type = type;
 			this.notification.isOpen = true;
 		};
+
+		this.showSampleNotification();
 	},
 	methods: {
 		setTitleFavicon(title, favicon) {
